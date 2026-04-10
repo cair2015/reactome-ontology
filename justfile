@@ -209,6 +209,7 @@ _gen-yaml:
 
 # Overridable recipe to add project-specific artifacts to the distribution schema path
 _add-artifacts:
+  cp ontology/*.ttl {{distrib_schema_path}}/
 
 # Run documentation server
 _serve:

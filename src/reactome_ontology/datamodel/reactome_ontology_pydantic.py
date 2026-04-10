@@ -74,11 +74,11 @@ linkml_meta = LinkMLMeta({'comments': ['This schema favors ontology-oriented nam
                   'ontology-facing profile in favor of canonical relations.'],
      'default_prefix': 'reactome',
      'default_range': 'string',
-     'description': 'A final OWL-oriented LinkML schema for generating a clean '
-                    'Reactome ontology. This profile keeps ontology-facing classes '
-                    'and properties and removes source-mapping annotations, which '
-                    'are maintained in separate mapping files.',
-     'id': 'https://w3id.org/reactome-ontology/final',
+     'description': 'An OWL-oriented LinkML schema for generating a clean Reactome '
+                    'ontology. This profile keeps ontology-facing classes and '
+                    'properties and removes source-mapping annotations, which are '
+                    'maintained in separate mapping files.',
+     'id': 'https://w3id.org/reactome-ontology',
      'imports': ['linkml:types'],
      'license': 'https://creativecommons.org/licenses/by/4.0/',
      'name': 'reactome_ontology',
@@ -124,7 +124,7 @@ class NamedEntity(ConfiguredBaseModel):
          'class_uri': 'reactome:NamedEntity',
          'comments': ['Provides reusable identifier, naming, and descriptive slots '
                       'independent of the Reactome-specific hierarchy.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     id: str = Field(default=..., description="""Unique identifier for an instance in the serialized dataset.""", json_schema_extra = { "linkml_meta": {'comments': ['This may be a local identifier, CURIE, URI, or other '
                       'serialization key.'],
@@ -146,7 +146,7 @@ class DatabaseObject(NamedEntity):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:DatabaseObject',
          'comments': ['Reactome’s frame-based model uses DatabaseObject as the common '
                       'ancestor for curated graph records.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final',
+         'from_schema': 'https://w3id.org/reactome-ontology',
          'slot_usage': {'created': {'name': 'created', 'required': True},
                         'display_label': {'name': 'display_label', 'required': True},
                         'reactome_db_id': {'name': 'reactome_db_id', 'required': True},
@@ -207,7 +207,7 @@ class InstanceEdit(DatabaseObject):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:InstanceEdit',
          'comments': ['Typically stores who performed an edit and when the edit '
                       'occurred.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     date: Optional[datetime ] = Field(default=None, description="""Timestamp or date string for the edit activity.""", json_schema_extra = { "linkml_meta": {'domain_of': ['instance_edit']} })
     author: Optional[list[Person]] = Field(default=None, description="""Person or people responsible for the edit activity.""", json_schema_extra = { "linkml_meta": {'domain_of': ['instance_edit']} })
@@ -263,7 +263,7 @@ class Publication(DatabaseObject):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'abstract': True,
          'class_uri': 'reactome:Publication',
          'comments': ['Abstract superclass for specific publication-like records.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     reactome_db_id: int = Field(default=..., description="""Internal Reactome database identifier assigned to a database object.""", json_schema_extra = { "linkml_meta": {'comments': ['Reactome DB_ID values are implementation-oriented identifiers '
                       'rather than stable public identifiers.'],
@@ -317,7 +317,7 @@ class LiteratureReference(Publication):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:LiteratureReference',
          'comments': ['Used widely to ground events, regulations, and catalyst '
                       'activities in the literature.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     pubmed_id: Optional[str] = Field(default=None, description="""PubMed identifier for a literature reference.""", json_schema_extra = { "linkml_meta": {'comments': ['Stored as string for broad interoperability with exports and '
                       'loaders.'],
@@ -387,7 +387,7 @@ class Person(DatabaseObject):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:Person',
          'comments': ['May represent curators, reviewers, or contributors.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     orcid: Optional[str] = Field(default=None, description="""ORCID identifier for a person involved in curation or authorship.""", json_schema_extra = { "linkml_meta": {'comments': ['Useful for curator and contributor disambiguation.'],
          'domain_of': ['person'],
@@ -443,7 +443,7 @@ class Summation(DatabaseObject):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:Summation',
          'comments': ['Distinct from a formal definition; meant for human reading.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     text: str = Field(default=..., description="""Narrative summary text.""", json_schema_extra = { "linkml_meta": {'domain_of': ['summation']} })
     reactome_db_id: int = Field(default=..., description="""Internal Reactome database identifier assigned to a database object.""", json_schema_extra = { "linkml_meta": {'comments': ['Reactome DB_ID values are implementation-oriented identifiers '
@@ -499,7 +499,7 @@ class Event(DatabaseObject):
          'class_uri': 'reactome:Event',
          'comments': ['Event is one of the central abstractions in the Reactome '
                       'model.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     in_taxon: Optional[list[str]] = Field(default=None, description="""Taxon in which the object, event, or entity is asserted to occur or be defined.""", json_schema_extra = { "linkml_meta": {'comments': ['For events this denotes the organism context; for entities it '
                       'denotes the biological source organism.'],
@@ -594,7 +594,7 @@ class Pathway(Event):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:Pathway',
          'comments': ['Pathways can overlap; event membership is not exclusive.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final',
+         'from_schema': 'https://w3id.org/reactome-ontology',
          'slot_usage': {'has_event': {'name': 'has_event', 'required': True}}})
 
     has_event: list[Event] = Field(default=..., description="""Membership relation linking a pathway to constituent events.""", json_schema_extra = { "linkml_meta": {'comments': ['Pathways in Reactome are curated groupings of events and can '
@@ -700,7 +700,7 @@ class ReactionLikeEvent(Event):
          'class_uri': 'reactome:ReactionLikeEvent',
          'comments': ['Covers canonical reactions as well as black-box and '
                       'polymerization-style event subclasses.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     has_input: Optional[list[PhysicalEntity]] = Field(default=None, description="""Physical entity consumed, transformed, or otherwise used as an input to a reaction-like event.""", json_schema_extra = { "linkml_meta": {'comments': ['Inputs need not always be fully consumed in a strict '
                       'stoichiometric sense across all event subclasses.'],
@@ -832,9 +832,13 @@ class Reaction(ReactionLikeEvent):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:Reaction',
          'comments': ['Best used for relatively well-resolved mechanistic '
                       'conversions.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final',
-         'slot_usage': {'has_input': {'name': 'has_input', 'required': True},
-                        'has_output': {'name': 'has_output', 'required': True}}})
+         'from_schema': 'https://w3id.org/reactome-ontology',
+         'slot_usage': {'has_input': {'name': 'has_input',
+                                      'range': 'physical_entity',
+                                      'required': True},
+                        'has_output': {'name': 'has_output',
+                                       'range': 'physical_entity',
+                                       'required': True}}})
 
     has_input: list[PhysicalEntity] = Field(default=..., description="""Physical entity consumed, transformed, or otherwise used as an input to a reaction-like event.""", json_schema_extra = { "linkml_meta": {'comments': ['Inputs need not always be fully consumed in a strict '
                       'stoichiometric sense across all event subclasses.'],
@@ -966,7 +970,7 @@ class BlackBoxEvent(ReactionLikeEvent):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:BlackBoxEvent',
          'comments': ['Useful when biological evidence supports the event but not a '
                       'full molecular mechanism.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     has_input: Optional[list[PhysicalEntity]] = Field(default=None, description="""Physical entity consumed, transformed, or otherwise used as an input to a reaction-like event.""", json_schema_extra = { "linkml_meta": {'comments': ['Inputs need not always be fully consumed in a strict '
                       'stoichiometric sense across all event subclasses.'],
@@ -1098,7 +1102,7 @@ class Polymerization(ReactionLikeEvent):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:Polymerization',
          'comments': ['Kept distinct because its participant semantics can differ from '
                       'ordinary reaction balance.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     has_input: Optional[list[PhysicalEntity]] = Field(default=None, description="""Physical entity consumed, transformed, or otherwise used as an input to a reaction-like event.""", json_schema_extra = { "linkml_meta": {'comments': ['Inputs need not always be fully consumed in a strict '
                       'stoichiometric sense across all event subclasses.'],
@@ -1229,7 +1233,7 @@ class Depolymerization(ReactionLikeEvent):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:Depolymerization',
          'comments': ['Complementary to polymerisation.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     has_input: Optional[list[PhysicalEntity]] = Field(default=None, description="""Physical entity consumed, transformed, or otherwise used as an input to a reaction-like event.""", json_schema_extra = { "linkml_meta": {'comments': ['Inputs need not always be fully consumed in a strict '
                       'stoichiometric sense across all event subclasses.'],
@@ -1362,7 +1366,7 @@ class PhysicalEntity(DatabaseObject):
          'class_uri': 'reactome:PhysicalEntity',
          'comments': ['In Reactome, compartment, modification state, and assembly '
                       'state can distinguish one physical entity from another.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     in_taxon: Optional[list[str]] = Field(default=None, description="""Taxon in which the object, event, or entity is asserted to occur or be defined.""", json_schema_extra = { "linkml_meta": {'comments': ['For events this denotes the organism context; for entities it '
                       'denotes the biological source organism.'],
@@ -1444,7 +1448,7 @@ class SimpleEntity(PhysicalEntity):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:SimpleEntity',
          'comments': ['Commonly aligned to ChEBI-like reference identities through '
                       'ReferenceMolecule.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final',
+         'from_schema': 'https://w3id.org/reactome-ontology',
          'slot_usage': {'has_reference_entity': {'name': 'has_reference_entity',
                                                  'range': 'reference_molecule',
                                                  'required': True}}})
@@ -1533,7 +1537,7 @@ class GenomeEncodedEntity(PhysicalEntity):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:GenomeEncodedEntity',
          'comments': ['Serves as a superclass for accessioned sequence-based '
                       'entities.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     in_taxon: Optional[list[str]] = Field(default=None, description="""Taxon in which the object, event, or entity is asserted to occur or be defined.""", json_schema_extra = { "linkml_meta": {'comments': ['For events this denotes the organism context; for entities it '
                       'denotes the biological source organism.'],
@@ -1615,7 +1619,7 @@ class SequenceEntity(GenomeEncodedEntity):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:SequenceEntity',
          'comments': ['Core Reactome pattern for proteins, RNAs, and other accessioned '
                       'biomolecules in specific states.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final',
+         'from_schema': 'https://w3id.org/reactome-ontology',
          'slot_usage': {'has_reference_entity': {'name': 'has_reference_entity',
                                                  'range': 'reference_sequence',
                                                  'required': True}}})
@@ -1718,7 +1722,7 @@ class Complex(PhysicalEntity):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:Complex',
          'comments': ['The complex is treated as an entity distinct from its '
                       'components.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final',
+         'from_schema': 'https://w3id.org/reactome-ontology',
          'slot_usage': {'has_component': {'name': 'has_component', 'required': True}}})
 
     has_component: list[PhysicalEntity] = Field(default=..., description="""Component physical entities that make up a complex.""", json_schema_extra = { "linkml_meta": {'comments': ['Complex identity is distinct from component identity in '
@@ -1805,7 +1809,7 @@ class EntitySet(PhysicalEntity):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:EntitySet',
          'comments': ['This is a graph object representing a curated set, not merely a '
                       'class extension over its members.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final',
+         'from_schema': 'https://w3id.org/reactome-ontology',
          'slot_usage': {'has_member': {'name': 'has_member', 'required': True}}})
 
     has_member: list[PhysicalEntity] = Field(default=..., description="""Members of an entity set representing functionally interchangeable participants.""", json_schema_extra = { "linkml_meta": {'comments': ['Entity sets are curated graph objects, not simply OWL classes '
@@ -1891,7 +1895,7 @@ class CandidateSet(EntitySet):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:CandidateSet',
          'comments': ['Often reflects partial knowledge or broad functional grouping.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     has_member: list[PhysicalEntity] = Field(default=..., description="""Members of an entity set representing functionally interchangeable participants.""", json_schema_extra = { "linkml_meta": {'comments': ['Entity sets are curated graph objects, not simply OWL classes '
                       'over their members.'],
@@ -1976,7 +1980,7 @@ class DefinedSet(EntitySet):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:DefinedSet',
          'comments': ['Stronger editorial commitment than a candidate set.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     has_member: list[PhysicalEntity] = Field(default=..., description="""Members of an entity set representing functionally interchangeable participants.""", json_schema_extra = { "linkml_meta": {'comments': ['Entity sets are curated graph objects, not simply OWL classes '
                       'over their members.'],
@@ -2062,7 +2066,7 @@ class Polymer(PhysicalEntity):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:Polymer',
          'comments': ['Useful for biological polymers that are not modeled by '
                       'enumerating every monomer instance.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     has_repeated_unit: Optional[list[PhysicalEntity]] = Field(default=None, description="""Repeated unit composing a polymer entity.""", json_schema_extra = { "linkml_meta": {'comments': ['Used when Reactome models a polymer abstractly in terms of '
                       'repeating constituents.'],
@@ -2148,7 +2152,7 @@ class Cell(PhysicalEntity):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:Cell',
          'comments': ['Included for cases where cells themselves are modeled as '
                       'interacting biological entities.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     in_taxon: Optional[list[str]] = Field(default=None, description="""Taxon in which the object, event, or entity is asserted to occur or be defined.""", json_schema_extra = { "linkml_meta": {'comments': ['For events this denotes the organism context; for entities it '
                       'denotes the biological source organism.'],
@@ -2230,7 +2234,7 @@ class OtherEntity(PhysicalEntity):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:OtherEntity',
          'comments': ['Helps preserve source fidelity when Reactome uses residual '
                       'categorization.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     in_taxon: Optional[list[str]] = Field(default=None, description="""Taxon in which the object, event, or entity is asserted to occur or be defined.""", json_schema_extra = { "linkml_meta": {'comments': ['For events this denotes the organism context; for entities it '
                       'denotes the biological source organism.'],
@@ -2312,7 +2316,7 @@ class Drug(PhysicalEntity):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:Drug',
          'comments': ['Drug subclasses distinguish broad molecular kinds of '
                       'therapeutic agents.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     in_taxon: Optional[list[str]] = Field(default=None, description="""Taxon in which the object, event, or entity is asserted to occur or be defined.""", json_schema_extra = { "linkml_meta": {'comments': ['For events this denotes the organism context; for entities it '
                       'denotes the biological source organism.'],
@@ -2393,7 +2397,7 @@ class ChemicalDrug(Drug):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:ChemicalDrug',
          'comments': ['Often alignable to small-molecule reference identities.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     in_taxon: Optional[list[str]] = Field(default=None, description="""Taxon in which the object, event, or entity is asserted to occur or be defined.""", json_schema_extra = { "linkml_meta": {'comments': ['For events this denotes the organism context; for entities it '
                       'denotes the biological source organism.'],
@@ -2475,7 +2479,7 @@ class ProteinDrug(Drug):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:ProteinDrug',
          'comments': ['Includes antibody-like or recombinant protein therapeutics when '
                       'modeled as physical entities.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     in_taxon: Optional[list[str]] = Field(default=None, description="""Taxon in which the object, event, or entity is asserted to occur or be defined.""", json_schema_extra = { "linkml_meta": {'comments': ['For events this denotes the organism context; for entities it '
                       'denotes the biological source organism.'],
@@ -2557,7 +2561,7 @@ class RnaDrug(Drug):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:RnaDrug',
          'comments': ['Can cover antisense, siRNA, or related RNA therapeutic '
                       'modalities.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     in_taxon: Optional[list[str]] = Field(default=None, description="""Taxon in which the object, event, or entity is asserted to occur or be defined.""", json_schema_extra = { "linkml_meta": {'comments': ['For events this denotes the organism context; for entities it '
                       'denotes the biological source organism.'],
@@ -2640,7 +2644,7 @@ class ReferenceEntity(DatabaseObject):
          'class_uri': 'reactome:ReferenceEntity',
          'comments': ['This is the key abstraction Reactome uses to separate '
                       'contextual state from canonical identity.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final',
+         'from_schema': 'https://w3id.org/reactome-ontology',
          'slot_usage': {'has_reference_database': {'name': 'has_reference_database',
                                                    'required': True}}})
 
@@ -2703,7 +2707,7 @@ class ReferenceSequence(ReferenceEntity):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:ReferenceSequence',
          'comments': ['Commonly used for protein, DNA, RNA, and isoform references.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     has_reference_database: str = Field(default=..., description="""Reference database authority associated with a reference entity or database identifier.""", json_schema_extra = { "linkml_meta": {'comments': ['Provides the namespace and interpretation context for an '
                       'identifier.'],
@@ -2764,7 +2768,7 @@ class ReferenceGeneProduct(ReferenceSequence):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:ReferenceGeneProduct',
          'comments': ['Often alignable to UniProt entries for proteins.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     has_reference_database: str = Field(default=..., description="""Reference database authority associated with a reference entity or database identifier.""", json_schema_extra = { "linkml_meta": {'comments': ['Provides the namespace and interpretation context for an '
                       'identifier.'],
@@ -2825,7 +2829,7 @@ class ReferenceIsoform(ReferenceSequence):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:ReferenceIsoform',
          'comments': ['Useful when isoform distinction matters biologically.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     has_reference_database: str = Field(default=..., description="""Reference database authority associated with a reference entity or database identifier.""", json_schema_extra = { "linkml_meta": {'comments': ['Provides the namespace and interpretation context for an '
                       'identifier.'],
@@ -2886,7 +2890,7 @@ class ReferenceDnaSequence(ReferenceSequence):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:ReferenceDnaSequence',
          'comments': ['Supports DNA-centric entities in the Reactome schema.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     has_reference_database: str = Field(default=..., description="""Reference database authority associated with a reference entity or database identifier.""", json_schema_extra = { "linkml_meta": {'comments': ['Provides the namespace and interpretation context for an '
                       'identifier.'],
@@ -2947,7 +2951,7 @@ class ReferenceRnaSequence(ReferenceSequence):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:ReferenceRnaSequence',
          'comments': ['Supports transcript and RNA molecule identity modeling.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     has_reference_database: str = Field(default=..., description="""Reference database authority associated with a reference entity or database identifier.""", json_schema_extra = { "linkml_meta": {'comments': ['Provides the namespace and interpretation context for an '
                       'identifier.'],
@@ -3008,7 +3012,7 @@ class ReferenceMolecule(ReferenceEntity):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:ReferenceMolecule',
          'comments': ['Naturally alignable to ChEBI-like references.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     has_reference_database: str = Field(default=..., description="""Reference database authority associated with a reference entity or database identifier.""", json_schema_extra = { "linkml_meta": {'comments': ['Provides the namespace and interpretation context for an '
                       'identifier.'],
@@ -3070,7 +3074,7 @@ class ReferenceGroup(ReferenceEntity):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:ReferenceGroup',
          'comments': ['Useful for families or grouped reference semantics in source '
                       'data.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     has_reference_database: str = Field(default=..., description="""Reference database authority associated with a reference entity or database identifier.""", json_schema_extra = { "linkml_meta": {'comments': ['Provides the namespace and interpretation context for an '
                       'identifier.'],
@@ -3132,7 +3136,7 @@ class ReferenceTherapeutic(ReferenceEntity):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:ReferenceTherapeutic',
          'comments': ['Supports the reference-layer counterpart of drug-like modeled '
                       'entities.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     has_reference_database: str = Field(default=..., description="""Reference database authority associated with a reference entity or database identifier.""", json_schema_extra = { "linkml_meta": {'comments': ['Provides the namespace and interpretation context for an '
                       'identifier.'],
@@ -3194,7 +3198,7 @@ class ReferenceDatabase(DatabaseObject):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:ReferenceDatabase',
          'comments': ['Holds resolver and namespace information for identifier '
                       'interpretation.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     access_url: Optional[str] = Field(default=None, description="""URL template or access URL used to resolve an identifier in a reference database.""", json_schema_extra = { "linkml_meta": {'comments': ['Can encode direct or templated resolver behavior.'],
          'domain_of': ['reference_database'],
@@ -3261,7 +3265,7 @@ class DatabaseIdentifier(DatabaseObject):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:DatabaseIdentifier',
          'comments': ['Useful as a reified identifier object rather than a bare '
                       'literal.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     identifier: Optional[str] = Field(default=None, description="""Identifier string assigned by an external reference database.""", json_schema_extra = { "linkml_meta": {'comments': ['Examples include UniProt accessions, ChEBI identifiers, or GO '
                       'term identifiers.'],
@@ -3323,7 +3327,7 @@ class CatalystActivity(DatabaseObject):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:CatalystActivity',
          'comments': ['This is one of the most semantically important reified node '
                       'types in Reactome.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final',
+         'from_schema': 'https://w3id.org/reactome-ontology',
          'slot_usage': {'has_catalyst': {'name': 'has_catalyst', 'required': True},
                         'has_go_molecular_function': {'name': 'has_go_molecular_function',
                                                       'required': True}}})
@@ -3399,7 +3403,7 @@ class Regulation(DatabaseObject):
          'class_uri': 'reactome:Regulation',
          'comments': ['Reactome models regulation explicitly instead of flattening it '
                       'into a simple binary relation.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final',
+         'from_schema': 'https://w3id.org/reactome-ontology',
          'slot_usage': {'has_regulator': {'name': 'has_regulator', 'required': True},
                         'regulates': {'name': 'regulates', 'required': True}}})
 
@@ -3469,7 +3473,7 @@ class PositiveRegulation(Regulation):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:PositiveRegulation',
          'comments': ['Semantic polarity is explicit at the class level.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     has_regulator: str = Field(default=..., description="""Physical entity that exerts regulatory influence on a regulated event.""", json_schema_extra = { "linkml_meta": {'comments': ['May be a protein, complex, small molecule, set, or other '
                       'physical entity.'],
@@ -3537,7 +3541,7 @@ class NegativeRegulation(Regulation):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:NegativeRegulation',
          'comments': ['Semantic polarity is explicit at the class level.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     has_regulator: str = Field(default=..., description="""Physical entity that exerts regulatory influence on a regulated event.""", json_schema_extra = { "linkml_meta": {'comments': ['May be a protein, complex, small molecule, set, or other '
                       'physical entity.'],
@@ -3606,7 +3610,7 @@ class Requirement(Regulation):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:Requirement',
          'comments': ['Used when necessity is the key biological relation rather than '
                       'positive or negative modulation.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     has_regulator: str = Field(default=..., description="""Physical entity that exerts regulatory influence on a regulated event.""", json_schema_extra = { "linkml_meta": {'comments': ['May be a protein, complex, small molecule, set, or other '
                       'physical entity.'],
@@ -3675,7 +3679,7 @@ class Interaction(DatabaseObject):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:Interaction',
          'comments': ['Retained as a distinct object to preserve graph fidelity when '
                       'interactions are explicitly modeled.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     reactome_db_id: int = Field(default=..., description="""Internal Reactome database identifier assigned to a database object.""", json_schema_extra = { "linkml_meta": {'comments': ['Reactome DB_ID values are implementation-oriented identifiers '
                       'rather than stable public identifiers.'],
@@ -3728,7 +3732,7 @@ class ReactionTypeTerm(DatabaseObject):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:ReactionTypeTerm',
          'comments': ['Supports editorial or mechanistic grouping of reaction events.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     reactome_db_id: int = Field(default=..., description="""Internal Reactome database identifier assigned to a database object.""", json_schema_extra = { "linkml_meta": {'comments': ['Reactome DB_ID values are implementation-oriented identifiers '
                       'rather than stable public identifiers.'],
@@ -3782,7 +3786,7 @@ class AbstractModifiedResidue(DatabaseObject):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:AbstractModifiedResidue',
          'comments': ['Abstract superclass for phosphorylation-like or other residue '
                       'modification records.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     reactome_db_id: int = Field(default=..., description="""Internal Reactome database identifier assigned to a database object.""", json_schema_extra = { "linkml_meta": {'comments': ['Reactome DB_ID values are implementation-oriented identifiers '
                       'rather than stable public identifiers.'],
@@ -3836,7 +3840,7 @@ class OrganismTaxon(DatabaseObject):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:OrganismTaxon',
          'comments': ['Often associated with taxonomy identifiers and may correspond '
                       'to NCBI Taxonomy concepts.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     ncbi_taxon_id: Optional[str] = Field(default=None, description="""Taxonomic identifier, typically aligned to the NCBI Taxonomy.""", json_schema_extra = { "linkml_meta": {'comments': ['Often used on species or taxon-like records.'],
          'domain_of': ['organism_taxon', 'taxon'],
@@ -3906,7 +3910,7 @@ class Taxon(DatabaseObject):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:Taxon',
          'comments': ['Can be used in parallel with or beneath species-oriented '
                       'records.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     ncbi_taxon_id: Optional[str] = Field(default=None, description="""Taxonomic identifier, typically aligned to the NCBI Taxonomy.""", json_schema_extra = { "linkml_meta": {'comments': ['Often used on species or taxon-like records.'],
          'domain_of': ['organism_taxon', 'taxon'],
@@ -3976,7 +3980,7 @@ class Compartment(DatabaseObject):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:Compartment',
          'comments': ['Often alignable to GO cellular component terms, though not '
                       'always identical in role.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     reactome_db_id: int = Field(default=..., description="""Internal Reactome database identifier assigned to a database object.""", json_schema_extra = { "linkml_meta": {'comments': ['Reactome DB_ID values are implementation-oriented identifiers '
                       'rather than stable public identifiers.'],
@@ -4030,7 +4034,7 @@ class Disease(DatabaseObject):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:Disease',
          'comments': ['Represents disease context rather than a full disease ontology '
                       'commitment.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     reactome_db_id: int = Field(default=..., description="""Internal Reactome database identifier assigned to a database object.""", json_schema_extra = { "linkml_meta": {'comments': ['Reactome DB_ID values are implementation-oriented identifiers '
                       'rather than stable public identifiers.'],
@@ -4083,7 +4087,7 @@ class GoMolecularFunctionTerm(DatabaseObject):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:GoMolecularFunctionTerm',
          'comments': ['Particularly important in CatalystActivity.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     reactome_db_id: int = Field(default=..., description="""Internal Reactome database identifier assigned to a database object.""", json_schema_extra = { "linkml_meta": {'comments': ['Reactome DB_ID values are implementation-oriented identifiers '
                       'rather than stable public identifiers.'],
@@ -4137,7 +4141,7 @@ class GoBiologicalProcessTerm(DatabaseObject):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:GoBiologicalProcessTerm',
          'comments': ['Useful for crosswalks between Reactome pathways and GO process '
                       'knowledge.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     reactome_db_id: int = Field(default=..., description="""Internal Reactome database identifier assigned to a database object.""", json_schema_extra = { "linkml_meta": {'comments': ['Reactome DB_ID values are implementation-oriented identifiers '
                       'rather than stable public identifiers.'],
@@ -4190,7 +4194,7 @@ class GoCellularComponentTerm(DatabaseObject):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'reactome:GoCellularComponentTerm',
          'comments': ['Often complements explicit compartment modeling.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final'})
+         'from_schema': 'https://w3id.org/reactome-ontology'})
 
     reactome_db_id: int = Field(default=..., description="""Internal Reactome database identifier assigned to a database object.""", json_schema_extra = { "linkml_meta": {'comments': ['Reactome DB_ID values are implementation-oriented identifiers '
                       'rather than stable public identifiers.'],
@@ -4243,7 +4247,7 @@ class ReactomeDataset(ConfiguredBaseModel):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'comments': ['Provides a practical root object for JSON and YAML instance '
                       'data.'],
-         'from_schema': 'https://w3id.org/reactome-ontology/final',
+         'from_schema': 'https://w3id.org/reactome-ontology',
          'tree_root': True})
 
     database_objects: Optional[dict[str, DatabaseObject]] = Field(default=None, description="""Collection of Reactome objects keyed by identifier.""", json_schema_extra = { "linkml_meta": {'domain_of': ['reactome_dataset']} })

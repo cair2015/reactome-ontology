@@ -1,9 +1,9 @@
 # Auto generated from reactome_ontology.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-04-09T22:16:40
+# Generation date: 2026-04-10T11:53:08
 # Schema: reactome_ontology
 #
-# id: https://w3id.org/reactome-ontology/final
-# description: A final OWL-oriented LinkML schema for generating a clean Reactome ontology. This profile keeps ontology-facing classes and properties and removes source-mapping annotations, which are maintained in separate mapping files.
+# id: https://w3id.org/reactome-ontology
+# description: An OWL-oriented LinkML schema for generating a clean Reactome ontology. This profile keeps ontology-facing classes and properties and removes source-mapping annotations, which are maintained in separate mapping files.
 # license: https://creativecommons.org/licenses/by/4.0/
 
 import dataclasses

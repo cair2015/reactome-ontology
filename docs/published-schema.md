@@ -1,13 +1,18 @@
+# Published Schema YAML
+
+This page shows the published schema rendered directly in the documentation site.
+
+Raw artifact links:
+
+- [Schema YAML](schema/reactome_ontology.yaml)
+- [OWL ontology (Turtle)](schema/reactome_ontology.owl.ttl)
+- [SHACL shapes (Turtle)](schema/reactome_ontology.shacl.ttl)
+
+```yaml
 name: reactome_ontology
-description: Reactome Ontology Model is an ontology-oriented LinkML schema designed
-  to represent core Reactome entities, events, provenance, and related reference objects
-  in a consistent and reusable form. It provides a structured framework for describing
-  pathways, reactions, physical entities, regulatory relationships, and supporting
-  metadata. The model combines hierarchical class organization with explicitly defined
-  slots and ranges to support validation, documentation, ontology generation, and
-  downstream integration. The goal of the Reactome Ontology Model is to provide a
-  clear and interoperable schema for publishing and working with Reactome knowledge
-  in ontology-friendly formats.
+description: An OWL-oriented LinkML schema for generating a clean Reactome ontology.
+  This profile keeps ontology-facing classes and properties and removes source-mapping
+  annotations, which are maintained in separate mapping files.
 title: Reactome Ontology Model
 comments:
 - This schema favors ontology-oriented naming for OWL generation; source mappings
@@ -3472,7 +3477,9 @@ classes:
     tree_root: true
 metamodel_version: 1.7.0
 source_file: reactome_ontology.yaml
-source_file_date: '2026-04-10T13:25:44'
-source_file_size: 40205
-generation_date: '2026-04-10T13:25:52'
+source_file_date: '2026-04-10T11:52:50'
+source_file_size: 39730
+generation_date: '2026-04-10T13:13:46'
 
+
+```

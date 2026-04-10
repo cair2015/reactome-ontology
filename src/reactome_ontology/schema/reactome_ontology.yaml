@@ -1,9 +1,15 @@
 id: https://w3id.org/reactome-ontology
 name: reactome_ontology
 title: Reactome Ontology Model
-description: A OWL-oriented LinkML schema for generating a clean Reactome ontology.
-  This profile keeps ontology-facing classes and properties and removes source-mapping
-  annotations, which are maintained in separate mapping files.
+description: Reactome Ontology Model is an ontology-oriented LinkML schema designed
+  to represent core Reactome entities, events, provenance, and related reference
+  objects in a consistent and reusable form. It provides a structured framework
+  for describing pathways, reactions, physical entities, regulatory relationships,
+  and supporting metadata. The model combines hierarchical class organization with
+  explicitly defined slots and ranges to support validation, documentation, ontology
+  generation, and downstream integration. The goal of the Reactome Ontology Model
+  is to provide a clear and interoperable schema for publishing and working with
+  Reactome knowledge in ontology-friendly formats.
 license: https://creativecommons.org/licenses/by/4.0/
 version: 1.0.0
 
@@ -687,8 +693,10 @@ classes:
     slot_usage:
       has_input:
         required: true
+        range: physical_entity
       has_output:
         required: true
+        range: physical_entity
   black_box_event:
     is_a: reaction_like_event
     description: Reaction-like event included in the pathway model despite incomplete

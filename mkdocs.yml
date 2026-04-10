@@ -1,5 +1,5 @@
 ---
-site_name: "reactome-ontology"
+site_name: "Reactome Ontology Model"
 theme:
   name: material
   icon:
@@ -46,8 +46,8 @@ watch:
   - src/reactome_ontology/schema
 
 nav:
-  - Schema Reference: elements/index.md
-  - Published Schema YAML: schema/reactome_ontology.yaml
+  - Overview: elements/index.md
+  - Ontology Artifacts: ontology.md
   - About: about.md
 
 exclude_docs: |
