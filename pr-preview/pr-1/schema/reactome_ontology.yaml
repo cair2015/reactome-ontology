@@ -1,0 +1,3473 @@
+name: reactome_ontology_final
+description: A final OWL-oriented LinkML schema for generating a clean Reactome ontology.
+  This profile keeps ontology-facing classes and properties and removes source-mapping
+  annotations, which are maintained in separate mapping files.
+title: Reactome Ontology Schema (Final OWL-oriented Profile)
+comments:
+- This schema favors ontology-oriented naming for OWL generation; source mappings
+  are maintained in separate mapping files.
+- Administrative and serialization helper fields are retained for round-tripping but
+  may be omitted from OWL export profiles.
+- Inverse-style helper relations have been removed from the ontology-facing profile
+  in favor of canonical relations.
+id: https://w3id.org/reactome-ontology/final
+version: 1.0.0
+imports:
+- linkml:types
+license: https://creativecommons.org/licenses/by/4.0/
+prefixes:
+  linkml:
+    prefix_prefix: linkml
+    prefix_reference: https://w3id.org/linkml/
+  reactome:
+    prefix_prefix: reactome
+    prefix_reference: https://w3id.org/reactome-ontology/
+  reactomeid:
+    prefix_prefix: reactomeid
+    prefix_reference: https://w3id.org/reactome-ontology/id/
+  biolink:
+    prefix_prefix: biolink
+    prefix_reference: https://w3id.org/biolink/vocab/
+  GO:
+    prefix_prefix: GO
+    prefix_reference: http://purl.obolibrary.org/obo/GO_
+  CHEBI:
+    prefix_prefix: CHEBI
+    prefix_reference: http://purl.obolibrary.org/obo/CHEBI_
+  UniProtKB:
+    prefix_prefix: UniProtKB
+    prefix_reference: http://purl.uniprot.org/uniprot/
+  NCBITaxon:
+    prefix_prefix: NCBITaxon
+    prefix_reference: http://purl.obolibrary.org/obo/NCBITaxon_
+  BFO:
+    prefix_prefix: BFO
+    prefix_reference: http://purl.obolibrary.org/obo/BFO_
+  RO:
+    prefix_prefix: RO
+    prefix_reference: http://purl.obolibrary.org/obo/RO_
+  skos:
+    prefix_prefix: skos
+    prefix_reference: http://www.w3.org/2004/02/skos/core#
+  dcterms:
+    prefix_prefix: dcterms
+    prefix_reference: http://purl.org/dc/terms/
+  rdfs:
+    prefix_prefix: rdfs
+    prefix_reference: http://www.w3.org/2000/01/rdf-schema#
+  orcid:
+    prefix_prefix: orcid
+    prefix_reference: https://orcid.org/
+  xsd:
+    prefix_prefix: xsd
+    prefix_reference: http://www.w3.org/2001/XMLSchema#
+  reactomeo:
+    prefix_prefix: reactomeo
+    prefix_reference: https://w3id.org/reactome-ontology/
+default_prefix: reactomeo
+default_range: string
+types:
+  string:
+    name: string
+    definition_uri: https://w3id.org/linkml/String
+    description: A character string
+    notes:
+    - In RDF serializations, a slot with range of string is treated as a literal or
+      type xsd:string.   If you are authoring schemas in LinkML YAML, the type is
+      referenced with the lower case "string".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Text
+    base: str
+    uri: xsd:string
+  integer:
+    name: integer
+    definition_uri: https://w3id.org/linkml/Integer
+    description: An integer
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "integer".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Integer
+    base: int
+    uri: xsd:integer
+  boolean:
+    name: boolean
+    definition_uri: https://w3id.org/linkml/Boolean
+    description: A binary (true or false) value
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "boolean".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Boolean
+    base: Bool
+    uri: xsd:boolean
+    repr: bool
+  float:
+    name: float
+    definition_uri: https://w3id.org/linkml/Float
+    description: A real number that conforms to the xsd:float specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "float".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Float
+    base: float
+    uri: xsd:float
+  double:
+    name: double
+    definition_uri: https://w3id.org/linkml/Double
+    description: A real number that conforms to the xsd:double specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "double".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    close_mappings:
+    - schema:Float
+    base: float
+    uri: xsd:double
+  decimal:
+    name: decimal
+    definition_uri: https://w3id.org/linkml/Decimal
+    description: A real number with arbitrary precision that conforms to the xsd:decimal
+      specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "decimal".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    broad_mappings:
+    - schema:Number
+    base: Decimal
+    uri: xsd:decimal
+  time:
+    name: time
+    definition_uri: https://w3id.org/linkml/Time
+    description: A time object represents a (local) time of day, independent of any
+      particular day
+    notes:
+    - URI is dateTime because OWL reasoners do not work with straight date or time
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "time".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Time
+    base: XSDTime
+    uri: xsd:time
+    repr: str
+  date:
+    name: date
+    definition_uri: https://w3id.org/linkml/Date
+    description: a date (year, month and day) in an idealized calendar
+    notes:
+    - URI is dateTime because OWL reasoners don't work with straight date or time
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "date".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Date
+    base: XSDDate
+    uri: xsd:date
+    repr: str
+  datetime:
+    name: datetime
+    definition_uri: https://w3id.org/linkml/Datetime
+    description: The combination of a date and time
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "datetime".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:DateTime
+    base: XSDDateTime
+    uri: xsd:dateTime
+    repr: str
+  date_or_datetime:
+    name: date_or_datetime
+    definition_uri: https://w3id.org/linkml/DateOrDatetime
+    description: Either a date or a datetime
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "date_or_datetime".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: linkml:DateOrDatetime
+    repr: str
+  uriorcurie:
+    name: uriorcurie
+    definition_uri: https://w3id.org/linkml/Uriorcurie
+    description: a URI or a CURIE
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "uriorcurie".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: URIorCURIE
+    uri: xsd:anyURI
+    repr: str
+  curie:
+    name: curie
+    definition_uri: https://w3id.org/linkml/Curie
+    conforms_to: https://www.w3.org/TR/curie/
+    description: a compact URI
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "curie".
+    comments:
+    - in RDF serializations this MUST be expanded to a URI
+    - in non-RDF serializations MAY be serialized as the compact representation
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: Curie
+    uri: xsd:string
+    repr: str
+  uri:
+    name: uri
+    definition_uri: https://w3id.org/linkml/Uri
+    conforms_to: https://www.ietf.org/rfc/rfc3987.txt
+    description: a complete URI
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "uri".
+    comments:
+    - in RDF serializations a slot with range of uri is treated as a literal or type
+      xsd:anyURI unless it is an identifier or a reference to an identifier, in which
+      case it is translated directly to a node
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    close_mappings:
+    - schema:URL
+    base: URI
+    uri: xsd:anyURI
+    repr: str
+  ncname:
+    name: ncname
+    definition_uri: https://w3id.org/linkml/Ncname
+    description: Prefix part of CURIE
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "ncname".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: NCName
+    uri: xsd:string
+    repr: str
+  objectidentifier:
+    name: objectidentifier
+    definition_uri: https://w3id.org/linkml/Objectidentifier
+    description: A URI or CURIE that represents an object in the model.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "objectidentifier".
+    comments:
+    - Used for inheritance and type checking
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: ElementIdentifier
+    uri: shex:iri
+    repr: str
+  nodeidentifier:
+    name: nodeidentifier
+    definition_uri: https://w3id.org/linkml/Nodeidentifier
+    description: A URI, CURIE or BNODE that represents a node in a model.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "nodeidentifier".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: NodeIdentifier
+    uri: shex:nonLiteral
+    repr: str
+  jsonpointer:
+    name: jsonpointer
+    definition_uri: https://w3id.org/linkml/Jsonpointer
+    conforms_to: https://datatracker.ietf.org/doc/html/rfc6901
+    description: A string encoding a JSON Pointer. The value of the string MUST conform
+      to JSON Point syntax and SHOULD dereference to a valid object within the current
+      instance document when encoded in tree form.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "jsonpointer".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+  jsonpath:
+    name: jsonpath
+    definition_uri: https://w3id.org/linkml/Jsonpath
+    conforms_to: https://www.ietf.org/archive/id/draft-goessner-dispatch-jsonpath-00.html
+    description: A string encoding a JSON Path. The value of the string MUST conform
+      to JSON Point syntax and SHOULD dereference to zero or more valid objects within
+      the current instance document when encoded in tree form.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "jsonpath".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+  sparqlpath:
+    name: sparqlpath
+    definition_uri: https://w3id.org/linkml/Sparqlpath
+    conforms_to: https://www.w3.org/TR/sparql11-query/#propertypaths
+    description: A string encoding a SPARQL Property Path. The value of the string
+      MUST conform to SPARQL syntax and SHOULD dereference to zero or more valid objects
+      within the current instance document when encoded as RDF.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "sparqlpath".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+slots:
+  id:
+    name: id
+    definition_uri: https://w3id.org/reactome-ontology/id
+    description: Unique identifier for an instance in the serialized dataset.
+    comments:
+    - This may be a local identifier, CURIE, URI, or other serialization key.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - dcterms:identifier
+    slot_uri: dcterms:identifier
+    identifier: true
+    owner: named_entity
+    domain_of:
+    - named_entity
+    range: string
+    required: true
+  category:
+    name: category
+    definition_uri: https://w3id.org/reactome-ontology/category
+    description: Explicit category designator used in serialized instances.
+    comments:
+    - Useful when data are exchanged in JSON or YAML and class typing must be preserved.
+    from_schema: https://w3id.org/reactome-ontology/final
+    slot_uri: reactomeo:category
+    designates_type: true
+    range: string
+  name:
+    name: name
+    definition_uri: https://w3id.org/reactome-ontology/name
+    description: Human-readable primary label for an object.
+    comments:
+    - Generic reusable naming slot for schema-wide use.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - rdfs:label
+    slot_uri: rdfs:label
+    owner: named_entity
+    domain_of:
+    - named_entity
+    range: string
+  description:
+    name: description
+    definition_uri: https://w3id.org/reactome-ontology/description
+    description: Free-text textual description of an object.
+    comments:
+    - Can hold editorial notes, plain-language explanations, or short summaries.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - dcterms:description
+    slot_uri: dcterms:description
+    owner: named_entity
+    domain_of:
+    - named_entity
+    range: string
+    multivalued: false
+  reactome_db_id:
+    name: reactome_db_id
+    definition_uri: https://w3id.org/reactome-ontology/reactome_db_id
+    description: Internal Reactome database identifier assigned to a database object.
+    comments:
+    - Reactome DB_ID values are implementation-oriented identifiers rather than stable
+      public identifiers.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:reactomeDbId
+    slot_uri: reactomeo:reactomeDbId
+    owner: database_object
+    domain_of:
+    - database_object
+    range: integer
+    multivalued: false
+  reactome_stable_identifier:
+    name: reactome_stable_identifier
+    definition_uri: https://w3id.org/reactome-ontology/reactome_stable_identifier
+    description: Stable public Reactome identifier for an object.
+    comments:
+    - Typically corresponds to the curated Reactome stable accession such as R-HSA-xxxxx.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:reactomeStableIdentifier
+    slot_uri: reactomeo:reactomeStableIdentifier
+    owner: database_object
+    domain_of:
+    - database_object
+    range: string
+    multivalued: false
+  source_schema_class:
+    name: source_schema_class
+    definition_uri: https://w3id.org/reactome-ontology/source_schema_class
+    description: Name of the source Reactome schema class from which the instance
+      derives.
+    comments:
+    - Useful when preserving frame-schema provenance or round-tripping with the original
+      Reactome graph.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:sourceSchemaClass
+    slot_uri: reactomeo:sourceSchemaClass
+    owner: database_object
+    domain_of:
+    - database_object
+    range: string
+    multivalued: false
+  display_label:
+    name: display_label
+    definition_uri: https://w3id.org/reactome-ontology/display_label
+    description: Preferred display label used by Reactome for user-facing presentation.
+    comments:
+    - Often combines identity and contextual state into a concise label.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:displayLabel
+    is_a: name
+    slot_uri: reactomeo:displayLabel
+    owner: database_object
+    domain_of:
+    - database_object
+    range: string
+    multivalued: false
+  definition:
+    name: definition
+    definition_uri: https://w3id.org/reactome-ontology/definition
+    description: Curated textual definition that states what the object is.
+    comments:
+    - Intended for conceptual definitions rather than narrative summaries.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:definition
+    slot_uri: reactomeo:definition
+    owner: database_object
+    domain_of:
+    - database_object
+    range: string
+    multivalued: false
+  systematic_name:
+    name: systematic_name
+    definition_uri: https://w3id.org/reactome-ontology/systematic_name
+    description: Formal or systematic name for an entity when available.
+    comments:
+    - Often useful for chemicals, complexes, or sequence-derived entities.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:systematicName
+    slot_uri: reactomeo:systematicName
+    owner: physical_entity
+    domain_of:
+    - physical_entity
+    range: string
+    multivalued: false
+  release_date:
+    name: release_date
+    definition_uri: https://w3id.org/reactome-ontology/release_date
+    description: Release date associated with a curation or publication cycle.
+    comments:
+    - Modeled as string to match Reactome exports; can be normalized later if needed.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:releaseDate
+    slot_uri: reactomeo:releaseDate
+    owner: event
+    domain_of:
+    - event
+    range: date
+    multivalued: false
+  release_status:
+    name: release_status
+    definition_uri: https://w3id.org/reactome-ontology/release_status
+    description: Editorial release state of the object in the Reactome release process.
+    comments:
+    - Examples might include draft-like or released-like status labels depending on
+      source exports.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:releaseStatus
+    slot_uri: reactomeo:releaseStatus
+    owner: event
+    domain_of:
+    - event
+    range: string
+    multivalued: false
+  is_inferred:
+    name: is_inferred
+    definition_uri: https://w3id.org/reactome-ontology/is_inferred
+    description: Indicates whether an object was computationally inferred rather than
+      directly curated.
+    comments:
+    - Reactome uses inference especially for orthology-based event propagation.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:isInferred
+    slot_uri: reactomeo:isInferred
+    owner: event
+    domain_of:
+    - event
+    range: boolean
+    multivalued: false
+  is_in_disease_context:
+    name: is_in_disease_context
+    definition_uri: https://w3id.org/reactome-ontology/is_in_disease_context
+    description: Boolean flag indicating that the represented entity is contextualized
+      to a disease state.
+    comments:
+    - This is a contextual flag and does not by itself define a disease ontology class.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:isInDiseaseContext
+    slot_uri: reactomeo:isInDiseaseContext
+    owner: physical_entity
+    domain_of:
+    - physical_entity
+    range: boolean
+    multivalued: false
+  created:
+    name: created
+    definition_uri: https://w3id.org/reactome-ontology/created
+    description: Provenance link to the curation event that originally created the
+      object record.
+    comments:
+    - Usually points to an InstanceEdit containing editor and date metadata.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:created
+    slot_uri: reactomeo:created
+    owner: database_object
+    domain_of:
+    - database_object
+    range: instance_edit
+    multivalued: false
+  modified:
+    name: modified
+    definition_uri: https://w3id.org/reactome-ontology/modified
+    description: Provenance links to subsequent modifications of the object record.
+    comments:
+    - Multiple modifications are common across curation history.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:modified
+    slot_uri: reactomeo:modified
+    owner: database_object
+    domain_of:
+    - database_object
+    range: instance_edit
+    multivalued: true
+  reviewed:
+    name: reviewed
+    definition_uri: https://w3id.org/reactome-ontology/reviewed
+    description: Provenance links to formal review actions on the object.
+    comments:
+    - Distinct from simple modification in Reactome curation workflows.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:reviewed
+    slot_uri: reactomeo:reviewed
+    owner: event
+    domain_of:
+    - event
+    range: instance_edit
+    multivalued: true
+  revised:
+    name: revised
+    definition_uri: https://w3id.org/reactome-ontology/revised
+    description: Provenance links to explicit revision actions after prior curation
+      or review.
+    comments:
+    - Useful for tracking editorial iteration.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:revised
+    slot_uri: reactomeo:revised
+    owner: event
+    domain_of:
+    - event
+    range: instance_edit
+    multivalued: true
+  authored:
+    name: authored
+    definition_uri: https://w3id.org/reactome-ontology/authored
+    description: Provenance links capturing authoring actions for the object.
+    comments:
+    - Included to support richer editorial provenance when present in exports.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:authored
+    slot_uri: reactomeo:authored
+    range: instance_edit
+    multivalued: true
+  in_taxon:
+    name: in_taxon
+    definition_uri: https://w3id.org/reactome-ontology/in_taxon
+    description: Taxon in which the object, event, or entity is asserted to occur
+      or be defined.
+    comments:
+    - For events this denotes the organism context; for entities it denotes the biological
+      source organism.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:inTaxon
+    slot_uri: reactomeo:inTaxon
+    owner: physical_entity
+    domain_of:
+    - event
+    - physical_entity
+    range: organism_taxon
+    multivalued: true
+  located_in_compartment:
+    name: located_in_compartment
+    definition_uri: https://w3id.org/reactome-ontology/located_in_compartment
+    description: Compartment in which an entity resides or an event occurs.
+    comments:
+    - In Reactome, compartment is identity-relevant for many physical entities.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:locatedInCompartment
+    slot_uri: reactomeo:locatedInCompartment
+    owner: physical_entity
+    domain_of:
+    - event
+    - physical_entity
+    range: compartment
+    multivalued: true
+  has_summation:
+    name: has_summation
+    definition_uri: https://w3id.org/reactome-ontology/has_summation
+    description: Narrative summary object explaining the biology of an event or entity.
+    comments:
+    - Distinct from formal definition; usually prose intended for readers.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasSummation
+    slot_uri: reactomeo:hasSummation
+    owner: event
+    domain_of:
+    - event
+    range: summation
+    multivalued: false
+  supported_by:
+    name: supported_by
+    definition_uri: https://w3id.org/reactome-ontology/supported_by
+    description: Publication supporting the existence, mechanism, or curation of the
+      object.
+    comments:
+    - Often points to PubMed-backed literature references.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:supportedBy
+    slot_uri: reactomeo:supportedBy
+    owner: regulation
+    domain_of:
+    - event
+    - catalyst_activity
+    - regulation
+    range: publication
+    multivalued: true
+  has_cross_reference:
+    name: has_cross_reference
+    definition_uri: https://w3id.org/reactome-ontology/has_cross_reference
+    description: External cross-reference to another database or controlled resource.
+    comments:
+    - Used for interoperating with identifiers from GO, ChEBI, UniProt, Ensembl, and
+      related resources.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasCrossReference
+    slot_uri: reactomeo:hasCrossReference
+    owner: physical_entity
+    domain_of:
+    - event
+    - physical_entity
+    range: database_identifier
+    multivalued: true
+  has_disease_context:
+    name: has_disease_context
+    definition_uri: https://w3id.org/reactome-ontology/has_disease_context
+    description: Disease context associated with an event or physical entity.
+    comments:
+    - Represents contextual disease association rather than broad etiologic modeling.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasDiseaseContext
+    slot_uri: reactomeo:hasDiseaseContext
+    owner: physical_entity
+    domain_of:
+    - event
+    - physical_entity
+    range: disease
+    multivalued: true
+  has_go_biological_process:
+    name: has_go_biological_process
+    definition_uri: https://w3id.org/reactome-ontology/has_go_biological_process
+    description: GO biological process term associated with a Reactome pathway or
+      event.
+    comments:
+    - Useful as a high-level semantic alignment rather than an exact equivalence in
+      all cases.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasGoBiologicalProcess
+    slot_uri: reactomeo:hasGoBiologicalProcess
+    owner: pathway
+    domain_of:
+    - pathway
+    range: go_biological_process_term
+    multivalued: false
+  has_go_cellular_component:
+    name: has_go_cellular_component
+    definition_uri: https://w3id.org/reactome-ontology/has_go_cellular_component
+    description: GO cellular component term associated with a physical entity or event
+      context.
+    comments:
+    - Often complements the explicit compartment modeling in Reactome.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasGoCellularComponent
+    slot_uri: reactomeo:hasGoCellularComponent
+    owner: physical_entity
+    domain_of:
+    - physical_entity
+    range: go_cellular_component_term
+    multivalued: false
+  has_go_molecular_function:
+    name: has_go_molecular_function
+    definition_uri: https://w3id.org/reactome-ontology/has_go_molecular_function
+    description: GO molecular function term asserted in a catalyst activity.
+    comments:
+    - Reactome reifies catalysis so the molecular function can be attached explicitly.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasGoMolecularFunction
+    slot_uri: reactomeo:hasGoMolecularFunction
+    owner: catalyst_activity
+    domain_of:
+    - catalyst_activity
+    range: go_molecular_function_term
+    multivalued: false
+  has_event:
+    name: has_event
+    definition_uri: https://w3id.org/reactome-ontology/has_event
+    description: Membership relation linking a pathway to constituent events.
+    comments:
+    - Pathways in Reactome are curated groupings of events and can overlap with other
+      pathways.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasEvent
+    slot_uri: reactomeo:hasEvent
+    owner: pathway
+    domain_of:
+    - pathway
+    range: event
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  preceded_by:
+    name: preceded_by
+    definition_uri: https://w3id.org/reactome-ontology/preceded_by
+    description: Event that occurs before the current event in a curated process sequence.
+    comments:
+    - Encodes partial ordering rather than necessarily strict temporal or causal completeness.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:precededBy
+    slot_uri: reactomeo:precededBy
+    owner: reaction_like_event
+    domain_of:
+    - reaction_like_event
+    range: event
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  has_input:
+    name: has_input
+    definition_uri: https://w3id.org/reactome-ontology/has_input
+    description: Physical entity consumed, transformed, or otherwise used as an input
+      to a reaction-like event.
+    comments:
+    - Inputs need not always be fully consumed in a strict stoichiometric sense across
+      all event subclasses.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasInput
+    slot_uri: reactomeo:hasInput
+    owner: reaction_like_event
+    domain_of:
+    - reaction_like_event
+    range: physical_entity
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  has_output:
+    name: has_output
+    definition_uri: https://w3id.org/reactome-ontology/has_output
+    description: Physical entity produced by a reaction-like event.
+    comments:
+    - Output identity often reflects new compartment, modification state, or assembly
+      state.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasOutput
+    slot_uri: reactomeo:hasOutput
+    owner: reaction_like_event
+    domain_of:
+    - reaction_like_event
+    range: physical_entity
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  requires_component:
+    name: requires_component
+    definition_uri: https://w3id.org/reactome-ontology/requires_component
+    description: Physical entity required for a reaction-like event but not modeled
+      as a transforming input.
+    comments:
+    - Useful for contextual cofactors, platform components, or required participants.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:requiresComponent
+    slot_uri: reactomeo:requiresComponent
+    owner: reaction_like_event
+    domain_of:
+    - reaction_like_event
+    range: physical_entity
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  has_catalyst_activity:
+    name: has_catalyst_activity
+    definition_uri: https://w3id.org/reactome-ontology/has_catalyst_activity
+    description: Catalyst activity associated with the reaction-like event.
+    comments:
+    - A central Reactome modeling pattern that preserves GO molecular function and
+      active-unit context.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasCatalystActivity
+    slot_uri: reactomeo:hasCatalystActivity
+    owner: reaction_like_event
+    domain_of:
+    - reaction_like_event
+    range: catalyst_activity
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  has_regulation:
+    name: has_regulation
+    definition_uri: https://w3id.org/reactome-ontology/has_regulation
+    description: Reified regulation assertion attached to an event.
+    comments:
+    - Supports positive, negative, and requirement-style regulatory semantics.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasRegulation
+    slot_uri: reactomeo:hasRegulation
+    owner: reaction_like_event
+    domain_of:
+    - reaction_like_event
+    range: regulation
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  has_interacting_entity_on_other_cell:
+    name: has_interacting_entity_on_other_cell
+    definition_uri: https://w3id.org/reactome-ontology/has_interacting_entity_on_other_cell
+    description: Physical entity located on another interacting cell in intercellular
+      biology.
+    comments:
+    - Useful for immune, adhesion, and receptor-ligand interaction contexts.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasInteractingEntityOnOtherCell
+    slot_uri: reactomeo:hasInteractingEntityOnOtherCell
+    owner: reaction_like_event
+    domain_of:
+    - reaction_like_event
+    range: physical_entity
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  has_interaction:
+    name: has_interaction
+    definition_uri: https://w3id.org/reactome-ontology/has_interaction
+    description: Associated interaction object linked to an event.
+    comments:
+    - Preserves interaction-level detail when Reactome models such assertions explicitly.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasInteraction
+    slot_uri: reactomeo:hasInteraction
+    owner: reaction_like_event
+    domain_of:
+    - reaction_like_event
+    range: interaction
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  has_reaction_type:
+    name: has_reaction_type
+    definition_uri: https://w3id.org/reactome-ontology/has_reaction_type
+    description: Controlled reaction type annotation describing the mechanistic or
+      editorial type of a reaction.
+    comments:
+    - Useful for grouping reaction-like events into broad mechanistic categories.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasReactionType
+    slot_uri: reactomeo:hasReactionType
+    owner: reaction_like_event
+    domain_of:
+    - reaction_like_event
+    range: reaction_type_term
+    multivalued: true
+  has_reference_entity:
+    name: has_reference_entity
+    definition_uri: https://w3id.org/reactome-ontology/has_reference_entity
+    description: Invariant reference identity underlying a contextualized physical
+      entity.
+    comments:
+    - '{''One of the key distinctions in Reactome'': ''reference identity is separate
+      from stateful physical instantiation.''}'
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasReferenceEntity
+    slot_uri: reactomeo:hasReferenceEntity
+    owner: sequence_entity
+    domain_of:
+    - simple_entity
+    - sequence_entity
+    range: reference_entity
+    multivalued: false
+  has_modified_residue:
+    name: has_modified_residue
+    definition_uri: https://w3id.org/reactome-ontology/has_modified_residue
+    description: Modified residue feature borne by a sequence-based physical entity.
+    comments:
+    - Supports phosphorylation, cleavage, ubiquitination, and related residue-level
+      state modeling.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasModifiedResidue
+    slot_uri: reactomeo:hasModifiedResidue
+    owner: sequence_entity
+    domain_of:
+    - sequence_entity
+    range: abstract_modified_residue
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  start_coordinate:
+    name: start_coordinate
+    definition_uri: https://w3id.org/reactome-ontology/start_coordinate
+    description: Start coordinate of a subsequence, fragment, or feature-bearing region
+      on a sequence entity.
+    comments:
+    - Useful for proteolytic fragments, domains, and sequence-trimmed entity forms.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:startCoordinate
+    slot_uri: reactomeo:startCoordinate
+    owner: sequence_entity
+    domain_of:
+    - sequence_entity
+    range: integer
+    multivalued: false
+  end_coordinate:
+    name: end_coordinate
+    definition_uri: https://w3id.org/reactome-ontology/end_coordinate
+    description: End coordinate of a subsequence, fragment, or feature-bearing region
+      on a sequence entity.
+    comments:
+    - Typically paired with start_coordinate.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:endCoordinate
+    slot_uri: reactomeo:endCoordinate
+    owner: sequence_entity
+    domain_of:
+    - sequence_entity
+    range: integer
+    multivalued: false
+  sequence_reference_type:
+    name: sequence_reference_type
+    definition_uri: https://w3id.org/reactome-ontology/sequence_reference_type
+    description: Textual qualifier for the kind of referenced sequence or entity.
+    comments:
+    - Included for compatibility with Reactome exports.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:sequenceReferenceType
+    slot_uri: reactomeo:sequenceReferenceType
+    owner: sequence_entity
+    domain_of:
+    - sequence_entity
+    range: string
+    multivalued: false
+  has_component:
+    name: has_component
+    definition_uri: https://w3id.org/reactome-ontology/has_component
+    description: Component physical entities that make up a complex.
+    comments:
+    - Complex identity is distinct from component identity in Reactome.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasComponent
+    slot_uri: reactomeo:hasComponent
+    owner: complex
+    domain_of:
+    - complex
+    range: physical_entity
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  has_member:
+    name: has_member
+    definition_uri: https://w3id.org/reactome-ontology/has_member
+    description: Members of an entity set representing functionally interchangeable
+      participants.
+    comments:
+    - Entity sets are curated graph objects, not simply OWL classes over their members.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasMember
+    slot_uri: reactomeo:hasMember
+    owner: entity_set
+    domain_of:
+    - entity_set
+    range: physical_entity
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  has_repeated_unit:
+    name: has_repeated_unit
+    definition_uri: https://w3id.org/reactome-ontology/has_repeated_unit
+    description: Repeated unit composing a polymer entity.
+    comments:
+    - Used when Reactome models a polymer abstractly in terms of repeating constituents.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasRepeatedUnit
+    slot_uri: reactomeo:hasRepeatedUnit
+    owner: polymer
+    domain_of:
+    - polymer
+    range: physical_entity
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  has_regulator:
+    name: has_regulator
+    definition_uri: https://w3id.org/reactome-ontology/has_regulator
+    description: Physical entity that exerts regulatory influence on a regulated event.
+    comments:
+    - May be a protein, complex, small molecule, set, or other physical entity.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasRegulator
+    slot_uri: reactomeo:hasRegulator
+    owner: regulation
+    domain_of:
+    - regulation
+    range: physical_entity
+    multivalued: false
+  regulates:
+    name: regulates
+    definition_uri: https://w3id.org/reactome-ontology/regulates
+    description: Reaction-like event that is the target of regulation.
+    comments:
+    - Kept explicit through reified regulation nodes rather than flattened triples.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:regulates
+    slot_uri: reactomeo:regulates
+    owner: regulation
+    domain_of:
+    - regulation
+    range: reaction_like_event
+    multivalued: false
+  has_active_unit:
+    name: has_active_unit
+    definition_uri: https://w3id.org/reactome-ontology/has_active_unit
+    description: Subunit, domain-bearing fragment, or active molecular portion responsible
+      for catalytic or regulatory activity.
+    comments:
+    - Reactome can attach active-unit detail to catalyst activities and regulation
+      objects.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasActiveUnit
+    slot_uri: reactomeo:hasActiveUnit
+    owner: regulation
+    domain_of:
+    - catalyst_activity
+    - regulation
+    range: physical_entity
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  has_catalyst:
+    name: has_catalyst
+    definition_uri: https://w3id.org/reactome-ontology/has_catalyst
+    description: Physical entity serving as the bearer of a catalyst activity.
+    comments:
+    - Used inside reified catalyst activity objects.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasCatalyst
+    slot_uri: reactomeo:hasCatalyst
+    owner: catalyst_activity
+    domain_of:
+    - catalyst_activity
+    range: physical_entity
+    multivalued: false
+  catalyzes:
+    name: catalyzes
+    definition_uri: https://w3id.org/reactome-ontology/catalyzes
+    description: Reaction-like event catalyzed by the given catalyst activity.
+    comments:
+    - Allows one catalyst activity node to connect molecular function and event participation.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:catalyzes
+    slot_uri: reactomeo:catalyzes
+    owner: catalyst_activity
+    domain_of:
+    - catalyst_activity
+    range: reaction_like_event
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  has_reference_database:
+    name: has_reference_database
+    definition_uri: https://w3id.org/reactome-ontology/has_reference_database
+    description: Reference database authority associated with a reference entity or
+      database identifier.
+    comments:
+    - Provides the namespace and interpretation context for an identifier.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasReferenceDatabase
+    slot_uri: reactomeo:hasReferenceDatabase
+    owner: database_identifier
+    domain_of:
+    - reference_entity
+    - database_identifier
+    range: reference_database
+    multivalued: false
+  identifier:
+    name: identifier
+    definition_uri: https://w3id.org/reactome-ontology/identifier
+    description: Identifier string assigned by an external reference database.
+    comments:
+    - Examples include UniProt accessions, ChEBI identifiers, or GO term identifiers.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:identifier
+    slot_uri: reactomeo:identifier
+    owner: database_identifier
+    domain_of:
+    - reference_entity
+    - database_identifier
+    range: string
+    multivalued: false
+  access_url:
+    name: access_url
+    definition_uri: https://w3id.org/reactome-ontology/access_url
+    description: URL template or access URL used to resolve an identifier in a reference
+      database.
+    comments:
+    - Can encode direct or templated resolver behavior.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:accessUrl
+    slot_uri: reactomeo:accessUrl
+    owner: reference_database
+    domain_of:
+    - reference_database
+    range: uri
+    multivalued: false
+  identifier_prefix:
+    name: identifier_prefix
+    definition_uri: https://w3id.org/reactome-ontology/identifier_prefix
+    description: Prefix or namespace abbreviation used by a reference database.
+    comments:
+    - Useful for CURIE generation and namespace harmonization.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:identifierPrefix
+    slot_uri: reactomeo:identifierPrefix
+    owner: reference_database
+    domain_of:
+    - reference_database
+    range: string
+    multivalued: false
+  resource_identifier:
+    name: resource_identifier
+    definition_uri: https://w3id.org/reactome-ontology/resource_identifier
+    description: Identifier for the reference resource itself rather than for entries
+      inside it.
+    comments:
+    - Supports metadata about the authority record for a database.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:resourceIdentifier
+    slot_uri: reactomeo:resourceIdentifier
+    owner: reference_database
+    domain_of:
+    - reference_database
+    range: string
+    multivalued: false
+  url:
+    name: url
+    definition_uri: https://w3id.org/reactome-ontology/url
+    description: General URL associated with an object.
+    comments:
+    - Often used for resource metadata pages or resolver entry points.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:url
+    slot_uri: reactomeo:url
+    owner: reference_database
+    domain_of:
+    - reference_database
+    range: uri
+    multivalued: false
+  pubmed_id:
+    name: pubmed_id
+    definition_uri: https://w3id.org/reactome-ontology/pubmed_id
+    description: PubMed identifier for a literature reference.
+    comments:
+    - Stored as string for broad interoperability with exports and loaders.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:pubmedId
+    slot_uri: reactomeo:pubmedId
+    owner: literature_reference
+    domain_of:
+    - literature_reference
+    range: string
+    multivalued: false
+    pattern: ^[0-9]+$
+  orcid:
+    name: orcid
+    definition_uri: https://w3id.org/reactome-ontology/orcid
+    description: ORCID identifier for a person involved in curation or authorship.
+    comments:
+    - Useful for curator and contributor disambiguation.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:orcid
+    slot_uri: reactomeo:orcid
+    owner: person
+    domain_of:
+    - person
+    range: uri
+    multivalued: false
+  ncbi_taxon_id:
+    name: ncbi_taxon_id
+    definition_uri: https://w3id.org/reactome-ontology/ncbi_taxon_id
+    description: Taxonomic identifier, typically aligned to the NCBI Taxonomy.
+    comments:
+    - Often used on species or taxon-like records.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:ncbiTaxonId
+    slot_uri: reactomeo:ncbiTaxonId
+    owner: taxon
+    domain_of:
+    - organism_taxon
+    - taxon
+    range: string
+    multivalued: false
+    pattern: ^[0-9]+$
+  previous_stable_identifier:
+    name: previous_stable_identifier
+    definition_uri: https://w3id.org/reactome-ontology/previous_stable_identifier
+    description: Deprecated or previous stable Reactome identifier retained for traceability.
+    comments:
+    - Useful during migration, identifier replacement, and legacy resolution.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:previousStableIdentifier
+    slot_uri: reactomeo:previousStableIdentifier
+    owner: database_object
+    domain_of:
+    - database_object
+    range: string
+    multivalued: false
+  instanceEdit__date:
+    name: instanceEdit__date
+    description: Timestamp or date string for the edit activity.
+    from_schema: https://w3id.org/reactome-ontology/final
+    slot_uri: reactomeo:date
+    alias: date
+    owner: instance_edit
+    domain_of:
+    - instance_edit
+    range: datetime
+  instanceEdit__author:
+    name: instanceEdit__author
+    description: Person or people responsible for the edit activity.
+    from_schema: https://w3id.org/reactome-ontology/final
+    slot_uri: reactomeo:author
+    alias: author
+    owner: instance_edit
+    domain_of:
+    - instance_edit
+    range: person
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  summation__text:
+    name: summation__text
+    description: Narrative summary text.
+    from_schema: https://w3id.org/reactome-ontology/final
+    slot_uri: reactomeo:text
+    alias: text
+    owner: summation
+    domain_of:
+    - summation
+    range: string
+    required: true
+  reactomeDataset__database_objects:
+    name: reactomeDataset__database_objects
+    description: Collection of Reactome objects keyed by identifier.
+    from_schema: https://w3id.org/reactome-ontology/final
+    slot_uri: reactomeo:database_objects
+    alias: database_objects
+    owner: reactome_dataset
+    domain_of:
+    - reactome_dataset
+    range: database_object
+    multivalued: true
+    inlined: true
+    inlined_as_list: false
+  database_object_reactome_db_id:
+    name: database_object_reactome_db_id
+    definition_uri: https://w3id.org/reactome-ontology/reactome_db_id
+    description: Internal Reactome database identifier assigned to a database object.
+    comments:
+    - Reactome DB_ID values are implementation-oriented identifiers rather than stable
+      public identifiers.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:reactomeDbId
+    is_a: reactome_db_id
+    domain: database_object
+    slot_uri: reactomeo:reactomeDbId
+    alias: reactome_db_id
+    owner: database_object
+    domain_of:
+    - database_object
+    is_usage_slot: true
+    usage_slot_name: reactome_db_id
+    range: integer
+    required: true
+    multivalued: false
+  database_object_reactome_stable_identifier:
+    name: database_object_reactome_stable_identifier
+    definition_uri: https://w3id.org/reactome-ontology/reactome_stable_identifier
+    description: Stable public Reactome identifier for an object.
+    comments:
+    - Typically corresponds to the curated Reactome stable accession such as R-HSA-xxxxx.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:reactomeStableIdentifier
+    is_a: reactome_stable_identifier
+    domain: database_object
+    slot_uri: reactomeo:reactomeStableIdentifier
+    alias: reactome_stable_identifier
+    owner: database_object
+    domain_of:
+    - database_object
+    is_usage_slot: true
+    usage_slot_name: reactome_stable_identifier
+    range: string
+    required: true
+    multivalued: false
+  database_object_source_schema_class:
+    name: database_object_source_schema_class
+    definition_uri: https://w3id.org/reactome-ontology/source_schema_class
+    description: Name of the source Reactome schema class from which the instance
+      derives.
+    comments:
+    - Useful when preserving frame-schema provenance or round-tripping with the original
+      Reactome graph.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:sourceSchemaClass
+    is_a: source_schema_class
+    domain: database_object
+    slot_uri: reactomeo:sourceSchemaClass
+    alias: source_schema_class
+    owner: database_object
+    domain_of:
+    - database_object
+    is_usage_slot: true
+    usage_slot_name: source_schema_class
+    range: string
+    required: true
+    multivalued: false
+  database_object_display_label:
+    name: database_object_display_label
+    definition_uri: https://w3id.org/reactome-ontology/display_label
+    description: Preferred display label used by Reactome for user-facing presentation.
+    comments:
+    - Often combines identity and contextual state into a concise label.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:displayLabel
+    is_a: display_label
+    domain: database_object
+    slot_uri: reactomeo:displayLabel
+    alias: display_label
+    owner: database_object
+    domain_of:
+    - database_object
+    is_usage_slot: true
+    usage_slot_name: display_label
+    range: string
+    required: true
+    multivalued: false
+  database_object_created:
+    name: database_object_created
+    definition_uri: https://w3id.org/reactome-ontology/created
+    description: Provenance link to the curation event that originally created the
+      object record.
+    comments:
+    - Usually points to an InstanceEdit containing editor and date metadata.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:created
+    is_a: created
+    domain: database_object
+    slot_uri: reactomeo:created
+    alias: created
+    owner: database_object
+    domain_of:
+    - database_object
+    is_usage_slot: true
+    usage_slot_name: created
+    range: instance_edit
+    required: true
+    multivalued: false
+  pathway_has_event:
+    name: pathway_has_event
+    definition_uri: https://w3id.org/reactome-ontology/has_event
+    description: Membership relation linking a pathway to constituent events.
+    comments:
+    - Pathways in Reactome are curated groupings of events and can overlap with other
+      pathways.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasEvent
+    is_a: has_event
+    domain: pathway
+    slot_uri: reactomeo:hasEvent
+    alias: has_event
+    owner: pathway
+    domain_of:
+    - pathway
+    is_usage_slot: true
+    usage_slot_name: has_event
+    range: event
+    required: true
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  reaction_has_input:
+    name: reaction_has_input
+    definition_uri: https://w3id.org/reactome-ontology/has_input
+    description: Physical entity consumed, transformed, or otherwise used as an input
+      to a reaction-like event.
+    comments:
+    - Inputs need not always be fully consumed in a strict stoichiometric sense across
+      all event subclasses.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasInput
+    is_a: has_input
+    domain: reaction
+    slot_uri: reactomeo:hasInput
+    alias: has_input
+    owner: reaction
+    domain_of:
+    - reaction
+    is_usage_slot: true
+    usage_slot_name: has_input
+    range: physical_entity
+    required: true
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  reaction_has_output:
+    name: reaction_has_output
+    definition_uri: https://w3id.org/reactome-ontology/has_output
+    description: Physical entity produced by a reaction-like event.
+    comments:
+    - Output identity often reflects new compartment, modification state, or assembly
+      state.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasOutput
+    is_a: has_output
+    domain: reaction
+    slot_uri: reactomeo:hasOutput
+    alias: has_output
+    owner: reaction
+    domain_of:
+    - reaction
+    is_usage_slot: true
+    usage_slot_name: has_output
+    range: physical_entity
+    required: true
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  simple_entity_has_reference_entity:
+    name: simple_entity_has_reference_entity
+    definition_uri: https://w3id.org/reactome-ontology/has_reference_entity
+    description: Invariant reference identity underlying a contextualized physical
+      entity.
+    comments:
+    - '{''One of the key distinctions in Reactome'': ''reference identity is separate
+      from stateful physical instantiation.''}'
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasReferenceEntity
+    is_a: has_reference_entity
+    domain: simple_entity
+    slot_uri: reactomeo:hasReferenceEntity
+    alias: has_reference_entity
+    owner: simple_entity
+    domain_of:
+    - simple_entity
+    is_usage_slot: true
+    usage_slot_name: has_reference_entity
+    range: reference_molecule
+    required: true
+    multivalued: false
+  sequence_entity_has_reference_entity:
+    name: sequence_entity_has_reference_entity
+    definition_uri: https://w3id.org/reactome-ontology/has_reference_entity
+    description: Invariant reference identity underlying a contextualized physical
+      entity.
+    comments:
+    - '{''One of the key distinctions in Reactome'': ''reference identity is separate
+      from stateful physical instantiation.''}'
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasReferenceEntity
+    is_a: has_reference_entity
+    domain: sequence_entity
+    slot_uri: reactomeo:hasReferenceEntity
+    alias: has_reference_entity
+    owner: sequence_entity
+    domain_of:
+    - sequence_entity
+    is_usage_slot: true
+    usage_slot_name: has_reference_entity
+    range: reference_sequence
+    required: true
+    multivalued: false
+  complex_has_component:
+    name: complex_has_component
+    definition_uri: https://w3id.org/reactome-ontology/has_component
+    description: Component physical entities that make up a complex.
+    comments:
+    - Complex identity is distinct from component identity in Reactome.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasComponent
+    is_a: has_component
+    domain: complex
+    slot_uri: reactomeo:hasComponent
+    alias: has_component
+    owner: complex
+    domain_of:
+    - complex
+    is_usage_slot: true
+    usage_slot_name: has_component
+    range: physical_entity
+    required: true
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  entity_set_has_member:
+    name: entity_set_has_member
+    definition_uri: https://w3id.org/reactome-ontology/has_member
+    description: Members of an entity set representing functionally interchangeable
+      participants.
+    comments:
+    - Entity sets are curated graph objects, not simply OWL classes over their members.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasMember
+    is_a: has_member
+    domain: entity_set
+    slot_uri: reactomeo:hasMember
+    alias: has_member
+    owner: entity_set
+    domain_of:
+    - entity_set
+    is_usage_slot: true
+    usage_slot_name: has_member
+    range: physical_entity
+    required: true
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  reference_entity_has_reference_database:
+    name: reference_entity_has_reference_database
+    definition_uri: https://w3id.org/reactome-ontology/has_reference_database
+    description: Reference database authority associated with a reference entity or
+      database identifier.
+    comments:
+    - Provides the namespace and interpretation context for an identifier.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasReferenceDatabase
+    is_a: has_reference_database
+    domain: reference_entity
+    slot_uri: reactomeo:hasReferenceDatabase
+    alias: has_reference_database
+    owner: reference_entity
+    domain_of:
+    - reference_entity
+    is_usage_slot: true
+    usage_slot_name: has_reference_database
+    range: reference_database
+    required: true
+    multivalued: false
+  catalyst_activity_has_catalyst:
+    name: catalyst_activity_has_catalyst
+    definition_uri: https://w3id.org/reactome-ontology/has_catalyst
+    description: Physical entity serving as the bearer of a catalyst activity.
+    comments:
+    - Used inside reified catalyst activity objects.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasCatalyst
+    is_a: has_catalyst
+    domain: catalyst_activity
+    slot_uri: reactomeo:hasCatalyst
+    alias: has_catalyst
+    owner: catalyst_activity
+    domain_of:
+    - catalyst_activity
+    is_usage_slot: true
+    usage_slot_name: has_catalyst
+    range: physical_entity
+    required: true
+    multivalued: false
+  catalyst_activity_has_go_molecular_function:
+    name: catalyst_activity_has_go_molecular_function
+    definition_uri: https://w3id.org/reactome-ontology/has_go_molecular_function
+    description: GO molecular function term asserted in a catalyst activity.
+    comments:
+    - Reactome reifies catalysis so the molecular function can be attached explicitly.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasGoMolecularFunction
+    is_a: has_go_molecular_function
+    domain: catalyst_activity
+    slot_uri: reactomeo:hasGoMolecularFunction
+    alias: has_go_molecular_function
+    owner: catalyst_activity
+    domain_of:
+    - catalyst_activity
+    is_usage_slot: true
+    usage_slot_name: has_go_molecular_function
+    range: go_molecular_function_term
+    required: true
+    multivalued: false
+  regulation_has_regulator:
+    name: regulation_has_regulator
+    definition_uri: https://w3id.org/reactome-ontology/has_regulator
+    description: Physical entity that exerts regulatory influence on a regulated event.
+    comments:
+    - May be a protein, complex, small molecule, set, or other physical entity.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:hasRegulator
+    is_a: has_regulator
+    domain: regulation
+    slot_uri: reactomeo:hasRegulator
+    alias: has_regulator
+    owner: regulation
+    domain_of:
+    - regulation
+    is_usage_slot: true
+    usage_slot_name: has_regulator
+    range: physical_entity
+    required: true
+    multivalued: false
+  regulation_regulates:
+    name: regulation_regulates
+    definition_uri: https://w3id.org/reactome-ontology/regulates
+    description: Reaction-like event that is the target of regulation.
+    comments:
+    - Kept explicit through reified regulation nodes rather than flattened triples.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:regulates
+    is_a: regulates
+    domain: regulation
+    slot_uri: reactomeo:regulates
+    alias: regulates
+    owner: regulation
+    domain_of:
+    - regulation
+    is_usage_slot: true
+    usage_slot_name: regulates
+    range: reaction_like_event
+    required: true
+    multivalued: false
+classes:
+  named_entity:
+    name: named_entity
+    definition_uri: https://w3id.org/reactome-ontology/NamedEntity
+    description: Generic named entity used as a lightweight semantic root for serializable
+      objects.
+    comments:
+    - Provides reusable identifier, naming, and descriptive slots independent of the
+      Reactome-specific hierarchy.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:NamedEntity
+    abstract: true
+    slots:
+    - id
+    - name
+    - description
+    class_uri: reactomeo:NamedEntity
+  database_object:
+    name: database_object
+    definition_uri: https://w3id.org/reactome-ontology/DatabaseObject
+    description: Root class for most Reactome schema objects and the main provenance-bearing
+      superclass.
+    comments:
+    - "Reactome\u2019s frame-based model uses DatabaseObject as the common ancestor\
+      \ for curated graph records."
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:DatabaseObject
+    is_a: named_entity
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    slot_usage:
+      reactome_db_id:
+        name: reactome_db_id
+        required: true
+      reactome_stable_identifier:
+        name: reactome_stable_identifier
+        required: true
+      source_schema_class:
+        name: source_schema_class
+        required: true
+      display_label:
+        name: display_label
+        required: true
+      created:
+        name: created
+        required: true
+    class_uri: reactomeo:DatabaseObject
+  instance_edit:
+    name: instance_edit
+    definition_uri: https://w3id.org/reactome-ontology/InstanceEdit
+    description: Provenance record describing a curation action such as creation,
+      modification, review, or revision.
+    comments:
+    - Typically stores who performed an edit and when the edit occurred.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:InstanceEdit
+    is_a: database_object
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - instanceEdit__date
+    - instanceEdit__author
+    attributes:
+      date:
+        name: date
+        description: Timestamp or date string for the edit activity.
+        range: datetime
+      author:
+        name: author
+        description: Person or people responsible for the edit activity.
+        range: person
+        multivalued: true
+        inlined_as_list: true
+    class_uri: reactomeo:InstanceEdit
+  publication:
+    name: publication
+    definition_uri: https://w3id.org/reactome-ontology/Publication
+    description: Publication record used as evidence or supporting documentation for
+      curated biology.
+    comments:
+    - Abstract superclass for specific publication-like records.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:Publication
+    is_a: database_object
+    abstract: true
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    class_uri: reactomeo:Publication
+  literature_reference:
+    name: literature_reference
+    definition_uri: https://w3id.org/reactome-ontology/LiteratureReference
+    description: Literature citation record, commonly representing a PubMed-indexed
+      paper supporting a Reactome assertion.
+    comments:
+    - Used widely to ground events, regulations, and catalyst activities in the literature.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:LiteratureReference
+    is_a: publication
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - pubmed_id
+    class_uri: reactomeo:LiteratureReference
+  person:
+    name: person
+    definition_uri: https://w3id.org/reactome-ontology/Person
+    description: Person record used primarily for provenance, authorship, and curation
+      attribution.
+    comments:
+    - May represent curators, reviewers, or contributors.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:Person
+    is_a: database_object
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - orcid
+    class_uri: reactomeo:Person
+  summation:
+    name: summation
+    definition_uri: https://w3id.org/reactome-ontology/Summation
+    description: Narrative summary record containing prose that explains the biological
+      meaning of an entity or event.
+    comments:
+    - Distinct from a formal definition; meant for human reading.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:Summation
+    is_a: database_object
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - summation__text
+    attributes:
+      text:
+        name: text
+        description: Narrative summary text.
+        range: string
+        required: true
+    class_uri: reactomeo:Summation
+  event:
+    name: event
+    definition_uri: https://w3id.org/reactome-ontology/Event
+    description: Biological occurrence or process unit in Reactome, covering both
+      pathways and reaction-like events.
+    comments:
+    - Event is one of the central abstractions in the Reactome model.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:Event
+    is_a: database_object
+    abstract: true
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - in_taxon
+    - located_in_compartment
+    - has_summation
+    - has_cross_reference
+    - has_disease_context
+    - supported_by
+    - reviewed
+    - revised
+    - release_date
+    - release_status
+    - is_inferred
+    class_uri: reactomeo:Event
+  pathway:
+    name: pathway
+    definition_uri: https://w3id.org/reactome-ontology/Pathway
+    description: Curated grouping of biologically related events representing a pathway
+      or pathway-like module.
+    comments:
+    - Pathways can overlap; event membership is not exclusive.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:Pathway
+    is_a: event
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - in_taxon
+    - located_in_compartment
+    - has_summation
+    - has_cross_reference
+    - has_disease_context
+    - supported_by
+    - reviewed
+    - revised
+    - release_date
+    - release_status
+    - is_inferred
+    - pathway_has_event
+    - has_go_biological_process
+    slot_usage:
+      has_event:
+        name: has_event
+        required: true
+    class_uri: reactomeo:Pathway
+  reaction_like_event:
+    name: reaction_like_event
+    definition_uri: https://w3id.org/reactome-ontology/ReactionLikeEvent
+    description: Event in which physical entities participate as inputs, outputs,
+      regulators, or catalysts in a transformation-like process.
+    comments:
+    - Covers canonical reactions as well as black-box and polymerization-style event
+      subclasses.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:ReactionLikeEvent
+    is_a: event
+    abstract: true
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - in_taxon
+    - located_in_compartment
+    - has_summation
+    - has_cross_reference
+    - has_disease_context
+    - supported_by
+    - reviewed
+    - revised
+    - release_date
+    - release_status
+    - is_inferred
+    - has_input
+    - has_output
+    - requires_component
+    - has_catalyst_activity
+    - has_regulation
+    - preceded_by
+    - has_interacting_entity_on_other_cell
+    - has_interaction
+    - has_reaction_type
+    class_uri: reactomeo:ReactionLikeEvent
+  reaction:
+    name: reaction
+    definition_uri: https://w3id.org/reactome-ontology/Reaction
+    description: Standard reaction-like event with explicit transformed inputs and
+      outputs.
+    comments:
+    - Best used for relatively well-resolved mechanistic conversions.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:Reaction
+    is_a: reaction_like_event
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - in_taxon
+    - located_in_compartment
+    - has_summation
+    - has_cross_reference
+    - has_disease_context
+    - supported_by
+    - reviewed
+    - revised
+    - release_date
+    - release_status
+    - is_inferred
+    - requires_component
+    - has_catalyst_activity
+    - has_regulation
+    - preceded_by
+    - has_interacting_entity_on_other_cell
+    - has_interaction
+    - has_reaction_type
+    - reaction_has_input
+    - reaction_has_output
+    slot_usage:
+      has_input:
+        name: has_input
+        required: true
+      has_output:
+        name: has_output
+        required: true
+    class_uri: reactomeo:Reaction
+  black_box_event:
+    name: black_box_event
+    definition_uri: https://w3id.org/reactome-ontology/BlackBoxEvent
+    description: Reaction-like event included in the pathway model despite incomplete
+      mechanistic detail.
+    comments:
+    - Useful when biological evidence supports the event but not a full molecular
+      mechanism.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:BlackBoxEvent
+    is_a: reaction_like_event
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - in_taxon
+    - located_in_compartment
+    - has_summation
+    - has_cross_reference
+    - has_disease_context
+    - supported_by
+    - reviewed
+    - revised
+    - release_date
+    - release_status
+    - is_inferred
+    - has_input
+    - has_output
+    - requires_component
+    - has_catalyst_activity
+    - has_regulation
+    - preceded_by
+    - has_interacting_entity_on_other_cell
+    - has_interaction
+    - has_reaction_type
+    class_uri: reactomeo:BlackBoxEvent
+  polymerization:
+    name: polymerization
+    definition_uri: https://w3id.org/reactome-ontology/Polymerization
+    description: Event representing formation of a polymer from repeated or assembling
+      units.
+    comments:
+    - Kept distinct because its participant semantics can differ from ordinary reaction
+      balance.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:Polymerization
+    is_a: reaction_like_event
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - in_taxon
+    - located_in_compartment
+    - has_summation
+    - has_cross_reference
+    - has_disease_context
+    - supported_by
+    - reviewed
+    - revised
+    - release_date
+    - release_status
+    - is_inferred
+    - has_input
+    - has_output
+    - requires_component
+    - has_catalyst_activity
+    - has_regulation
+    - preceded_by
+    - has_interacting_entity_on_other_cell
+    - has_interaction
+    - has_reaction_type
+    class_uri: reactomeo:Polymerization
+  depolymerization:
+    name: depolymerization
+    definition_uri: https://w3id.org/reactome-ontology/Depolymerization
+    description: Event representing breakdown of a polymer into constituent or smaller
+      units.
+    comments:
+    - Complementary to polymerisation.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:Depolymerization
+    is_a: reaction_like_event
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - in_taxon
+    - located_in_compartment
+    - has_summation
+    - has_cross_reference
+    - has_disease_context
+    - supported_by
+    - reviewed
+    - revised
+    - release_date
+    - release_status
+    - is_inferred
+    - has_input
+    - has_output
+    - requires_component
+    - has_catalyst_activity
+    - has_regulation
+    - preceded_by
+    - has_interacting_entity_on_other_cell
+    - has_interaction
+    - has_reaction_type
+    class_uri: reactomeo:Depolymerization
+  physical_entity:
+    name: physical_entity
+    definition_uri: https://w3id.org/reactome-ontology/PhysicalEntity
+    description: Concrete biological participant whose identity reflects both underlying
+      molecular identity and contextual state.
+    comments:
+    - In Reactome, compartment, modification state, and assembly state can distinguish
+      one physical entity from another.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:PhysicalEntity
+    is_a: database_object
+    abstract: true
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - in_taxon
+    - located_in_compartment
+    - has_cross_reference
+    - has_disease_context
+    - has_go_cellular_component
+    - systematic_name
+    - is_in_disease_context
+    class_uri: reactomeo:PhysicalEntity
+  simple_entity:
+    name: simple_entity
+    definition_uri: https://w3id.org/reactome-ontology/SimpleEntity
+    description: Simple molecular entity, typically a small molecule or other non-sequence-based
+      chemical participant.
+    comments:
+    - Commonly aligned to ChEBI-like reference identities through ReferenceMolecule.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:SimpleEntity
+    is_a: physical_entity
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - in_taxon
+    - located_in_compartment
+    - has_cross_reference
+    - has_disease_context
+    - has_go_cellular_component
+    - systematic_name
+    - is_in_disease_context
+    - simple_entity_has_reference_entity
+    slot_usage:
+      has_reference_entity:
+        name: has_reference_entity
+        range: reference_molecule
+        required: true
+    class_uri: reactomeo:SimpleEntity
+  genome_encoded_entity:
+    name: genome_encoded_entity
+    definition_uri: https://w3id.org/reactome-ontology/GenomeEncodedEntity
+    description: Physical entity whose existence is grounded in a genome-encoded product
+      such as a protein or nucleic acid.
+    comments:
+    - Serves as a superclass for accessioned sequence-based entities.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:GenomeEncodedEntity
+    is_a: physical_entity
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - in_taxon
+    - located_in_compartment
+    - has_cross_reference
+    - has_disease_context
+    - has_go_cellular_component
+    - systematic_name
+    - is_in_disease_context
+    class_uri: reactomeo:GenomeEncodedEntity
+  sequence_entity:
+    name: sequence_entity
+    definition_uri: https://w3id.org/reactome-ontology/SequenceEntity
+    description: Sequence-bearing physical entity linked to a stable reference sequence
+      and optionally decorated with residue modifications and subsequence coordinates.
+    comments:
+    - Core Reactome pattern for proteins, RNAs, and other accessioned biomolecules
+      in specific states.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:SequenceEntity
+    is_a: genome_encoded_entity
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - in_taxon
+    - located_in_compartment
+    - has_cross_reference
+    - has_disease_context
+    - has_go_cellular_component
+    - systematic_name
+    - is_in_disease_context
+    - sequence_entity_has_reference_entity
+    - has_modified_residue
+    - start_coordinate
+    - end_coordinate
+    - sequence_reference_type
+    slot_usage:
+      has_reference_entity:
+        name: has_reference_entity
+        range: reference_sequence
+        required: true
+    class_uri: reactomeo:SequenceEntity
+  complex:
+    name: complex
+    definition_uri: https://w3id.org/reactome-ontology/Complex
+    description: Physical entity composed of two or more component physical entities
+      assembled into a functional complex.
+    comments:
+    - The complex is treated as an entity distinct from its components.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:Complex
+    is_a: physical_entity
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - in_taxon
+    - located_in_compartment
+    - has_cross_reference
+    - has_disease_context
+    - has_go_cellular_component
+    - systematic_name
+    - is_in_disease_context
+    - complex_has_component
+    slot_usage:
+      has_component:
+        name: has_component
+        required: true
+    class_uri: reactomeo:Complex
+  entity_set:
+    name: entity_set
+    definition_uri: https://w3id.org/reactome-ontology/EntitySet
+    description: Curated set of physical entities that are treated as functionally
+      interchangeable in a given biological context.
+    comments:
+    - This is a graph object representing a curated set, not merely a class extension
+      over its members.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:EntitySet
+    is_a: physical_entity
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - in_taxon
+    - located_in_compartment
+    - has_cross_reference
+    - has_disease_context
+    - has_go_cellular_component
+    - systematic_name
+    - is_in_disease_context
+    - entity_set_has_member
+    slot_usage:
+      has_member:
+        name: has_member
+        required: true
+    class_uri: reactomeo:EntitySet
+  candidate_set:
+    name: candidate_set
+    definition_uri: https://w3id.org/reactome-ontology/CandidateSet
+    description: Entity set whose members are candidates for fulfilling a shared biological
+      role.
+    comments:
+    - Often reflects partial knowledge or broad functional grouping.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:CandidateSet
+    is_a: entity_set
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - in_taxon
+    - located_in_compartment
+    - has_cross_reference
+    - has_disease_context
+    - has_go_cellular_component
+    - systematic_name
+    - is_in_disease_context
+    - entity_set_has_member
+    class_uri: reactomeo:CandidateSet
+  defined_set:
+    name: defined_set
+    definition_uri: https://w3id.org/reactome-ontology/DefinedSet
+    description: Entity set whose members are explicitly curated as the intended interchangeable
+      participants.
+    comments:
+    - Stronger editorial commitment than a candidate set.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:DefinedSet
+    is_a: entity_set
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - in_taxon
+    - located_in_compartment
+    - has_cross_reference
+    - has_disease_context
+    - has_go_cellular_component
+    - systematic_name
+    - is_in_disease_context
+    - entity_set_has_member
+    class_uri: reactomeo:DefinedSet
+  polymer:
+    name: polymer
+    definition_uri: https://w3id.org/reactome-ontology/Polymer
+    description: Polymer entity abstracted in terms of one or more repeated units.
+    comments:
+    - Useful for biological polymers that are not modeled by enumerating every monomer
+      instance.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:Polymer
+    is_a: physical_entity
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - in_taxon
+    - located_in_compartment
+    - has_cross_reference
+    - has_disease_context
+    - has_go_cellular_component
+    - systematic_name
+    - is_in_disease_context
+    - has_repeated_unit
+    class_uri: reactomeo:Polymer
+  cell:
+    name: cell
+    definition_uri: https://w3id.org/reactome-ontology/Cell
+    description: Cell or cell-like biological unit treated as a physical participant
+      in an event.
+    comments:
+    - Included for cases where cells themselves are modeled as interacting biological
+      entities.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:Cell
+    is_a: physical_entity
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - in_taxon
+    - located_in_compartment
+    - has_cross_reference
+    - has_disease_context
+    - has_go_cellular_component
+    - systematic_name
+    - is_in_disease_context
+    class_uri: reactomeo:Cell
+  other_entity:
+    name: other_entity
+    definition_uri: https://w3id.org/reactome-ontology/OtherEntity
+    description: Catch-all physical entity class for biologically relevant participants
+      not covered by more specific subclasses.
+    comments:
+    - Helps preserve source fidelity when Reactome uses residual categorization.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:OtherEntity
+    is_a: physical_entity
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - in_taxon
+    - located_in_compartment
+    - has_cross_reference
+    - has_disease_context
+    - has_go_cellular_component
+    - systematic_name
+    - is_in_disease_context
+    class_uri: reactomeo:OtherEntity
+  drug:
+    name: drug
+    definition_uri: https://w3id.org/reactome-ontology/Drug
+    description: Therapeutic or intervention-oriented physical entity modeled in the
+      Reactome graph.
+    comments:
+    - Drug subclasses distinguish broad molecular kinds of therapeutic agents.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:Drug
+    is_a: physical_entity
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - in_taxon
+    - located_in_compartment
+    - has_cross_reference
+    - has_disease_context
+    - has_go_cellular_component
+    - systematic_name
+    - is_in_disease_context
+    class_uri: reactomeo:Drug
+  chemical_drug:
+    name: chemical_drug
+    definition_uri: https://w3id.org/reactome-ontology/ChemicalDrug
+    description: Drug represented primarily as a chemical or small-molecule therapeutic
+      agent.
+    comments:
+    - Often alignable to small-molecule reference identities.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:ChemicalDrug
+    is_a: drug
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - in_taxon
+    - located_in_compartment
+    - has_cross_reference
+    - has_disease_context
+    - has_go_cellular_component
+    - systematic_name
+    - is_in_disease_context
+    class_uri: reactomeo:ChemicalDrug
+  protein_drug:
+    name: protein_drug
+    definition_uri: https://w3id.org/reactome-ontology/ProteinDrug
+    description: Drug represented as a protein therapeutic or protein-derived biologic.
+    comments:
+    - Includes antibody-like or recombinant protein therapeutics when modeled as physical
+      entities.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:ProteinDrug
+    is_a: drug
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - in_taxon
+    - located_in_compartment
+    - has_cross_reference
+    - has_disease_context
+    - has_go_cellular_component
+    - systematic_name
+    - is_in_disease_context
+    class_uri: reactomeo:ProteinDrug
+  rna_drug:
+    name: rna_drug
+    definition_uri: https://w3id.org/reactome-ontology/RnaDrug
+    description: Drug represented as an RNA-based therapeutic agent.
+    comments:
+    - Can cover antisense, siRNA, or related RNA therapeutic modalities.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:RnaDrug
+    is_a: drug
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - in_taxon
+    - located_in_compartment
+    - has_cross_reference
+    - has_disease_context
+    - has_go_cellular_component
+    - systematic_name
+    - is_in_disease_context
+    class_uri: reactomeo:RnaDrug
+  reference_entity:
+    name: reference_entity
+    definition_uri: https://w3id.org/reactome-ontology/ReferenceEntity
+    description: Invariant reference identity used to connect multiple contextualized
+      physical entities that share an underlying molecular identity.
+    comments:
+    - This is the key abstraction Reactome uses to separate contextual state from
+      canonical identity.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:ReferenceEntity
+    is_a: database_object
+    abstract: true
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - reference_entity_has_reference_database
+    - identifier
+    slot_usage:
+      has_reference_database:
+        name: has_reference_database
+        required: true
+    class_uri: reactomeo:ReferenceEntity
+  reference_sequence:
+    name: reference_sequence
+    definition_uri: https://w3id.org/reactome-ontology/ReferenceSequence
+    description: Reference identity for a sequence-bearing biomolecule.
+    comments:
+    - Commonly used for protein, DNA, RNA, and isoform references.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:ReferenceSequence
+    is_a: reference_entity
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - reference_entity_has_reference_database
+    - identifier
+    class_uri: reactomeo:ReferenceSequence
+  reference_gene_product:
+    name: reference_gene_product
+    definition_uri: https://w3id.org/reactome-ontology/ReferenceGeneProduct
+    description: Reference sequence corresponding to a gene product, typically protein-centric.
+    comments:
+    - Often alignable to UniProt entries for proteins.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:ReferenceGeneProduct
+    is_a: reference_sequence
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - reference_entity_has_reference_database
+    - identifier
+    class_uri: reactomeo:ReferenceGeneProduct
+  reference_isoform:
+    name: reference_isoform
+    definition_uri: https://w3id.org/reactome-ontology/ReferenceIsoform
+    description: Reference sequence representing a specific isoform-level identity.
+    comments:
+    - Useful when isoform distinction matters biologically.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:ReferenceIsoform
+    is_a: reference_sequence
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - reference_entity_has_reference_database
+    - identifier
+    class_uri: reactomeo:ReferenceIsoform
+  reference_dna_sequence:
+    name: reference_dna_sequence
+    definition_uri: https://w3id.org/reactome-ontology/ReferenceDnaSequence
+    description: Reference identity for a DNA sequence.
+    comments:
+    - Supports DNA-centric entities in the Reactome schema.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:ReferenceDnaSequence
+    is_a: reference_sequence
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - reference_entity_has_reference_database
+    - identifier
+    class_uri: reactomeo:ReferenceDnaSequence
+  reference_rna_sequence:
+    name: reference_rna_sequence
+    definition_uri: https://w3id.org/reactome-ontology/ReferenceRnaSequence
+    description: Reference identity for an RNA sequence.
+    comments:
+    - Supports transcript and RNA molecule identity modeling.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:ReferenceRnaSequence
+    is_a: reference_sequence
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - reference_entity_has_reference_database
+    - identifier
+    class_uri: reactomeo:ReferenceRnaSequence
+  reference_molecule:
+    name: reference_molecule
+    definition_uri: https://w3id.org/reactome-ontology/ReferenceMolecule
+    description: Reference identity for a small molecule, simple chemical, or chemically
+      grounded participant.
+    comments:
+    - Naturally alignable to ChEBI-like references.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:ReferenceMolecule
+    is_a: reference_entity
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - reference_entity_has_reference_database
+    - identifier
+    class_uri: reactomeo:ReferenceMolecule
+  reference_group:
+    name: reference_group
+    definition_uri: https://w3id.org/reactome-ontology/ReferenceGroup
+    description: Grouped reference identity used when an invariant identity is represented
+      at a grouped rather than single-entry level.
+    comments:
+    - Useful for families or grouped reference semantics in source data.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:ReferenceGroup
+    is_a: reference_entity
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - reference_entity_has_reference_database
+    - identifier
+    class_uri: reactomeo:ReferenceGroup
+  reference_therapeutic:
+    name: reference_therapeutic
+    definition_uri: https://w3id.org/reactome-ontology/ReferenceTherapeutic
+    description: Reference identity for a therapeutic or intervention-oriented entity.
+    comments:
+    - Supports the reference-layer counterpart of drug-like modeled entities.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:ReferenceTherapeutic
+    is_a: reference_entity
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - reference_entity_has_reference_database
+    - identifier
+    class_uri: reactomeo:ReferenceTherapeutic
+  reference_database:
+    name: reference_database
+    definition_uri: https://w3id.org/reactome-ontology/ReferenceDatabase
+    description: Metadata record describing an external database or authority used
+      for identifiers and cross-references.
+    comments:
+    - Holds resolver and namespace information for identifier interpretation.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:ReferenceDatabase
+    is_a: database_object
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - access_url
+    - identifier_prefix
+    - resource_identifier
+    - url
+    class_uri: reactomeo:ReferenceDatabase
+  database_identifier:
+    name: database_identifier
+    definition_uri: https://w3id.org/reactome-ontology/DatabaseIdentifier
+    description: Cross-reference record that pairs an identifier string with a reference
+      database authority.
+    comments:
+    - Useful as a reified identifier object rather than a bare literal.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:DatabaseIdentifier
+    is_a: database_object
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - identifier
+    - has_reference_database
+    class_uri: reactomeo:DatabaseIdentifier
+  catalyst_activity:
+    name: catalyst_activity
+    definition_uri: https://w3id.org/reactome-ontology/CatalystActivity
+    description: Reified catalytic assertion connecting a catalyst bearer, a GO molecular
+      function, and one or more catalyzed reaction-like events.
+    comments:
+    - This is one of the most semantically important reified node types in Reactome.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:CatalystActivity
+    is_a: database_object
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - catalyst_activity_has_catalyst
+    - catalyst_activity_has_go_molecular_function
+    - has_active_unit
+    - catalyzes
+    - supported_by
+    slot_usage:
+      has_catalyst:
+        name: has_catalyst
+        required: true
+      has_go_molecular_function:
+        name: has_go_molecular_function
+        required: true
+    class_uri: reactomeo:CatalystActivity
+  regulation:
+    name: regulation
+    definition_uri: https://w3id.org/reactome-ontology/Regulation
+    description: Reified regulatory assertion linking a regulator physical entity
+      to a regulated reaction-like event.
+    comments:
+    - Reactome models regulation explicitly instead of flattening it into a simple
+      binary relation.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:Regulation
+    is_a: database_object
+    abstract: true
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - regulation_has_regulator
+    - regulation_regulates
+    - has_active_unit
+    - supported_by
+    slot_usage:
+      has_regulator:
+        name: has_regulator
+        required: true
+      regulates:
+        name: regulates
+        required: true
+    class_uri: reactomeo:Regulation
+  positive_regulation:
+    name: positive_regulation
+    definition_uri: https://w3id.org/reactome-ontology/PositiveRegulation
+    description: Regulation that increases, enables, or positively influences the
+      occurrence or efficiency of a reaction-like event.
+    comments:
+    - Semantic polarity is explicit at the class level.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:PositiveRegulation
+    is_a: regulation
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - regulation_has_regulator
+    - regulation_regulates
+    - has_active_unit
+    - supported_by
+    class_uri: reactomeo:PositiveRegulation
+  negative_regulation:
+    name: negative_regulation
+    definition_uri: https://w3id.org/reactome-ontology/NegativeRegulation
+    description: Regulation that decreases, inhibits, or negatively influences the
+      occurrence or efficiency of a reaction-like event.
+    comments:
+    - Semantic polarity is explicit at the class level.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:NegativeRegulation
+    is_a: regulation
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - regulation_has_regulator
+    - regulation_regulates
+    - has_active_unit
+    - supported_by
+    class_uri: reactomeo:NegativeRegulation
+  requirement:
+    name: requirement
+    definition_uri: https://w3id.org/reactome-ontology/Requirement
+    description: Regulation-like assertion indicating that a regulator or participant
+      is required for a reaction-like event to occur.
+    comments:
+    - Used when necessity is the key biological relation rather than positive or negative
+      modulation.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:Requirement
+    is_a: regulation
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - regulation_has_regulator
+    - regulation_regulates
+    - has_active_unit
+    - supported_by
+    class_uri: reactomeo:Requirement
+  interaction:
+    name: interaction
+    definition_uri: https://w3id.org/reactome-ontology/Interaction
+    description: Interaction record associated with an event or set of participants.
+    comments:
+    - Retained as a distinct object to preserve graph fidelity when interactions are
+      explicitly modeled.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:Interaction
+    is_a: database_object
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    class_uri: reactomeo:Interaction
+  reaction_type_term:
+    name: reaction_type_term
+    definition_uri: https://w3id.org/reactome-ontology/ReactionTypeTerm
+    description: Controlled vocabulary term used to characterize a reaction-like event.
+    comments:
+    - Supports editorial or mechanistic grouping of reaction events.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:ReactionTypeTerm
+    is_a: database_object
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    class_uri: reactomeo:ReactionTypeTerm
+  abstract_modified_residue:
+    name: abstract_modified_residue
+    definition_uri: https://w3id.org/reactome-ontology/AbstractModifiedResidue
+    description: Feature record describing a modified residue or residue-level state
+      on a sequence-bearing entity.
+    comments:
+    - Abstract superclass for phosphorylation-like or other residue modification records.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:AbstractModifiedResidue
+    is_a: database_object
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    class_uri: reactomeo:AbstractModifiedResidue
+  organism_taxon:
+    name: organism_taxon
+    definition_uri: https://w3id.org/reactome-ontology/OrganismTaxon
+    description: Organism taxon record representing the organismal context for entities
+      and events.
+    comments:
+    - Often associated with taxonomy identifiers and may correspond to NCBI Taxonomy
+      concepts.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:OrganismTaxon
+    is_a: database_object
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - ncbi_taxon_id
+    class_uri: reactomeo:OrganismTaxon
+  taxon:
+    name: taxon
+    definition_uri: https://w3id.org/reactome-ontology/Taxon
+    description: Taxonomic concept used for taxonomic assignment or metadata.
+    comments:
+    - Can be used in parallel with or beneath species-oriented records.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:Taxon
+    is_a: database_object
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - ncbi_taxon_id
+    class_uri: reactomeo:Taxon
+  compartment:
+    name: compartment
+    definition_uri: https://w3id.org/reactome-ontology/Compartment
+    description: Cellular or subcellular location object used to state where an event
+      occurs or where a physical entity resides.
+    comments:
+    - Often alignable to GO cellular component terms, though not always identical
+      in role.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:Compartment
+    is_a: database_object
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    class_uri: reactomeo:Compartment
+  disease:
+    name: disease
+    definition_uri: https://w3id.org/reactome-ontology/Disease
+    description: Disease concept used to contextualize events and entities in pathological
+      settings.
+    comments:
+    - Represents disease context rather than a full disease ontology commitment.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:Disease
+    is_a: database_object
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    class_uri: reactomeo:Disease
+  go_molecular_function_term:
+    name: go_molecular_function_term
+    definition_uri: https://w3id.org/reactome-ontology/GoMolecularFunctionTerm
+    description: Wrapper object for a GO molecular function term used in Reactome
+      catalysis modeling.
+    comments:
+    - Particularly important in CatalystActivity.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:GoMolecularFunctionTerm
+    is_a: database_object
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    class_uri: reactomeo:GoMolecularFunctionTerm
+  go_biological_process_term:
+    name: go_biological_process_term
+    definition_uri: https://w3id.org/reactome-ontology/GoBiologicalProcessTerm
+    description: Wrapper object for a GO biological process term used for pathway
+      or event alignment.
+    comments:
+    - Useful for crosswalks between Reactome pathways and GO process knowledge.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:GoBiologicalProcessTerm
+    is_a: database_object
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    class_uri: reactomeo:GoBiologicalProcessTerm
+  go_cellular_component_term:
+    name: go_cellular_component_term
+    definition_uri: https://w3id.org/reactome-ontology/GoCellularComponentTerm
+    description: Wrapper object for a GO cellular component term used in entity or
+      location annotation.
+    comments:
+    - Often complements explicit compartment modeling.
+    from_schema: https://w3id.org/reactome-ontology/final
+    mappings:
+    - reactomeo:GoCellularComponentTerm
+    is_a: database_object
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    class_uri: reactomeo:GoCellularComponentTerm
+  reactome_dataset:
+    name: reactome_dataset
+    definition_uri: https://w3id.org/reactome-ontology/ReactomeDataset
+    description: Top-level container for a serialized Reactome dataset excerpt or
+      export package.
+    comments:
+    - Provides a practical root object for JSON and YAML instance data.
+    from_schema: https://w3id.org/reactome-ontology/final
+    slots:
+    - reactomeDataset__database_objects
+    attributes:
+      database_objects:
+        name: database_objects
+        description: Collection of Reactome objects keyed by identifier.
+        range: database_object
+        multivalued: true
+        inlined: true
+        inlined_as_list: false
+    class_uri: reactomeo:ReactomeDataset
+    tree_root: true
+metamodel_version: 1.7.0
+source_file: reactome_ontology.yaml
+source_file_date: '2026-04-10T03:36:51'
+source_file_size: 39110
+generation_date: '2026-04-10T03:37:05'
+
