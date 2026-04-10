@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://cair2015.github.io/reactome-ontology/about/">
       
       
-        <link rel="prev" href="../elements/">
+        <link rel="prev" href="../schema/reactome_ontology.yaml">
       
       
       
@@ -266,14 +266,14 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../elements/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Home
+    Schema Reference
   
 
     
@@ -293,14 +293,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../elements/" class="md-nav__link">
+      <a href="../schema/reactome_ontology.yaml" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Schema
+    Published Schema YAML
   
 
     
@@ -329,6 +329,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -345,6 +363,91 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-project-exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Project Exists
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-in-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Is In Scope
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-the-project-is-organized" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How The Project Is Organized
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intended-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intended Use
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#source-and-publishing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Source And Publishing
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -370,6 +473,80 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-project-exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Project Exists
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-in-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Is In Scope
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-the-project-is-organized" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How The Project Is Organized
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intended-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intended Use
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#source-and-publishing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Source And Publishing
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -389,8 +566,57 @@
   
 
 
-<h1 id="about-reactome-ontology">About reactome-ontology</h1>
-<p>This is the project description.</p>
+<h1 id="about-reactome-ontology">About Reactome Ontology</h1>
+<p><code>reactome-ontology</code> is a LinkML-based project for representing key parts of the Reactome data model in a cleaner, ontology-oriented form.</p>
+<p>The goal is not to mirror every implementation detail of the operational Reactome source schema. Instead, this project focuses on preserving the concepts, relationships, and identifiers that are most useful for ontology development, documentation, validation, and downstream semantic integration.</p>
+<h2 id="why-this-project-exists">Why This Project Exists</h2>
+<p>Reactome is a powerful biological pathway knowledgebase, but its source-facing data structures are designed for curation and system operation rather than ontology-facing exchange. This project creates a profile that is easier to:</p>
+<ul>
+<li>understand as a conceptual model</li>
+<li>validate as structured data</li>
+<li>document automatically</li>
+<li>align with ontology terms and URIs</li>
+<li>export into generated Python and semantic artifacts</li>
+</ul>
+<h2 id="what-is-in-scope">What Is In Scope</h2>
+<p>The schema includes ontology-relevant classes and relationships for:</p>
+<ul>
+<li>Reactome database objects</li>
+<li>biological events such as pathways and reactions</li>
+<li>physical entities and reference entities</li>
+<li>provenance objects such as instance edits and people</li>
+<li>supporting terms, identifiers, and cross-references</li>
+</ul>
+<p>It also preserves selected administrative and serialization-oriented fields that are helpful for round-tripping, validation, and traceability.</p>
+<h2 id="how-the-project-is-organized">How The Project Is Organized</h2>
+<p>The repository is built around a single primary schema source:</p>
+<p><code>src/reactome_ontology/schema/reactome_ontology.yaml</code></p>
+<p>From that schema, the project generates:</p>
+<ul>
+<li>schema reference documentation</li>
+<li>Python dataclasses</li>
+<li>Pydantic models</li>
+<li>published schema artifacts for documentation and distribution</li>
+</ul>
+<p>Additional mapping files document how the ontology-facing schema relates back to the original Reactome source model.</p>
+<h2 id="documentation-workflow">Documentation Workflow</h2>
+<p>This documentation site is generated with MkDocs, and schema reference pages are generated from the LinkML schema.</p>
+<p>Common commands:</p>
+<div class="highlight"><pre><span></span><code>just<span class="w"> </span>gen-doc
+just<span class="w"> </span>gen-project
+just<span class="w"> </span><span class="nb">test</span>
+</code></pre></div>
+<p>These commands regenerate documentation and project artifacts, and validate example data and schema behavior.</p>
+<h2 id="intended-use">Intended Use</h2>
+<p>This project is useful for anyone who wants to work with Reactome content in a form that is more ontology-friendly than the original operational schema, including:</p>
+<ul>
+<li>ontology engineers</li>
+<li>knowledge graph builders</li>
+<li>data modelers</li>
+<li>Python developers working with generated LinkML models</li>
+</ul>
+<h2 id="source-and-publishing">Source And Publishing</h2>
+<p>The Markdown files in <code>docs/</code> are the source for this documentation site. Generated schema pages are written into <code>docs/elements/</code>, and the published site is deployed through GitHub Pages.</p>
 
 
 
@@ -427,7 +653,7 @@
     >
       
         <a
-          href="../elements/"
+          href="../schema/reactome_ontology.yaml"
           class="md-footer__link md-footer__link--prev"
           rel="prev"
         >
@@ -439,7 +665,7 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              Schema
+              Published Schema YAML
             </div>
           </div>
         </a>

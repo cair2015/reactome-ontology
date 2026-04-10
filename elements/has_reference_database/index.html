@@ -264,14 +264,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Home
+    Schema Reference
   
 
     
@@ -291,14 +291,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../schema/reactome_ontology.yaml" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Schema
+    Published Schema YAML
   
 
     
@@ -498,7 +498,7 @@
 
 <h1 id="slot-has_reference_database">Slot: has_reference_database</h1>
 <p><em>Reference database authority associated with a reference entity or database identifier.</em></p>
-<p>URI: <a href="https://w3id.org/reactome-ontology/hasReferenceDatabase">reactomeo:hasReferenceDatabase</a>
+<p>URI: <a href="https://w3id.org/reactome-ontology/hasReferenceDatabase">reactome:hasReferenceDatabase</a>
 Alias: has_reference_database</p>
 <!-- no inheritance hierarchy -->
 
@@ -513,31 +513,6 @@ Alias: has_reference_database</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="../ReferenceMolecule/">ReferenceMolecule</a></td>
-<td>Reference identity for a small molecule, simple chemical, or chemically groun...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../ReferenceGroup/">ReferenceGroup</a></td>
-<td>Grouped reference identity used when an invariant identity is represented at ...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../ReferenceSequence/">ReferenceSequence</a></td>
-<td>Reference identity for a sequence-bearing biomolecule</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../ReferenceGeneProduct/">ReferenceGeneProduct</a></td>
-<td>Reference sequence corresponding to a gene product, typically protein-centric</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../DatabaseIdentifier/">DatabaseIdentifier</a></td>
-<td>Cross-reference record that pairs an identifier string with a reference datab...</td>
-<td>no</td>
-</tr>
-<tr>
 <td><a href="../ReferenceIsoform/">ReferenceIsoform</a></td>
 <td>Reference sequence representing a specific isoform-level identity</td>
 <td>no</td>
@@ -548,8 +523,28 @@ Alias: has_reference_database</p>
 <td>no</td>
 </tr>
 <tr>
+<td><a href="../ReferenceGeneProduct/">ReferenceGeneProduct</a></td>
+<td>Reference sequence corresponding to a gene product, typically protein-centric</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../ReferenceRnaSequence/">ReferenceRnaSequence</a></td>
+<td>Reference identity for an RNA sequence</td>
+<td>no</td>
+</tr>
+<tr>
 <td><a href="../ReferenceDnaSequence/">ReferenceDnaSequence</a></td>
 <td>Reference identity for a DNA sequence</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../ReferenceGroup/">ReferenceGroup</a></td>
+<td>Grouped reference identity used when an invariant identity is represented at ...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../ReferenceMolecule/">ReferenceMolecule</a></td>
+<td>Reference identity for a small molecule, simple chemical, or chemically groun...</td>
 <td>no</td>
 </tr>
 <tr>
@@ -558,8 +553,13 @@ Alias: has_reference_database</p>
 <td>yes</td>
 </tr>
 <tr>
-<td><a href="../ReferenceRnaSequence/">ReferenceRnaSequence</a></td>
-<td>Reference identity for an RNA sequence</td>
+<td><a href="../DatabaseIdentifier/">DatabaseIdentifier</a></td>
+<td>Cross-reference record that pairs an identifier string with a reference datab...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../ReferenceSequence/">ReferenceSequence</a></td>
+<td>Reference identity for a sequence-bearing biomolecule</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -584,7 +584,7 @@ Alias: has_reference_database</p>
 </tr>
 <tr>
 <td>Slot URI</td>
-<td><a href="https://w3id.org/reactome-ontology/hasReferenceDatabase">reactomeo:hasReferenceDatabase</a></td>
+<td><a href="https://w3id.org/reactome-ontology/hasReferenceDatabase">reactome:hasReferenceDatabase</a></td>
 </tr>
 </tbody>
 </table>
@@ -623,11 +623,11 @@ Alias: has_reference_database</p>
 <tbody>
 <tr>
 <td>self</td>
-<td>reactomeo:hasReferenceDatabase</td>
+<td>reactome:hasReferenceDatabase</td>
 </tr>
 <tr>
 <td>native</td>
-<td>reactomeo:has_reference_database</td>
+<td>reactome:has_reference_database</td>
 </tr>
 </tbody>
 </table>
@@ -640,7 +640,7 @@ Alias: has_reference_database</p>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Provides the namespace and interpretation context for an identifier.</span>
 <span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/reactome-ontology/final</span>
 <span class="nt">rank</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
-<span class="nt">slot_uri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reactomeo:hasReferenceDatabase</span>
+<span class="nt">slot_uri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reactome:hasReferenceDatabase</span>
 <span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">has_reference_database</span>
 <span class="nt">domain_of</span><span class="p">:</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reference_entity</span>

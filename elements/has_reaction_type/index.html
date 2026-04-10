@@ -264,14 +264,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Home
+    Schema Reference
   
 
     
@@ -291,14 +291,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../schema/reactome_ontology.yaml" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Schema
+    Published Schema YAML
   
 
     
@@ -498,7 +498,7 @@
 
 <h1 id="slot-has_reaction_type">Slot: has_reaction_type</h1>
 <p><em>Controlled reaction type annotation describing the mechanistic or editorial type of a reaction.</em></p>
-<p>URI: <a href="https://w3id.org/reactome-ontology/hasReactionType">reactomeo:hasReactionType</a>
+<p>URI: <a href="https://w3id.org/reactome-ontology/hasReactionType">reactome:hasReactionType</a>
 Alias: has_reaction_type</p>
 <!-- no inheritance hierarchy -->
 
@@ -513,13 +513,8 @@ Alias: has_reaction_type</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="../Polymerization/">Polymerization</a></td>
-<td>Event representing formation of a polymer from repeated or assembling units</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../BlackBoxEvent/">BlackBoxEvent</a></td>
-<td>Reaction-like event included in the pathway model despite incomplete mechanis...</td>
+<td><a href="../ReactionLikeEvent/">ReactionLikeEvent</a></td>
+<td>Event in which physical entities participate as inputs, outputs, regulators, ...</td>
 <td>no</td>
 </tr>
 <tr>
@@ -528,13 +523,18 @@ Alias: has_reaction_type</p>
 <td>no</td>
 </tr>
 <tr>
-<td><a href="../ReactionLikeEvent/">ReactionLikeEvent</a></td>
-<td>Event in which physical entities participate as inputs, outputs, regulators, ...</td>
+<td><a href="../Polymerization/">Polymerization</a></td>
+<td>Event representing formation of a polymer from repeated or assembling units</td>
 <td>no</td>
 </tr>
 <tr>
 <td><a href="../Depolymerization/">Depolymerization</a></td>
 <td>Event representing breakdown of a polymer into constituent or smaller units</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../BlackBoxEvent/">BlackBoxEvent</a></td>
+<td>Reaction-like event included in the pathway model despite incomplete mechanis...</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -559,7 +559,7 @@ Alias: has_reaction_type</p>
 </tr>
 <tr>
 <td>Slot URI</td>
-<td><a href="https://w3id.org/reactome-ontology/hasReactionType">reactomeo:hasReactionType</a></td>
+<td><a href="https://w3id.org/reactome-ontology/hasReactionType">reactome:hasReactionType</a></td>
 </tr>
 </tbody>
 </table>
@@ -598,11 +598,11 @@ Alias: has_reaction_type</p>
 <tbody>
 <tr>
 <td>self</td>
-<td>reactomeo:hasReactionType</td>
+<td>reactome:hasReactionType</td>
 </tr>
 <tr>
 <td>native</td>
-<td>reactomeo:has_reaction_type</td>
+<td>reactome:has_reaction_type</td>
 </tr>
 </tbody>
 </table>
@@ -615,7 +615,7 @@ Alias: has_reaction_type</p>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Useful for grouping reaction-like events into broad mechanistic categories.</span>
 <span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/reactome-ontology/final</span>
 <span class="nt">rank</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
-<span class="nt">slot_uri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reactomeo:hasReactionType</span>
+<span class="nt">slot_uri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reactome:hasReactionType</span>
 <span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">has_reaction_type</span>
 <span class="nt">domain_of</span><span class="p">:</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reaction_like_event</span>

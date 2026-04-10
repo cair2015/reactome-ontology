@@ -264,14 +264,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Home
+    Schema Reference
   
 
     
@@ -291,14 +291,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../schema/reactome_ontology.yaml" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Schema
+    Published Schema YAML
   
 
     
@@ -498,7 +498,7 @@
 
 <h1 id="slot-has_disease_context">Slot: has_disease_context</h1>
 <p><em>Disease context associated with an event or physical entity.</em></p>
-<p>URI: <a href="https://w3id.org/reactome-ontology/hasDiseaseContext">reactomeo:hasDiseaseContext</a>
+<p>URI: <a href="https://w3id.org/reactome-ontology/hasDiseaseContext">reactome:hasDiseaseContext</a>
 Alias: has_disease_context</p>
 <!-- no inheritance hierarchy -->
 
@@ -513,13 +513,8 @@ Alias: has_disease_context</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="../ProteinDrug/">ProteinDrug</a></td>
-<td>Drug represented as a protein therapeutic or protein-derived biologic</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../SimpleEntity/">SimpleEntity</a></td>
-<td>Simple molecular entity, typically a small molecule or other non-sequence-bas...</td>
+<td><a href="../EntitySet/">EntitySet</a></td>
+<td>Curated set of physical entities that are treated as functionally interchange...</td>
 <td>no</td>
 </tr>
 <tr>
@@ -528,13 +523,8 @@ Alias: has_disease_context</p>
 <td>no</td>
 </tr>
 <tr>
-<td><a href="../GenomeEncodedEntity/">GenomeEncodedEntity</a></td>
-<td>Physical entity whose existence is grounded in a genome-encoded product such ...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Complex/">Complex</a></td>
-<td>Physical entity composed of two or more component physical entities assembled...</td>
+<td><a href="../SimpleEntity/">SimpleEntity</a></td>
+<td>Simple molecular entity, typically a small molecule or other non-sequence-bas...</td>
 <td>no</td>
 </tr>
 <tr>
@@ -543,58 +533,8 @@ Alias: has_disease_context</p>
 <td>no</td>
 </tr>
 <tr>
-<td><a href="../PhysicalEntity/">PhysicalEntity</a></td>
-<td>Concrete biological participant whose identity reflects both underlying molec...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Reaction/">Reaction</a></td>
-<td>Standard reaction-like event with explicit transformed inputs and outputs</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Event/">Event</a></td>
-<td>Biological occurrence or process unit in Reactome, covering both pathways and...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../ReactionLikeEvent/">ReactionLikeEvent</a></td>
-<td>Event in which physical entities participate as inputs, outputs, regulators, ...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Depolymerization/">Depolymerization</a></td>
-<td>Event representing breakdown of a polymer into constituent or smaller units</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Polymerization/">Polymerization</a></td>
-<td>Event representing formation of a polymer from repeated or assembling units</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../BlackBoxEvent/">BlackBoxEvent</a></td>
-<td>Reaction-like event included in the pathway model despite incomplete mechanis...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../CandidateSet/">CandidateSet</a></td>
-<td>Entity set whose members are candidates for fulfilling a shared biological ro...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Cell/">Cell</a></td>
-<td>Cell or cell-like biological unit treated as a physical participant in an eve...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Pathway/">Pathway</a></td>
-<td>Curated grouping of biologically related events representing a pathway or pat...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../ChemicalDrug/">ChemicalDrug</a></td>
-<td>Drug represented primarily as a chemical or small-molecule therapeutic agent</td>
+<td><a href="../DefinedSet/">DefinedSet</a></td>
+<td>Entity set whose members are explicitly curated as the intended interchangeab...</td>
 <td>no</td>
 </tr>
 <tr>
@@ -603,13 +543,73 @@ Alias: has_disease_context</p>
 <td>no</td>
 </tr>
 <tr>
+<td><a href="../ProteinDrug/">ProteinDrug</a></td>
+<td>Drug represented as a protein therapeutic or protein-derived biologic</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Pathway/">Pathway</a></td>
+<td>Curated grouping of biologically related events representing a pathway or pat...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../PhysicalEntity/">PhysicalEntity</a></td>
+<td>Concrete biological participant whose identity reflects both underlying molec...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Depolymerization/">Depolymerization</a></td>
+<td>Event representing breakdown of a polymer into constituent or smaller units</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../ChemicalDrug/">ChemicalDrug</a></td>
+<td>Drug represented primarily as a chemical or small-molecule therapeutic agent</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Complex/">Complex</a></td>
+<td>Physical entity composed of two or more component physical entities assembled...</td>
+<td>no</td>
+</tr>
+<tr>
 <td><a href="../Polymer/">Polymer</a></td>
 <td>Polymer entity abstracted in terms of one or more repeated units</td>
 <td>no</td>
 </tr>
 <tr>
-<td><a href="../DefinedSet/">DefinedSet</a></td>
-<td>Entity set whose members are explicitly curated as the intended interchangeab...</td>
+<td><a href="../GenomeEncodedEntity/">GenomeEncodedEntity</a></td>
+<td>Physical entity whose existence is grounded in a genome-encoded product such ...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../CandidateSet/">CandidateSet</a></td>
+<td>Entity set whose members are candidates for fulfilling a shared biological ro...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Polymerization/">Polymerization</a></td>
+<td>Event representing formation of a polymer from repeated or assembling units</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Event/">Event</a></td>
+<td>Biological occurrence or process unit in Reactome, covering both pathways and...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Cell/">Cell</a></td>
+<td>Cell or cell-like biological unit treated as a physical participant in an eve...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../ReactionLikeEvent/">ReactionLikeEvent</a></td>
+<td>Event in which physical entities participate as inputs, outputs, regulators, ...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Reaction/">Reaction</a></td>
+<td>Standard reaction-like event with explicit transformed inputs and outputs</td>
 <td>no</td>
 </tr>
 <tr>
@@ -618,8 +618,8 @@ Alias: has_disease_context</p>
 <td>no</td>
 </tr>
 <tr>
-<td><a href="../EntitySet/">EntitySet</a></td>
-<td>Curated set of physical entities that are treated as functionally interchange...</td>
+<td><a href="../BlackBoxEvent/">BlackBoxEvent</a></td>
+<td>Reaction-like event included in the pathway model despite incomplete mechanis...</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -644,7 +644,7 @@ Alias: has_disease_context</p>
 </tr>
 <tr>
 <td>Slot URI</td>
-<td><a href="https://w3id.org/reactome-ontology/hasDiseaseContext">reactomeo:hasDiseaseContext</a></td>
+<td><a href="https://w3id.org/reactome-ontology/hasDiseaseContext">reactome:hasDiseaseContext</a></td>
 </tr>
 </tbody>
 </table>
@@ -683,11 +683,11 @@ Alias: has_disease_context</p>
 <tbody>
 <tr>
 <td>self</td>
-<td>reactomeo:hasDiseaseContext</td>
+<td>reactome:hasDiseaseContext</td>
 </tr>
 <tr>
 <td>native</td>
-<td>reactomeo:has_disease_context</td>
+<td>reactome:has_disease_context</td>
 </tr>
 </tbody>
 </table>
@@ -699,7 +699,7 @@ Alias: has_disease_context</p>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Represents contextual disease association rather than broad etiologic modeling.</span>
 <span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/reactome-ontology/final</span>
 <span class="nt">rank</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
-<span class="nt">slot_uri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reactomeo:hasDiseaseContext</span>
+<span class="nt">slot_uri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reactome:hasDiseaseContext</span>
 <span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">has_disease_context</span>
 <span class="nt">domain_of</span><span class="p">:</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">event</span>
