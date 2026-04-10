@@ -1,4 +1,4 @@
-# Reactome Ontology Final Mapping
+# Reactome Ontology Mapping
 
 This table maps ontology-facing classes and slots in `reactome_ontology.yaml` to the source Reactome schema names from `reactome-schemas/schema.yaml` in https://github.com/reactome/reactome-schemas/blob/main/schema.yaml. 
 

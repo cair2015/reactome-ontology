@@ -1,7 +1,7 @@
-id: https://w3id.org/reactome-ontology/final
+id: https://w3id.org/reactome-ontology
 name: reactome_ontology
 title: Reactome Ontology Model
-description: A final OWL-oriented LinkML schema for generating a clean Reactome ontology.
+description: A OWL-oriented LinkML schema for generating a clean Reactome ontology.
   This profile keeps ontology-facing classes and properties and removes source-mapping
   annotations, which are maintained in separate mapping files.
 license: https://creativecommons.org/licenses/by/4.0/

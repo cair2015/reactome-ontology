@@ -108,7 +108,7 @@ Example instances live in [`tests/data/valid`](https://github.com/cair2015/react
 
 - Project docs source: [`docs/`](https://github.com/cair2015/reactome-ontology/tree/main/docs)
 - MkDocs config: [`mkdocs.yml`](https://github.com/cair2015/reactome-ontology/blob/main/mkdocs.yml)
-- Published site target: `https://cair2015.github.io/reactome-ontology`
+- Published ontology-model docs: [https://cair2015.github.io/reactome-ontology/](https://cair2015.github.io/reactome-ontology/)
 
 To serve docs locally:
 
