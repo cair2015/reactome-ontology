@@ -1,0 +1,14 @@
+id: pathway-001
+name: Example pathway
+reactome_db_id: 100
+reactome_stable_identifier: R-HSA-PATHWAY-001
+source_schema_class: Pathway
+display_label: Example pathway
+created: instance-edit-001
+has_event:
+  - id: black-box-event-001
+    reactome_db_id: 101
+    reactome_stable_identifier: R-HSA-EVENT-001
+    source_schema_class: BlackBoxEvent
+    display_label: Example nested event
+    created: instance-edit-001

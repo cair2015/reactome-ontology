@@ -1,0 +1,123 @@
+# Reactome Ontology Final Mapping
+
+This table maps ontology-facing classes and slots in `reactome_ontology.yaml` to the source Reactome schema names from `reactome-schemas/schema.yaml` in https://github.com/reactome/reactome-schemas/blob/main/schema.yaml. 
+
+| Element type | Ontology name | Reactome schema name | Previous clean name | Ontology URI | Reactome source URI | Note |
+|---|---|---|---|---|---|---|
+| slot | id | id | id | dcterms:identifier | dcterms:identifier |  |
+| slot | category | type | category |  |  | Serialization support slot; usually excluded from ontology object model. |
+| slot | name | name | name | rdfs:label | rdfs:label |  |
+| slot | description | description | description | dcterms:description | dcterms:description |  |
+| slot | reactome_db_id | db_id | reactome_db_id | reactomeo:reactomeDbId | reactome:dbId | Administrative identifier; not intended as a biological identity relation. |
+| slot | reactome_stable_identifier | stable_id | reactome_stable_identifier | reactomeo:reactomeStableIdentifier | reactome:stId |  |
+| slot | source_schema_class | schema_class | source_schema_class | reactomeo:sourceSchemaClass | reactome:schemaClass | Source-schema provenance slot; usually excluded from ontology axioms. |
+| slot | display_label | display_name | display_label | reactomeo:displayLabel | reactome:displayName |  |
+| slot | definition | definition | definition | reactomeo:definition | reactome:definition |  |
+| slot | systematic_name | systematic_name | systematic_name | reactomeo:systematicName | reactome:systematicName |  |
+| slot | release_date | release_date | release_date | reactomeo:releaseDate | reactome:releaseDate |  |
+| slot | release_status | release_status | release_status | reactomeo:releaseStatus | reactome:releaseStatus |  |
+| slot | is_inferred | inferred | is_inferred | reactomeo:isInferred | reactome:isInferred |  |
+| slot | is_in_disease_context | in_disease | has_disease_context | reactomeo:isInDiseaseContext | reactome:inDisease |  |
+| slot | created | created | created | reactomeo:created | reactome:created |  |
+| slot | modified | modified | modified | reactomeo:modified | reactome:modified |  |
+| slot | reviewed | reviewed | reviewed | reactomeo:reviewed | reactome:reviewed |  |
+| slot | revised | revised | revised | reactomeo:revised | reactome:revised |  |
+| slot | authored | authored | authored | reactomeo:authored | reactome:authored |  |
+| slot | in_taxon | species | organism | reactomeo:inTaxon | reactome:species |  |
+| slot | located_in_compartment | compartment | compartment | reactomeo:locatedInCompartment | reactome:compartment |  |
+| slot | has_summation | summation | summation | reactomeo:hasSummation | reactome:summation |  |
+| slot | supported_by | literature_reference | literature_reference | reactomeo:supportedBy | reactome:literatureReference |  |
+| slot | has_cross_reference | cross_reference | cross_reference | reactomeo:hasCrossReference | reactome:crossReference |  |
+| slot | has_disease_context | disease | disease | reactomeo:hasDiseaseContext | reactome:disease |  |
+| slot | has_go_biological_process | go_biological_process | go_biological_process | reactomeo:hasGoBiologicalProcess | reactome:goBiologicalProcess |  |
+| slot | has_go_cellular_component | go_cellular_component | go_cellular_component | reactomeo:hasGoCellularComponent | reactome:goCellularComponent |  |
+| slot | has_go_molecular_function | activity | molecular_function | reactomeo:hasGoMolecularFunction | reactome:activity |  |
+| slot | has_event | has_event | has_event | reactomeo:hasEvent | reactome:hasEvent |  |
+| slot | preceded_by | preceding_event | preceded_by | reactomeo:precededBy | reactome:precedingEvent |  |
+| slot | has_input | input | input | reactomeo:hasInput | reactome:input |  |
+| slot | has_output | output | output | reactomeo:hasOutput | reactome:output |  |
+| slot | requires_component | required_input_component | requires_component | reactomeo:requiresComponent | reactome:requiredInputComponent |  |
+| slot | has_catalyst_activity | catalyst_activity | catalyst_activity | reactomeo:hasCatalystActivity | reactome:catalystActivity |  |
+| slot | has_regulation | regulated_by | has_regulation | reactomeo:hasRegulation | reactome:regulatedBy |  |
+| slot | has_interacting_entity_on_other_cell | entity_on_other_cell | interacting_entity_on_other_cell | reactomeo:hasInteractingEntityOnOtherCell | reactome:entityOnOtherCell |  |
+| slot | has_interaction | has_interaction | has_interaction | reactomeo:hasInteraction | reactome:hasInteraction |  |
+| slot | has_reaction_type | reaction_type | reaction_type | reactomeo:hasReactionType | reactome:reactionType |  |
+| slot | has_reference_entity | reference_entity | reference_entity | reactomeo:hasReferenceEntity | reactome:referenceEntity |  |
+| slot | has_modified_residue | has_modified_residue | has_modified_residue | reactomeo:hasModifiedResidue | reactome:hasModifiedResidue |  |
+| slot | start_coordinate | start_coordinate | start_coordinate | reactomeo:startCoordinate | reactome:startCoordinate |  |
+| slot | end_coordinate | end_coordinate | end_coordinate | reactomeo:endCoordinate | reactome:endCoordinate |  |
+| slot | sequence_reference_type | reference_type | sequence_reference_type | reactomeo:sequenceReferenceType | reactome:referenceType |  |
+| slot | has_component | has_component | has_component | reactomeo:hasComponent | reactome:hasComponent |  |
+| slot | has_member | has_member | has_member | reactomeo:hasMember | reactome:hasMember |  |
+| slot | has_repeated_unit | repeated_unit | has_repeated_unit | reactomeo:hasRepeatedUnit | reactome:repeatedUnit |  |
+| slot | has_regulator | regulator | regulator | reactomeo:hasRegulator | reactome:regulator |  |
+| slot | regulates | regulated_entity | regulated_event | reactomeo:regulates | reactome:regulatedEntity |  |
+| slot | has_active_unit | active_unit | active_unit | reactomeo:hasActiveUnit | reactome:activeUnit |  |
+| slot | has_catalyst | physical_entity | catalyst | reactomeo:hasCatalyst | reactome:physicalEntity |  |
+| slot | catalyzes | catalyzed_event | catalyzes | reactomeo:catalyzes | reactome:catalyzedEvent |  |
+| slot | has_reference_database | reference_database | reference_database | reactomeo:hasReferenceDatabase | reactome:referenceDatabase |  |
+| slot | identifier | identifier | identifier | reactomeo:identifier | reactome:identifier |  |
+| slot | access_url | access_url | access_url | reactomeo:accessUrl | reactome:accessUrl |  |
+| slot | identifier_prefix | identifiers_prefix | identifier_prefix | reactomeo:identifierPrefix | reactome:identifiersPrefix |  |
+| slot | resource_identifier | resource_identifier | resource_identifier | reactomeo:resourceIdentifier | reactome:resourceIdentifier |  |
+| slot | url | url | url | reactomeo:url | reactome:url |  |
+| slot | pubmed_id | pubmed_identifier | pubmed_id | reactomeo:pubmedId | reactome:pubMedIdentifier |  |
+| slot | orcid | orcid_id | orcid | reactomeo:orcid | reactome:orcidId |  |
+| slot | ncbi_taxon_id | tax_id | ncbi_taxon_id | reactomeo:ncbiTaxonId | reactome:taxId |  |
+| slot | previous_stable_identifier | old_st_id | previous_stable_identifier | reactomeo:previousStableIdentifier | reactome:oldStId |  |
+| class | named_entity | named_thing | named_entity | reactomeo:NamedEntity |  |  |
+| class | database_object | database_object | database_object | reactomeo:DatabaseObject | reactome:DatabaseObject |  |
+| class | instance_edit | instance_edit | instance_edit | reactomeo:InstanceEdit | reactome:InstanceEdit |  |
+| class | publication | publication | publication | reactomeo:Publication | reactome:Publication |  |
+| class | literature_reference | literature_reference | literature_reference | reactomeo:LiteratureReference | reactome:LiteratureReference |  |
+| class | person | person | person | reactomeo:Person | reactome:Person |  |
+| class | summation | summation | summation | reactomeo:Summation | reactome:Summation |  |
+| class | event | event | event | reactomeo:Event | reactome:Event |  |
+| class | pathway | pathway | pathway | reactomeo:Pathway | reactome:Pathway |  |
+| class | reaction_like_event | reaction_like_event | reaction_like_event | reactomeo:ReactionLikeEvent | reactome:ReactionLikeEvent |  |
+| class | reaction | reaction | reaction | reactomeo:Reaction | reactome:Reaction |  |
+| class | black_box_event | black_box_event | black_box_event | reactomeo:BlackBoxEvent | reactome:BlackBoxEvent |  |
+| class | polymerization | polymerisation | polymerization | reactomeo:Polymerization | reactome:Polymerisation |  |
+| class | depolymerization | depolymerisation | depolymerization | reactomeo:Depolymerization | reactome:Depolymerisation |  |
+| class | physical_entity | physical_entity | physical_entity | reactomeo:PhysicalEntity | reactome:PhysicalEntity |  |
+| class | simple_entity | simple_entity | simple_entity | reactomeo:SimpleEntity | reactome:SimpleEntity |  |
+| class | genome_encoded_entity | genome_encoded_entity | genome_encoded_entity | reactomeo:GenomeEncodedEntity | reactome:GenomeEncodedEntity |  |
+| class | sequence_entity | entity_with_accessioned_sequence | sequence_entity | reactomeo:SequenceEntity | reactome:EntityWithAccessionedSequence |  |
+| class | complex | complex | complex | reactomeo:Complex | reactome:Complex |  |
+| class | entity_set | entity_set | entity_set | reactomeo:EntitySet | reactome:EntitySet |  |
+| class | candidate_set | candidate_set | candidate_set | reactomeo:CandidateSet | reactome:CandidateSet |  |
+| class | defined_set | defined_set | defined_set | reactomeo:DefinedSet | reactome:DefinedSet |  |
+| class | polymer | polymer | polymer | reactomeo:Polymer | reactome:Polymer |  |
+| class | cell | cell | cell | reactomeo:Cell | reactome:Cell |  |
+| class | other_entity | other_entity | other_entity | reactomeo:OtherEntity | reactome:OtherEntity |  |
+| class | drug | drug | drug | reactomeo:Drug | reactome:Drug |  |
+| class | chemical_drug | chemical_drug | chemical_drug | reactomeo:ChemicalDrug | reactome:ChemicalDrug |  |
+| class | protein_drug | protein_drug | protein_drug | reactomeo:ProteinDrug | reactome:ProteinDrug |  |
+| class | rna_drug | rna_drug | rna_drug | reactomeo:RnaDrug | reactome:RNADrug |  |
+| class | reference_entity | reference_entity | reference_entity | reactomeo:ReferenceEntity | reactome:ReferenceEntity |  |
+| class | reference_sequence | reference_sequence | reference_sequence | reactomeo:ReferenceSequence | reactome:ReferenceSequence |  |
+| class | reference_gene_product | reference_gene_product | reference_gene_product | reactomeo:ReferenceGeneProduct | reactome:ReferenceGeneProduct |  |
+| class | reference_isoform | reference_isoform | reference_isoform | reactomeo:ReferenceIsoform | reactome:ReferenceIsoform |  |
+| class | reference_dna_sequence | reference_dna_sequence | reference_dna_sequence | reactomeo:ReferenceDnaSequence | reactome:ReferenceDNASequence |  |
+| class | reference_rna_sequence | reference_rna_sequence | reference_rna_sequence | reactomeo:ReferenceRnaSequence | reactome:ReferenceRNASequence |  |
+| class | reference_molecule | reference_molecule | reference_molecule | reactomeo:ReferenceMolecule | reactome:ReferenceMolecule |  |
+| class | reference_group | reference_group | reference_group | reactomeo:ReferenceGroup | reactome:ReferenceGroup |  |
+| class | reference_therapeutic | reference_therapeutic | reference_therapeutic | reactomeo:ReferenceTherapeutic | reactome:ReferenceTherapeutic |  |
+| class | reference_database | reference_database | reference_database | reactomeo:ReferenceDatabase | reactome:ReferenceDatabase |  |
+| class | database_identifier | database_identifier | database_identifier | reactomeo:DatabaseIdentifier | reactome:DatabaseIdentifier |  |
+| class | catalyst_activity | catalyst_activity | catalyst_activity | reactomeo:CatalystActivity | reactome:CatalystActivity |  |
+| class | regulation | regulation | regulation | reactomeo:Regulation | reactome:Regulation |  |
+| class | positive_regulation | positive_regulation | positive_regulation | reactomeo:PositiveRegulation | reactome:PositiveRegulation |  |
+| class | negative_regulation | negative_regulation | negative_regulation | reactomeo:NegativeRegulation | reactome:NegativeRegulation |  |
+| class | requirement | requirement | requirement | reactomeo:Requirement | reactome:Requirement |  |
+| class | interaction | interaction | interaction | reactomeo:Interaction | reactome:Interaction |  |
+| class | reaction_type_term | reaction_type | reaction_type | reactomeo:ReactionTypeTerm | reactome:ReactionType |  |
+| class | abstract_modified_residue | abstract_modified_residue | abstract_modified_residue | reactomeo:AbstractModifiedResidue | reactome:AbstractModifiedResidue |  |
+| class | organism_taxon | species | organism_taxon | reactomeo:OrganismTaxon | reactome:Species |  |
+| class | taxon | taxon | taxon | reactomeo:Taxon | reactome:Taxon |  |
+| class | compartment | compartment | compartment | reactomeo:Compartment | reactome:Compartment |  |
+| class | disease | disease | disease | reactomeo:Disease | reactome:Disease |  |
+| class | go_molecular_function_term | go_molecular_function | go_molecular_function_term | reactomeo:GoMolecularFunctionTerm | reactome:GO_MolecularFunction |  |
+| class | go_biological_process_term | go_biological_process | go_biological_process_term | reactomeo:GoBiologicalProcessTerm | reactome:GO_BiologicalProcess |  |
+| class | go_cellular_component_term | go_cellular_component | go_cellular_component_term | reactomeo:GoCellularComponentTerm | reactome:GO_CellularComponent |  |
+| class | reactome_dataset | reactome_dataset | reactome_dataset |  |  | Serialization container; usually excluded from OWL class exports. |

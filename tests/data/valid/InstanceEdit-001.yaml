@@ -1,0 +1,7 @@
+id: instance-edit-001
+reactome_db_id: 10
+reactome_stable_identifier: R-HSA-IE-001
+source_schema_class: InstanceEdit
+display_label: Initial curation event
+created: instance-edit-root
+date: "2026-04-09T12:00:00"

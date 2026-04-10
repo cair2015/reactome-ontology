@@ -1,0 +1,7 @@
+id: pathway-002
+name: Missing event list
+reactome_db_id: 200
+reactome_stable_identifier: R-HSA-PATHWAY-002
+source_schema_class: Pathway
+display_label: Missing event list
+created: instance-edit-001
