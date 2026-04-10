@@ -513,8 +513,23 @@ Alias: in_taxon</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="../EntitySet/">EntitySet</a></td>
-<td>Curated set of physical entities that are treated as functionally interchange...</td>
+<td><a href="../PhysicalEntity/">PhysicalEntity</a></td>
+<td>Concrete biological participant whose identity reflects both underlying molec...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../ReactionLikeEvent/">ReactionLikeEvent</a></td>
+<td>Event in which physical entities participate as inputs, outputs, regulators, ...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Cell/">Cell</a></td>
+<td>Cell or cell-like biological unit treated as a physical participant in an eve...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../ChemicalDrug/">ChemicalDrug</a></td>
+<td>Drug represented primarily as a chemical or small-molecule therapeutic agent</td>
 <td>no</td>
 </tr>
 <tr>
@@ -523,18 +538,18 @@ Alias: in_taxon</p>
 <td>no</td>
 </tr>
 <tr>
-<td><a href="../SimpleEntity/">SimpleEntity</a></td>
-<td>Simple molecular entity, typically a small molecule or other non-sequence-bas...</td>
+<td><a href="../DefinedSet/">DefinedSet</a></td>
+<td>Entity set whose members are explicitly curated as the intended interchangeab...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Polymerization/">Polymerization</a></td>
+<td>Event representing formation of a polymer from repeated or assembling units</td>
 <td>no</td>
 </tr>
 <tr>
 <td><a href="../RnaDrug/">RnaDrug</a></td>
 <td>Drug represented as an RNA-based therapeutic agent</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../DefinedSet/">DefinedSet</a></td>
-<td>Entity set whose members are explicitly curated as the intended interchangeab...</td>
 <td>no</td>
 </tr>
 <tr>
@@ -548,33 +563,8 @@ Alias: in_taxon</p>
 <td>no</td>
 </tr>
 <tr>
-<td><a href="../Pathway/">Pathway</a></td>
-<td>Curated grouping of biologically related events representing a pathway or pat...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../PhysicalEntity/">PhysicalEntity</a></td>
-<td>Concrete biological participant whose identity reflects both underlying molec...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Depolymerization/">Depolymerization</a></td>
-<td>Event representing breakdown of a polymer into constituent or smaller units</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../ChemicalDrug/">ChemicalDrug</a></td>
-<td>Drug represented primarily as a chemical or small-molecule therapeutic agent</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Complex/">Complex</a></td>
-<td>Physical entity composed of two or more component physical entities assembled...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Polymer/">Polymer</a></td>
-<td>Polymer entity abstracted in terms of one or more repeated units</td>
+<td><a href="../EntitySet/">EntitySet</a></td>
+<td>Curated set of physical entities that are treated as functionally interchange...</td>
 <td>no</td>
 </tr>
 <tr>
@@ -583,33 +573,18 @@ Alias: in_taxon</p>
 <td>no</td>
 </tr>
 <tr>
+<td><a href="../BlackBoxEvent/">BlackBoxEvent</a></td>
+<td>Reaction-like event included in the pathway model despite incomplete mechanis...</td>
+<td>no</td>
+</tr>
+<tr>
 <td><a href="../CandidateSet/">CandidateSet</a></td>
 <td>Entity set whose members are candidates for fulfilling a shared biological ro...</td>
 <td>no</td>
 </tr>
 <tr>
-<td><a href="../Polymerization/">Polymerization</a></td>
-<td>Event representing formation of a polymer from repeated or assembling units</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Event/">Event</a></td>
-<td>Biological occurrence or process unit in Reactome, covering both pathways and...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Cell/">Cell</a></td>
-<td>Cell or cell-like biological unit treated as a physical participant in an eve...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../ReactionLikeEvent/">ReactionLikeEvent</a></td>
-<td>Event in which physical entities participate as inputs, outputs, regulators, ...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Reaction/">Reaction</a></td>
-<td>Standard reaction-like event with explicit transformed inputs and outputs</td>
+<td><a href="../SimpleEntity/">SimpleEntity</a></td>
+<td>Simple molecular entity, typically a small molecule or other non-sequence-bas...</td>
 <td>no</td>
 </tr>
 <tr>
@@ -618,8 +593,33 @@ Alias: in_taxon</p>
 <td>no</td>
 </tr>
 <tr>
-<td><a href="../BlackBoxEvent/">BlackBoxEvent</a></td>
-<td>Reaction-like event included in the pathway model despite incomplete mechanis...</td>
+<td><a href="../Depolymerization/">Depolymerization</a></td>
+<td>Event representing breakdown of a polymer into constituent or smaller units</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Reaction/">Reaction</a></td>
+<td>Standard reaction-like event with explicit transformed inputs and outputs</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Complex/">Complex</a></td>
+<td>Physical entity composed of two or more component physical entities assembled...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Event/">Event</a></td>
+<td>Biological occurrence or process unit in Reactome, covering both pathways and...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Polymer/">Polymer</a></td>
+<td>Polymer entity abstracted in terms of one or more repeated units</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Pathway/">Pathway</a></td>
+<td>Curated grouping of biologically related events representing a pathway or pat...</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -670,7 +670,7 @@ Alias: in_taxon</p>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
 <h3 id="schema-source">Schema Source</h3>
 <ul>
-<li>from schema: https://w3id.org/reactome-ontology/final</li>
+<li>from schema: https://w3id.org/reactome-ontology</li>
 </ul>
 <h2 id="mappings">Mappings</h2>
 <table>
@@ -699,7 +699,7 @@ Alias: in_taxon</p>
 <span class="nt">comments</span><span class="p">:</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">For events this denotes the organism context; for entities it denotes the biological</span>
 <span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">source organism.</span>
-<span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/reactome-ontology/final</span>
+<span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/reactome-ontology</span>
 <span class="nt">rank</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
 <span class="nt">slot_uri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reactome:inTaxon</span>
 <span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">in_taxon</span>

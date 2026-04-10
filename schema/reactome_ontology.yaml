@@ -1,5 +1,5 @@
 name: reactome_ontology
-description: A final OWL-oriented LinkML schema for generating a clean Reactome ontology.
+description: A OWL-oriented LinkML schema for generating a clean Reactome ontology.
   This profile keeps ontology-facing classes and properties and removes source-mapping
   annotations, which are maintained in separate mapping files.
 title: Reactome Ontology Model
@@ -10,7 +10,7 @@ comments:
   may be omitted from OWL export profiles.
 - Inverse-style helper relations have been removed from the ontology-facing profile
   in favor of canonical relations.
-id: https://w3id.org/reactome-ontology/final
+id: https://w3id.org/reactome-ontology
 version: 1.0.0
 imports:
 - linkml:types
@@ -339,7 +339,7 @@ slots:
     description: Unique identifier for an instance in the serialized dataset.
     comments:
     - This may be a local identifier, CURIE, URI, or other serialization key.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - dcterms:identifier
     slot_uri: dcterms:identifier
@@ -355,7 +355,7 @@ slots:
     description: Explicit category designator used in serialized instances.
     comments:
     - Useful when data are exchanged in JSON or YAML and class typing must be preserved.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     slot_uri: reactome:category
     designates_type: true
     range: string
@@ -365,7 +365,7 @@ slots:
     description: Human-readable primary label for an object.
     comments:
     - Generic reusable naming slot for schema-wide use.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - rdfs:label
     slot_uri: rdfs:label
@@ -379,7 +379,7 @@ slots:
     description: Free-text textual description of an object.
     comments:
     - Can hold editorial notes, plain-language explanations, or short summaries.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - dcterms:description
     slot_uri: dcterms:description
@@ -395,7 +395,7 @@ slots:
     comments:
     - Reactome DB_ID values are implementation-oriented identifiers rather than stable
       public identifiers.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:reactomeDbId
     slot_uri: reactome:reactomeDbId
@@ -410,7 +410,7 @@ slots:
     description: Stable public Reactome identifier for an object.
     comments:
     - Typically corresponds to the curated Reactome stable accession such as R-HSA-xxxxx.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:reactomeStableIdentifier
     slot_uri: reactome:reactomeStableIdentifier
@@ -427,7 +427,7 @@ slots:
     comments:
     - Useful when preserving frame-schema provenance or round-tripping with the original
       Reactome graph.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:sourceSchemaClass
     slot_uri: reactome:sourceSchemaClass
@@ -442,7 +442,7 @@ slots:
     description: Preferred display label used by Reactome for user-facing presentation.
     comments:
     - Often combines identity and contextual state into a concise label.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:displayLabel
     is_a: name
@@ -458,7 +458,7 @@ slots:
     description: Curated textual definition that states what the object is.
     comments:
     - Intended for conceptual definitions rather than narrative summaries.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:definition
     slot_uri: reactome:definition
@@ -473,7 +473,7 @@ slots:
     description: Formal or systematic name for an entity when available.
     comments:
     - Often useful for chemicals, complexes, or sequence-derived entities.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:systematicName
     slot_uri: reactome:systematicName
@@ -488,7 +488,7 @@ slots:
     description: Release date associated with a curation or publication cycle.
     comments:
     - Modeled as string to match Reactome exports; can be normalized later if needed.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:releaseDate
     slot_uri: reactome:releaseDate
@@ -504,7 +504,7 @@ slots:
     comments:
     - Examples might include draft-like or released-like status labels depending on
       source exports.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:releaseStatus
     slot_uri: reactome:releaseStatus
@@ -520,7 +520,7 @@ slots:
       directly curated.
     comments:
     - Reactome uses inference especially for orthology-based event propagation.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:isInferred
     slot_uri: reactome:isInferred
@@ -536,7 +536,7 @@ slots:
       to a disease state.
     comments:
     - This is a contextual flag and does not by itself define a disease ontology class.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:isInDiseaseContext
     slot_uri: reactome:isInDiseaseContext
@@ -552,7 +552,7 @@ slots:
       object record.
     comments:
     - Usually points to an InstanceEdit containing editor and date metadata.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:created
     slot_uri: reactome:created
@@ -567,7 +567,7 @@ slots:
     description: Provenance links to subsequent modifications of the object record.
     comments:
     - Multiple modifications are common across curation history.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:modified
     slot_uri: reactome:modified
@@ -582,7 +582,7 @@ slots:
     description: Provenance links to formal review actions on the object.
     comments:
     - Distinct from simple modification in Reactome curation workflows.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:reviewed
     slot_uri: reactome:reviewed
@@ -598,7 +598,7 @@ slots:
       or review.
     comments:
     - Useful for tracking editorial iteration.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:revised
     slot_uri: reactome:revised
@@ -613,7 +613,7 @@ slots:
     description: Provenance links capturing authoring actions for the object.
     comments:
     - Included to support richer editorial provenance when present in exports.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:authored
     slot_uri: reactome:authored
@@ -627,7 +627,7 @@ slots:
     comments:
     - For events this denotes the organism context; for entities it denotes the biological
       source organism.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:inTaxon
     slot_uri: reactome:inTaxon
@@ -643,7 +643,7 @@ slots:
     description: Compartment in which an entity resides or an event occurs.
     comments:
     - In Reactome, compartment is identity-relevant for many physical entities.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:locatedInCompartment
     slot_uri: reactome:locatedInCompartment
@@ -659,7 +659,7 @@ slots:
     description: Narrative summary object explaining the biology of an event or entity.
     comments:
     - Distinct from formal definition; usually prose intended for readers.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasSummation
     slot_uri: reactome:hasSummation
@@ -675,7 +675,7 @@ slots:
       object.
     comments:
     - Often points to PubMed-backed literature references.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:supportedBy
     slot_uri: reactome:supportedBy
@@ -693,7 +693,7 @@ slots:
     comments:
     - Used for interoperating with identifiers from GO, ChEBI, UniProt, Ensembl, and
       related resources.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasCrossReference
     slot_uri: reactome:hasCrossReference
@@ -709,7 +709,7 @@ slots:
     description: Disease context associated with an event or physical entity.
     comments:
     - Represents contextual disease association rather than broad etiologic modeling.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasDiseaseContext
     slot_uri: reactome:hasDiseaseContext
@@ -727,7 +727,7 @@ slots:
     comments:
     - Useful as a high-level semantic alignment rather than an exact equivalence in
       all cases.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasGoBiologicalProcess
     slot_uri: reactome:hasGoBiologicalProcess
@@ -743,7 +743,7 @@ slots:
       context.
     comments:
     - Often complements the explicit compartment modeling in Reactome.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasGoCellularComponent
     slot_uri: reactome:hasGoCellularComponent
@@ -758,7 +758,7 @@ slots:
     description: GO molecular function term asserted in a catalyst activity.
     comments:
     - Reactome reifies catalysis so the molecular function can be attached explicitly.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasGoMolecularFunction
     slot_uri: reactome:hasGoMolecularFunction
@@ -774,7 +774,7 @@ slots:
     comments:
     - Pathways in Reactome are curated groupings of events and can overlap with other
       pathways.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasEvent
     slot_uri: reactome:hasEvent
@@ -791,7 +791,7 @@ slots:
     description: Event that occurs before the current event in a curated process sequence.
     comments:
     - Encodes partial ordering rather than necessarily strict temporal or causal completeness.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:precededBy
     slot_uri: reactome:precededBy
@@ -810,7 +810,7 @@ slots:
     comments:
     - Inputs need not always be fully consumed in a strict stoichiometric sense across
       all event subclasses.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasInput
     slot_uri: reactome:hasInput
@@ -828,7 +828,7 @@ slots:
     comments:
     - Output identity often reflects new compartment, modification state, or assembly
       state.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasOutput
     slot_uri: reactome:hasOutput
@@ -846,7 +846,7 @@ slots:
       as a transforming input.
     comments:
     - Useful for contextual cofactors, platform components, or required participants.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:requiresComponent
     slot_uri: reactome:requiresComponent
@@ -864,7 +864,7 @@ slots:
     comments:
     - A central Reactome modeling pattern that preserves GO molecular function and
       active-unit context.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasCatalystActivity
     slot_uri: reactome:hasCatalystActivity
@@ -881,7 +881,7 @@ slots:
     description: Reified regulation assertion attached to an event.
     comments:
     - Supports positive, negative, and requirement-style regulatory semantics.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasRegulation
     slot_uri: reactome:hasRegulation
@@ -899,7 +899,7 @@ slots:
       biology.
     comments:
     - Useful for immune, adhesion, and receptor-ligand interaction contexts.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasInteractingEntityOnOtherCell
     slot_uri: reactome:hasInteractingEntityOnOtherCell
@@ -916,7 +916,7 @@ slots:
     description: Associated interaction object linked to an event.
     comments:
     - Preserves interaction-level detail when Reactome models such assertions explicitly.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasInteraction
     slot_uri: reactome:hasInteraction
@@ -934,7 +934,7 @@ slots:
       editorial type of a reaction.
     comments:
     - Useful for grouping reaction-like events into broad mechanistic categories.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasReactionType
     slot_uri: reactome:hasReactionType
@@ -951,7 +951,7 @@ slots:
     comments:
     - '{''One of the key distinctions in Reactome'': ''reference identity is separate
       from stateful physical instantiation.''}'
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasReferenceEntity
     slot_uri: reactome:hasReferenceEntity
@@ -968,7 +968,7 @@ slots:
     comments:
     - Supports phosphorylation, cleavage, ubiquitination, and related residue-level
       state modeling.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasModifiedResidue
     slot_uri: reactome:hasModifiedResidue
@@ -986,7 +986,7 @@ slots:
       on a sequence entity.
     comments:
     - Useful for proteolytic fragments, domains, and sequence-trimmed entity forms.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:startCoordinate
     slot_uri: reactome:startCoordinate
@@ -1002,7 +1002,7 @@ slots:
       on a sequence entity.
     comments:
     - Typically paired with start_coordinate.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:endCoordinate
     slot_uri: reactome:endCoordinate
@@ -1017,7 +1017,7 @@ slots:
     description: Textual qualifier for the kind of referenced sequence or entity.
     comments:
     - Included for compatibility with Reactome exports.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:sequenceReferenceType
     slot_uri: reactome:sequenceReferenceType
@@ -1032,7 +1032,7 @@ slots:
     description: Component physical entities that make up a complex.
     comments:
     - Complex identity is distinct from component identity in Reactome.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasComponent
     slot_uri: reactome:hasComponent
@@ -1050,7 +1050,7 @@ slots:
       participants.
     comments:
     - Entity sets are curated graph objects, not simply OWL classes over their members.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasMember
     slot_uri: reactome:hasMember
@@ -1067,7 +1067,7 @@ slots:
     description: Repeated unit composing a polymer entity.
     comments:
     - Used when Reactome models a polymer abstractly in terms of repeating constituents.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasRepeatedUnit
     slot_uri: reactome:hasRepeatedUnit
@@ -1084,7 +1084,7 @@ slots:
     description: Physical entity that exerts regulatory influence on a regulated event.
     comments:
     - May be a protein, complex, small molecule, set, or other physical entity.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasRegulator
     slot_uri: reactome:hasRegulator
@@ -1099,7 +1099,7 @@ slots:
     description: Reaction-like event that is the target of regulation.
     comments:
     - Kept explicit through reified regulation nodes rather than flattened triples.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:regulates
     slot_uri: reactome:regulates
@@ -1116,7 +1116,7 @@ slots:
     comments:
     - Reactome can attach active-unit detail to catalyst activities and regulation
       objects.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasActiveUnit
     slot_uri: reactome:hasActiveUnit
@@ -1134,7 +1134,7 @@ slots:
     description: Physical entity serving as the bearer of a catalyst activity.
     comments:
     - Used inside reified catalyst activity objects.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasCatalyst
     slot_uri: reactome:hasCatalyst
@@ -1149,7 +1149,7 @@ slots:
     description: Reaction-like event catalyzed by the given catalyst activity.
     comments:
     - Allows one catalyst activity node to connect molecular function and event participation.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:catalyzes
     slot_uri: reactome:catalyzes
@@ -1167,7 +1167,7 @@ slots:
       database identifier.
     comments:
     - Provides the namespace and interpretation context for an identifier.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasReferenceDatabase
     slot_uri: reactome:hasReferenceDatabase
@@ -1183,7 +1183,7 @@ slots:
     description: Identifier string assigned by an external reference database.
     comments:
     - Examples include UniProt accessions, ChEBI identifiers, or GO term identifiers.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:identifier
     slot_uri: reactome:identifier
@@ -1200,7 +1200,7 @@ slots:
       database.
     comments:
     - Can encode direct or templated resolver behavior.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:accessUrl
     slot_uri: reactome:accessUrl
@@ -1215,7 +1215,7 @@ slots:
     description: Prefix or namespace abbreviation used by a reference database.
     comments:
     - Useful for CURIE generation and namespace harmonization.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:identifierPrefix
     slot_uri: reactome:identifierPrefix
@@ -1231,7 +1231,7 @@ slots:
       inside it.
     comments:
     - Supports metadata about the authority record for a database.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:resourceIdentifier
     slot_uri: reactome:resourceIdentifier
@@ -1246,7 +1246,7 @@ slots:
     description: General URL associated with an object.
     comments:
     - Often used for resource metadata pages or resolver entry points.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:url
     slot_uri: reactome:url
@@ -1261,7 +1261,7 @@ slots:
     description: PubMed identifier for a literature reference.
     comments:
     - Stored as string for broad interoperability with exports and loaders.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:pubmedId
     slot_uri: reactome:pubmedId
@@ -1277,7 +1277,7 @@ slots:
     description: ORCID identifier for a person involved in curation or authorship.
     comments:
     - Useful for curator and contributor disambiguation.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:orcid
     slot_uri: reactome:orcid
@@ -1292,7 +1292,7 @@ slots:
     description: Taxonomic identifier, typically aligned to the NCBI Taxonomy.
     comments:
     - Often used on species or taxon-like records.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:ncbiTaxonId
     slot_uri: reactome:ncbiTaxonId
@@ -1309,7 +1309,7 @@ slots:
     description: Deprecated or previous stable Reactome identifier retained for traceability.
     comments:
     - Useful during migration, identifier replacement, and legacy resolution.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:previousStableIdentifier
     slot_uri: reactome:previousStableIdentifier
@@ -1321,7 +1321,7 @@ slots:
   instanceEdit__date:
     name: instanceEdit__date
     description: Timestamp or date string for the edit activity.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     slot_uri: reactome:date
     alias: date
     owner: instance_edit
@@ -1331,7 +1331,7 @@ slots:
   instanceEdit__author:
     name: instanceEdit__author
     description: Person or people responsible for the edit activity.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     slot_uri: reactome:author
     alias: author
     owner: instance_edit
@@ -1344,7 +1344,7 @@ slots:
   summation__text:
     name: summation__text
     description: Narrative summary text.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     slot_uri: reactome:text
     alias: text
     owner: summation
@@ -1355,7 +1355,7 @@ slots:
   reactomeDataset__database_objects:
     name: reactomeDataset__database_objects
     description: Collection of Reactome objects keyed by identifier.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     slot_uri: reactome:database_objects
     alias: database_objects
     owner: reactome_dataset
@@ -1372,7 +1372,7 @@ slots:
     comments:
     - Reactome DB_ID values are implementation-oriented identifiers rather than stable
       public identifiers.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:reactomeDbId
     is_a: reactome_db_id
@@ -1393,7 +1393,7 @@ slots:
     description: Stable public Reactome identifier for an object.
     comments:
     - Typically corresponds to the curated Reactome stable accession such as R-HSA-xxxxx.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:reactomeStableIdentifier
     is_a: reactome_stable_identifier
@@ -1416,7 +1416,7 @@ slots:
     comments:
     - Useful when preserving frame-schema provenance or round-tripping with the original
       Reactome graph.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:sourceSchemaClass
     is_a: source_schema_class
@@ -1437,7 +1437,7 @@ slots:
     description: Preferred display label used by Reactome for user-facing presentation.
     comments:
     - Often combines identity and contextual state into a concise label.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:displayLabel
     is_a: display_label
@@ -1459,7 +1459,7 @@ slots:
       object record.
     comments:
     - Usually points to an InstanceEdit containing editor and date metadata.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:created
     is_a: created
@@ -1481,7 +1481,7 @@ slots:
     comments:
     - Pathways in Reactome are curated groupings of events and can overlap with other
       pathways.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasEvent
     is_a: has_event
@@ -1506,7 +1506,7 @@ slots:
     comments:
     - Inputs need not always be fully consumed in a strict stoichiometric sense across
       all event subclasses.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasInput
     is_a: has_input
@@ -1530,7 +1530,7 @@ slots:
     comments:
     - Output identity often reflects new compartment, modification state, or assembly
       state.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasOutput
     is_a: has_output
@@ -1555,7 +1555,7 @@ slots:
     comments:
     - '{''One of the key distinctions in Reactome'': ''reference identity is separate
       from stateful physical instantiation.''}'
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasReferenceEntity
     is_a: has_reference_entity
@@ -1578,7 +1578,7 @@ slots:
     comments:
     - '{''One of the key distinctions in Reactome'': ''reference identity is separate
       from stateful physical instantiation.''}'
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasReferenceEntity
     is_a: has_reference_entity
@@ -1599,7 +1599,7 @@ slots:
     description: Component physical entities that make up a complex.
     comments:
     - Complex identity is distinct from component identity in Reactome.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasComponent
     is_a: has_component
@@ -1623,7 +1623,7 @@ slots:
       participants.
     comments:
     - Entity sets are curated graph objects, not simply OWL classes over their members.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasMember
     is_a: has_member
@@ -1647,7 +1647,7 @@ slots:
       database identifier.
     comments:
     - Provides the namespace and interpretation context for an identifier.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasReferenceDatabase
     is_a: has_reference_database
@@ -1668,7 +1668,7 @@ slots:
     description: Physical entity serving as the bearer of a catalyst activity.
     comments:
     - Used inside reified catalyst activity objects.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasCatalyst
     is_a: has_catalyst
@@ -1689,7 +1689,7 @@ slots:
     description: GO molecular function term asserted in a catalyst activity.
     comments:
     - Reactome reifies catalysis so the molecular function can be attached explicitly.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasGoMolecularFunction
     is_a: has_go_molecular_function
@@ -1710,7 +1710,7 @@ slots:
     description: Physical entity that exerts regulatory influence on a regulated event.
     comments:
     - May be a protein, complex, small molecule, set, or other physical entity.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:hasRegulator
     is_a: has_regulator
@@ -1731,7 +1731,7 @@ slots:
     description: Reaction-like event that is the target of regulation.
     comments:
     - Kept explicit through reified regulation nodes rather than flattened triples.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:regulates
     is_a: regulates
@@ -1755,7 +1755,7 @@ classes:
     comments:
     - Provides reusable identifier, naming, and descriptive slots independent of the
       Reactome-specific hierarchy.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:NamedEntity
     abstract: true
@@ -1772,7 +1772,7 @@ classes:
     comments:
     - "Reactome\u2019s frame-based model uses DatabaseObject as the common ancestor\
       \ for curated graph records."
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:DatabaseObject
     is_a: named_entity
@@ -1812,7 +1812,7 @@ classes:
       modification, review, or revision.
     comments:
     - Typically stores who performed an edit and when the edit occurred.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:InstanceEdit
     is_a: database_object
@@ -1849,7 +1849,7 @@ classes:
       curated biology.
     comments:
     - Abstract superclass for specific publication-like records.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:Publication
     is_a: database_object
@@ -1874,7 +1874,7 @@ classes:
       paper supporting a Reactome assertion.
     comments:
     - Used widely to ground events, regulations, and catalyst activities in the literature.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:LiteratureReference
     is_a: publication
@@ -1899,7 +1899,7 @@ classes:
       attribution.
     comments:
     - May represent curators, reviewers, or contributors.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:Person
     is_a: database_object
@@ -1924,7 +1924,7 @@ classes:
       meaning of an entity or event.
     comments:
     - Distinct from a formal definition; meant for human reading.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:Summation
     is_a: database_object
@@ -1955,7 +1955,7 @@ classes:
       pathways and reaction-like events.
     comments:
     - Event is one of the central abstractions in the Reactome model.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:Event
     is_a: database_object
@@ -1991,7 +1991,7 @@ classes:
       or pathway-like module.
     comments:
     - Pathways can overlap; event membership is not exclusive.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:Pathway
     is_a: event
@@ -2033,7 +2033,7 @@ classes:
     comments:
     - Covers canonical reactions as well as black-box and polymerization-style event
       subclasses.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:ReactionLikeEvent
     is_a: event
@@ -2078,7 +2078,7 @@ classes:
       outputs.
     comments:
     - Best used for relatively well-resolved mechanistic conversions.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:Reaction
     is_a: reaction_like_event
@@ -2130,7 +2130,7 @@ classes:
     comments:
     - Useful when biological evidence supports the event but not a full molecular
       mechanism.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:BlackBoxEvent
     is_a: reaction_like_event
@@ -2175,7 +2175,7 @@ classes:
     comments:
     - Kept distinct because its participant semantics can differ from ordinary reaction
       balance.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:Polymerization
     is_a: reaction_like_event
@@ -2219,7 +2219,7 @@ classes:
       units.
     comments:
     - Complementary to polymerisation.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:Depolymerization
     is_a: reaction_like_event
@@ -2264,7 +2264,7 @@ classes:
     comments:
     - In Reactome, compartment, modification state, and assembly state can distinguish
       one physical entity from another.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:PhysicalEntity
     is_a: database_object
@@ -2296,7 +2296,7 @@ classes:
       chemical participant.
     comments:
     - Commonly aligned to ChEBI-like reference identities through ReferenceMolecule.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:SimpleEntity
     is_a: physical_entity
@@ -2333,7 +2333,7 @@ classes:
       such as a protein or nucleic acid.
     comments:
     - Serves as a superclass for accessioned sequence-based entities.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:GenomeEncodedEntity
     is_a: physical_entity
@@ -2365,7 +2365,7 @@ classes:
     comments:
     - Core Reactome pattern for proteins, RNAs, and other accessioned biomolecules
       in specific states.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:SequenceEntity
     is_a: genome_encoded_entity
@@ -2406,7 +2406,7 @@ classes:
       assembled into a functional complex.
     comments:
     - The complex is treated as an entity distinct from its components.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:Complex
     is_a: physical_entity
@@ -2443,7 +2443,7 @@ classes:
     comments:
     - This is a graph object representing a curated set, not merely a class extension
       over its members.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:EntitySet
     is_a: physical_entity
@@ -2479,7 +2479,7 @@ classes:
       role.
     comments:
     - Often reflects partial knowledge or broad functional grouping.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:CandidateSet
     is_a: entity_set
@@ -2511,7 +2511,7 @@ classes:
       participants.
     comments:
     - Stronger editorial commitment than a candidate set.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:DefinedSet
     is_a: entity_set
@@ -2543,7 +2543,7 @@ classes:
     comments:
     - Useful for biological polymers that are not modeled by enumerating every monomer
       instance.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:Polymer
     is_a: physical_entity
@@ -2576,7 +2576,7 @@ classes:
     comments:
     - Included for cases where cells themselves are modeled as interacting biological
       entities.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:Cell
     is_a: physical_entity
@@ -2607,7 +2607,7 @@ classes:
       not covered by more specific subclasses.
     comments:
     - Helps preserve source fidelity when Reactome uses residual categorization.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:OtherEntity
     is_a: physical_entity
@@ -2638,7 +2638,7 @@ classes:
       Reactome graph.
     comments:
     - Drug subclasses distinguish broad molecular kinds of therapeutic agents.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:Drug
     is_a: physical_entity
@@ -2669,7 +2669,7 @@ classes:
       agent.
     comments:
     - Often alignable to small-molecule reference identities.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:ChemicalDrug
     is_a: drug
@@ -2700,7 +2700,7 @@ classes:
     comments:
     - Includes antibody-like or recombinant protein therapeutics when modeled as physical
       entities.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:ProteinDrug
     is_a: drug
@@ -2730,7 +2730,7 @@ classes:
     description: Drug represented as an RNA-based therapeutic agent.
     comments:
     - Can cover antisense, siRNA, or related RNA therapeutic modalities.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:RnaDrug
     is_a: drug
@@ -2762,7 +2762,7 @@ classes:
     comments:
     - This is the key abstraction Reactome uses to separate contextual state from
       canonical identity.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:ReferenceEntity
     is_a: database_object
@@ -2792,7 +2792,7 @@ classes:
     description: Reference identity for a sequence-bearing biomolecule.
     comments:
     - Commonly used for protein, DNA, RNA, and isoform references.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:ReferenceSequence
     is_a: reference_entity
@@ -2817,7 +2817,7 @@ classes:
     description: Reference sequence corresponding to a gene product, typically protein-centric.
     comments:
     - Often alignable to UniProt entries for proteins.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:ReferenceGeneProduct
     is_a: reference_sequence
@@ -2842,7 +2842,7 @@ classes:
     description: Reference sequence representing a specific isoform-level identity.
     comments:
     - Useful when isoform distinction matters biologically.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:ReferenceIsoform
     is_a: reference_sequence
@@ -2867,7 +2867,7 @@ classes:
     description: Reference identity for a DNA sequence.
     comments:
     - Supports DNA-centric entities in the Reactome schema.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:ReferenceDnaSequence
     is_a: reference_sequence
@@ -2892,7 +2892,7 @@ classes:
     description: Reference identity for an RNA sequence.
     comments:
     - Supports transcript and RNA molecule identity modeling.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:ReferenceRnaSequence
     is_a: reference_sequence
@@ -2918,7 +2918,7 @@ classes:
       grounded participant.
     comments:
     - Naturally alignable to ChEBI-like references.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:ReferenceMolecule
     is_a: reference_entity
@@ -2944,7 +2944,7 @@ classes:
       at a grouped rather than single-entry level.
     comments:
     - Useful for families or grouped reference semantics in source data.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:ReferenceGroup
     is_a: reference_entity
@@ -2969,7 +2969,7 @@ classes:
     description: Reference identity for a therapeutic or intervention-oriented entity.
     comments:
     - Supports the reference-layer counterpart of drug-like modeled entities.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:ReferenceTherapeutic
     is_a: reference_entity
@@ -2995,7 +2995,7 @@ classes:
       for identifiers and cross-references.
     comments:
     - Holds resolver and namespace information for identifier interpretation.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:ReferenceDatabase
     is_a: database_object
@@ -3023,7 +3023,7 @@ classes:
       database authority.
     comments:
     - Useful as a reified identifier object rather than a bare literal.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:DatabaseIdentifier
     is_a: database_object
@@ -3049,7 +3049,7 @@ classes:
       function, and one or more catalyzed reaction-like events.
     comments:
     - This is one of the most semantically important reified node types in Reactome.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:CatalystActivity
     is_a: database_object
@@ -3086,7 +3086,7 @@ classes:
     comments:
     - Reactome models regulation explicitly instead of flattening it into a simple
       binary relation.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:Regulation
     is_a: database_object
@@ -3122,7 +3122,7 @@ classes:
       occurrence or efficiency of a reaction-like event.
     comments:
     - Semantic polarity is explicit at the class level.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:PositiveRegulation
     is_a: regulation
@@ -3150,7 +3150,7 @@ classes:
       occurrence or efficiency of a reaction-like event.
     comments:
     - Semantic polarity is explicit at the class level.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:NegativeRegulation
     is_a: regulation
@@ -3179,7 +3179,7 @@ classes:
     comments:
     - Used when necessity is the key biological relation rather than positive or negative
       modulation.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:Requirement
     is_a: regulation
@@ -3207,7 +3207,7 @@ classes:
     comments:
     - Retained as a distinct object to preserve graph fidelity when interactions are
       explicitly modeled.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:Interaction
     is_a: database_object
@@ -3230,7 +3230,7 @@ classes:
     description: Controlled vocabulary term used to characterize a reaction-like event.
     comments:
     - Supports editorial or mechanistic grouping of reaction events.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:ReactionTypeTerm
     is_a: database_object
@@ -3254,7 +3254,7 @@ classes:
       on a sequence-bearing entity.
     comments:
     - Abstract superclass for phosphorylation-like or other residue modification records.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:AbstractModifiedResidue
     is_a: database_object
@@ -3279,7 +3279,7 @@ classes:
     comments:
     - Often associated with taxonomy identifiers and may correspond to NCBI Taxonomy
       concepts.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:OrganismTaxon
     is_a: database_object
@@ -3303,7 +3303,7 @@ classes:
     description: Taxonomic concept used for taxonomic assignment or metadata.
     comments:
     - Can be used in parallel with or beneath species-oriented records.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:Taxon
     is_a: database_object
@@ -3329,7 +3329,7 @@ classes:
     comments:
     - Often alignable to GO cellular component terms, though not always identical
       in role.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:Compartment
     is_a: database_object
@@ -3353,7 +3353,7 @@ classes:
       settings.
     comments:
     - Represents disease context rather than a full disease ontology commitment.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:Disease
     is_a: database_object
@@ -3377,7 +3377,7 @@ classes:
       catalysis modeling.
     comments:
     - Particularly important in CatalystActivity.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:GoMolecularFunctionTerm
     is_a: database_object
@@ -3401,7 +3401,7 @@ classes:
       or event alignment.
     comments:
     - Useful for crosswalks between Reactome pathways and GO process knowledge.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:GoBiologicalProcessTerm
     is_a: database_object
@@ -3425,7 +3425,7 @@ classes:
       location annotation.
     comments:
     - Often complements explicit compartment modeling.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     mappings:
     - reactome:GoCellularComponentTerm
     is_a: database_object
@@ -3449,7 +3449,7 @@ classes:
       export package.
     comments:
     - Provides a practical root object for JSON and YAML instance data.
-    from_schema: https://w3id.org/reactome-ontology/final
+    from_schema: https://w3id.org/reactome-ontology
     slots:
     - reactomeDataset__database_objects
     attributes:
@@ -3464,7 +3464,7 @@ classes:
     tree_root: true
 metamodel_version: 1.7.0
 source_file: reactome_ontology.yaml
-source_file_date: '2026-04-10T05:22:52'
-source_file_size: 39679
-generation_date: '2026-04-10T05:23:03'
+source_file_date: '2026-04-10T06:26:12'
+source_file_size: 39667
+generation_date: '2026-04-10T06:26:23'
 
