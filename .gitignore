@@ -6,7 +6,6 @@
 # Derived schemas, generated from the schema.yaml
 tmp/
 project/
-ontology/
 !project/README.md
 
 # Byte-compiled / optimized / DLL files

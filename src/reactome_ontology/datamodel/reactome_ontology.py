@@ -1,6 +1,6 @@
 # Auto generated from reactome_ontology.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-04-09T20:54:28
-# Schema: reactome_ontology_final
+# Generation date: 2026-04-09T22:16:40
+# Schema: reactome_ontology
 #
 # id: https://w3id.org/reactome-ontology/final
 # description: A final OWL-oriented LinkML schema for generating a clean Reactome ontology. This profile keeps ontology-facing classes and properties and removes source-mapping annotations, which are maintained in separate mapping files.
@@ -76,10 +76,9 @@ ORCID = CurieNamespace('orcid', 'https://orcid.org/')
 RDFS = CurieNamespace('rdfs', 'http://www.w3.org/2000/01/rdf-schema#')
 REACTOME = CurieNamespace('reactome', 'https://w3id.org/reactome-ontology/')
 REACTOMEID = CurieNamespace('reactomeid', 'https://w3id.org/reactome-ontology/id/')
-REACTOMEO = CurieNamespace('reactomeo', 'https://w3id.org/reactome-ontology/')
 SKOS = CurieNamespace('skos', 'http://www.w3.org/2004/02/skos/core#')
 XSD = CurieNamespace('xsd', 'http://www.w3.org/2001/XMLSchema#')
-DEFAULT_ = REACTOMEO
+DEFAULT_ = REACTOME
 
 
 # Types
@@ -315,7 +314,7 @@ class NamedEntity(YAMLRoot):
     class_class_uri: ClassVar[URIRef] = REACTOME["NamedEntity"]
     class_class_curie: ClassVar[str] = "reactome:NamedEntity"
     class_name: ClassVar[str] = "named_entity"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.NamedEntity
+    class_model_uri: ClassVar[URIRef] = REACTOME.NamedEntity
 
     id: Union[str, NamedEntityId] = None
     name: Optional[str] = None
@@ -346,7 +345,7 @@ class DatabaseObject(NamedEntity):
     class_class_uri: ClassVar[URIRef] = REACTOME["DatabaseObject"]
     class_class_curie: ClassVar[str] = "reactome:DatabaseObject"
     class_name: ClassVar[str] = "database_object"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.DatabaseObject
+    class_model_uri: ClassVar[URIRef] = REACTOME.DatabaseObject
 
     id: Union[str, DatabaseObjectId] = None
     reactome_db_id: int = None
@@ -412,7 +411,7 @@ class InstanceEdit(DatabaseObject):
     class_class_uri: ClassVar[URIRef] = REACTOME["InstanceEdit"]
     class_class_curie: ClassVar[str] = "reactome:InstanceEdit"
     class_name: ClassVar[str] = "instance_edit"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.InstanceEdit
+    class_model_uri: ClassVar[URIRef] = REACTOME.InstanceEdit
 
     id: Union[str, InstanceEditId] = None
     reactome_db_id: int = None
@@ -447,7 +446,7 @@ class Publication(DatabaseObject):
     class_class_uri: ClassVar[URIRef] = REACTOME["Publication"]
     class_class_curie: ClassVar[str] = "reactome:Publication"
     class_name: ClassVar[str] = "publication"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.Publication
+    class_model_uri: ClassVar[URIRef] = REACTOME.Publication
 
     id: Union[str, PublicationId] = None
     reactome_db_id: int = None
@@ -466,7 +465,7 @@ class LiteratureReference(Publication):
     class_class_uri: ClassVar[URIRef] = REACTOME["LiteratureReference"]
     class_class_curie: ClassVar[str] = "reactome:LiteratureReference"
     class_name: ClassVar[str] = "literature_reference"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.LiteratureReference
+    class_model_uri: ClassVar[URIRef] = REACTOME.LiteratureReference
 
     id: Union[str, LiteratureReferenceId] = None
     reactome_db_id: int = None
@@ -498,7 +497,7 @@ class Person(DatabaseObject):
     class_class_uri: ClassVar[URIRef] = REACTOME["Person"]
     class_class_curie: ClassVar[str] = "reactome:Person"
     class_name: ClassVar[str] = "person"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.Person
+    class_model_uri: ClassVar[URIRef] = REACTOME.Person
 
     id: Union[str, PersonId] = None
     reactome_db_id: int = None
@@ -530,7 +529,7 @@ class Summation(DatabaseObject):
     class_class_uri: ClassVar[URIRef] = REACTOME["Summation"]
     class_class_curie: ClassVar[str] = "reactome:Summation"
     class_name: ClassVar[str] = "summation"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.Summation
+    class_model_uri: ClassVar[URIRef] = REACTOME.Summation
 
     id: Union[str, SummationId] = None
     reactome_db_id: int = None
@@ -564,7 +563,7 @@ class Event(DatabaseObject):
     class_class_uri: ClassVar[URIRef] = REACTOME["Event"]
     class_class_curie: ClassVar[str] = "reactome:Event"
     class_name: ClassVar[str] = "event"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.Event
+    class_model_uri: ClassVar[URIRef] = REACTOME.Event
 
     id: Union[str, EventId] = None
     reactome_db_id: int = None
@@ -638,7 +637,7 @@ class Pathway(Event):
     class_class_uri: ClassVar[URIRef] = REACTOME["Pathway"]
     class_class_curie: ClassVar[str] = "reactome:Pathway"
     class_name: ClassVar[str] = "pathway"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.Pathway
+    class_model_uri: ClassVar[URIRef] = REACTOME.Pathway
 
     id: Union[str, PathwayId] = None
     reactome_db_id: int = None
@@ -676,7 +675,7 @@ class ReactionLikeEvent(Event):
     class_class_uri: ClassVar[URIRef] = REACTOME["ReactionLikeEvent"]
     class_class_curie: ClassVar[str] = "reactome:ReactionLikeEvent"
     class_name: ClassVar[str] = "reaction_like_event"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.ReactionLikeEvent
+    class_model_uri: ClassVar[URIRef] = REACTOME.ReactionLikeEvent
 
     id: Union[str, ReactionLikeEventId] = None
     reactome_db_id: int = None
@@ -728,7 +727,7 @@ class Reaction(ReactionLikeEvent):
     class_class_uri: ClassVar[URIRef] = REACTOME["Reaction"]
     class_class_curie: ClassVar[str] = "reactome:Reaction"
     class_name: ClassVar[str] = "reaction"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.Reaction
+    class_model_uri: ClassVar[URIRef] = REACTOME.Reaction
 
     id: Union[str, ReactionId] = None
     reactome_db_id: int = None
@@ -766,7 +765,7 @@ class BlackBoxEvent(ReactionLikeEvent):
     class_class_uri: ClassVar[URIRef] = REACTOME["BlackBoxEvent"]
     class_class_curie: ClassVar[str] = "reactome:BlackBoxEvent"
     class_name: ClassVar[str] = "black_box_event"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.BlackBoxEvent
+    class_model_uri: ClassVar[URIRef] = REACTOME.BlackBoxEvent
 
     id: Union[str, BlackBoxEventId] = None
     reactome_db_id: int = None
@@ -794,7 +793,7 @@ class Polymerization(ReactionLikeEvent):
     class_class_uri: ClassVar[URIRef] = REACTOME["Polymerization"]
     class_class_curie: ClassVar[str] = "reactome:Polymerization"
     class_name: ClassVar[str] = "polymerization"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.Polymerization
+    class_model_uri: ClassVar[URIRef] = REACTOME.Polymerization
 
     id: Union[str, PolymerizationId] = None
     reactome_db_id: int = None
@@ -822,7 +821,7 @@ class Depolymerization(ReactionLikeEvent):
     class_class_uri: ClassVar[URIRef] = REACTOME["Depolymerization"]
     class_class_curie: ClassVar[str] = "reactome:Depolymerization"
     class_name: ClassVar[str] = "depolymerization"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.Depolymerization
+    class_model_uri: ClassVar[URIRef] = REACTOME.Depolymerization
 
     id: Union[str, DepolymerizationId] = None
     reactome_db_id: int = None
@@ -850,7 +849,7 @@ class PhysicalEntity(DatabaseObject):
     class_class_uri: ClassVar[URIRef] = REACTOME["PhysicalEntity"]
     class_class_curie: ClassVar[str] = "reactome:PhysicalEntity"
     class_name: ClassVar[str] = "physical_entity"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.PhysicalEntity
+    class_model_uri: ClassVar[URIRef] = REACTOME.PhysicalEntity
 
     id: Union[str, PhysicalEntityId] = None
     reactome_db_id: int = None
@@ -905,7 +904,7 @@ class SimpleEntity(PhysicalEntity):
     class_class_uri: ClassVar[URIRef] = REACTOME["SimpleEntity"]
     class_class_curie: ClassVar[str] = "reactome:SimpleEntity"
     class_name: ClassVar[str] = "simple_entity"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.SimpleEntity
+    class_model_uri: ClassVar[URIRef] = REACTOME.SimpleEntity
 
     id: Union[str, SimpleEntityId] = None
     reactome_db_id: int = None
@@ -939,7 +938,7 @@ class GenomeEncodedEntity(PhysicalEntity):
     class_class_uri: ClassVar[URIRef] = REACTOME["GenomeEncodedEntity"]
     class_class_curie: ClassVar[str] = "reactome:GenomeEncodedEntity"
     class_name: ClassVar[str] = "genome_encoded_entity"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.GenomeEncodedEntity
+    class_model_uri: ClassVar[URIRef] = REACTOME.GenomeEncodedEntity
 
     id: Union[str, GenomeEncodedEntityId] = None
     reactome_db_id: int = None
@@ -968,7 +967,7 @@ class SequenceEntity(GenomeEncodedEntity):
     class_class_uri: ClassVar[URIRef] = REACTOME["SequenceEntity"]
     class_class_curie: ClassVar[str] = "reactome:SequenceEntity"
     class_name: ClassVar[str] = "sequence_entity"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.SequenceEntity
+    class_model_uri: ClassVar[URIRef] = REACTOME.SequenceEntity
 
     id: Union[str, SequenceEntityId] = None
     reactome_db_id: int = None
@@ -1017,7 +1016,7 @@ class Complex(PhysicalEntity):
     class_class_uri: ClassVar[URIRef] = REACTOME["Complex"]
     class_class_curie: ClassVar[str] = "reactome:Complex"
     class_name: ClassVar[str] = "complex"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.Complex
+    class_model_uri: ClassVar[URIRef] = REACTOME.Complex
 
     id: Union[str, ComplexId] = None
     reactome_db_id: int = None
@@ -1050,7 +1049,7 @@ class EntitySet(PhysicalEntity):
     class_class_uri: ClassVar[URIRef] = REACTOME["EntitySet"]
     class_class_curie: ClassVar[str] = "reactome:EntitySet"
     class_name: ClassVar[str] = "entity_set"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.EntitySet
+    class_model_uri: ClassVar[URIRef] = REACTOME.EntitySet
 
     id: Union[str, EntitySetId] = None
     reactome_db_id: int = None
@@ -1083,7 +1082,7 @@ class CandidateSet(EntitySet):
     class_class_uri: ClassVar[URIRef] = REACTOME["CandidateSet"]
     class_class_curie: ClassVar[str] = "reactome:CandidateSet"
     class_name: ClassVar[str] = "candidate_set"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.CandidateSet
+    class_model_uri: ClassVar[URIRef] = REACTOME.CandidateSet
 
     id: Union[str, CandidateSetId] = None
     reactome_db_id: int = None
@@ -1112,7 +1111,7 @@ class DefinedSet(EntitySet):
     class_class_uri: ClassVar[URIRef] = REACTOME["DefinedSet"]
     class_class_curie: ClassVar[str] = "reactome:DefinedSet"
     class_name: ClassVar[str] = "defined_set"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.DefinedSet
+    class_model_uri: ClassVar[URIRef] = REACTOME.DefinedSet
 
     id: Union[str, DefinedSetId] = None
     reactome_db_id: int = None
@@ -1141,7 +1140,7 @@ class Polymer(PhysicalEntity):
     class_class_uri: ClassVar[URIRef] = REACTOME["Polymer"]
     class_class_curie: ClassVar[str] = "reactome:Polymer"
     class_name: ClassVar[str] = "polymer"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.Polymer
+    class_model_uri: ClassVar[URIRef] = REACTOME.Polymer
 
     id: Union[str, PolymerId] = None
     reactome_db_id: int = None
@@ -1172,7 +1171,7 @@ class Cell(PhysicalEntity):
     class_class_uri: ClassVar[URIRef] = REACTOME["Cell"]
     class_class_curie: ClassVar[str] = "reactome:Cell"
     class_name: ClassVar[str] = "cell"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.Cell
+    class_model_uri: ClassVar[URIRef] = REACTOME.Cell
 
     id: Union[str, CellId] = None
     reactome_db_id: int = None
@@ -1200,7 +1199,7 @@ class OtherEntity(PhysicalEntity):
     class_class_uri: ClassVar[URIRef] = REACTOME["OtherEntity"]
     class_class_curie: ClassVar[str] = "reactome:OtherEntity"
     class_name: ClassVar[str] = "other_entity"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.OtherEntity
+    class_model_uri: ClassVar[URIRef] = REACTOME.OtherEntity
 
     id: Union[str, OtherEntityId] = None
     reactome_db_id: int = None
@@ -1228,7 +1227,7 @@ class Drug(PhysicalEntity):
     class_class_uri: ClassVar[URIRef] = REACTOME["Drug"]
     class_class_curie: ClassVar[str] = "reactome:Drug"
     class_name: ClassVar[str] = "drug"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.Drug
+    class_model_uri: ClassVar[URIRef] = REACTOME.Drug
 
     id: Union[str, DrugId] = None
     reactome_db_id: int = None
@@ -1256,7 +1255,7 @@ class ChemicalDrug(Drug):
     class_class_uri: ClassVar[URIRef] = REACTOME["ChemicalDrug"]
     class_class_curie: ClassVar[str] = "reactome:ChemicalDrug"
     class_name: ClassVar[str] = "chemical_drug"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.ChemicalDrug
+    class_model_uri: ClassVar[URIRef] = REACTOME.ChemicalDrug
 
     id: Union[str, ChemicalDrugId] = None
     reactome_db_id: int = None
@@ -1284,7 +1283,7 @@ class ProteinDrug(Drug):
     class_class_uri: ClassVar[URIRef] = REACTOME["ProteinDrug"]
     class_class_curie: ClassVar[str] = "reactome:ProteinDrug"
     class_name: ClassVar[str] = "protein_drug"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.ProteinDrug
+    class_model_uri: ClassVar[URIRef] = REACTOME.ProteinDrug
 
     id: Union[str, ProteinDrugId] = None
     reactome_db_id: int = None
@@ -1312,7 +1311,7 @@ class RnaDrug(Drug):
     class_class_uri: ClassVar[URIRef] = REACTOME["RnaDrug"]
     class_class_curie: ClassVar[str] = "reactome:RnaDrug"
     class_name: ClassVar[str] = "rna_drug"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.RnaDrug
+    class_model_uri: ClassVar[URIRef] = REACTOME.RnaDrug
 
     id: Union[str, RnaDrugId] = None
     reactome_db_id: int = None
@@ -1341,7 +1340,7 @@ class ReferenceEntity(DatabaseObject):
     class_class_uri: ClassVar[URIRef] = REACTOME["ReferenceEntity"]
     class_class_curie: ClassVar[str] = "reactome:ReferenceEntity"
     class_name: ClassVar[str] = "reference_entity"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.ReferenceEntity
+    class_model_uri: ClassVar[URIRef] = REACTOME.ReferenceEntity
 
     id: Union[str, ReferenceEntityId] = None
     reactome_db_id: int = None
@@ -1374,7 +1373,7 @@ class ReferenceSequence(ReferenceEntity):
     class_class_uri: ClassVar[URIRef] = REACTOME["ReferenceSequence"]
     class_class_curie: ClassVar[str] = "reactome:ReferenceSequence"
     class_name: ClassVar[str] = "reference_sequence"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.ReferenceSequence
+    class_model_uri: ClassVar[URIRef] = REACTOME.ReferenceSequence
 
     id: Union[str, ReferenceSequenceId] = None
     reactome_db_id: int = None
@@ -1403,7 +1402,7 @@ class ReferenceGeneProduct(ReferenceSequence):
     class_class_uri: ClassVar[URIRef] = REACTOME["ReferenceGeneProduct"]
     class_class_curie: ClassVar[str] = "reactome:ReferenceGeneProduct"
     class_name: ClassVar[str] = "reference_gene_product"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.ReferenceGeneProduct
+    class_model_uri: ClassVar[URIRef] = REACTOME.ReferenceGeneProduct
 
     id: Union[str, ReferenceGeneProductId] = None
     reactome_db_id: int = None
@@ -1432,7 +1431,7 @@ class ReferenceIsoform(ReferenceSequence):
     class_class_uri: ClassVar[URIRef] = REACTOME["ReferenceIsoform"]
     class_class_curie: ClassVar[str] = "reactome:ReferenceIsoform"
     class_name: ClassVar[str] = "reference_isoform"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.ReferenceIsoform
+    class_model_uri: ClassVar[URIRef] = REACTOME.ReferenceIsoform
 
     id: Union[str, ReferenceIsoformId] = None
     reactome_db_id: int = None
@@ -1461,7 +1460,7 @@ class ReferenceDnaSequence(ReferenceSequence):
     class_class_uri: ClassVar[URIRef] = REACTOME["ReferenceDnaSequence"]
     class_class_curie: ClassVar[str] = "reactome:ReferenceDnaSequence"
     class_name: ClassVar[str] = "reference_dna_sequence"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.ReferenceDnaSequence
+    class_model_uri: ClassVar[URIRef] = REACTOME.ReferenceDnaSequence
 
     id: Union[str, ReferenceDnaSequenceId] = None
     reactome_db_id: int = None
@@ -1490,7 +1489,7 @@ class ReferenceRnaSequence(ReferenceSequence):
     class_class_uri: ClassVar[URIRef] = REACTOME["ReferenceRnaSequence"]
     class_class_curie: ClassVar[str] = "reactome:ReferenceRnaSequence"
     class_name: ClassVar[str] = "reference_rna_sequence"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.ReferenceRnaSequence
+    class_model_uri: ClassVar[URIRef] = REACTOME.ReferenceRnaSequence
 
     id: Union[str, ReferenceRnaSequenceId] = None
     reactome_db_id: int = None
@@ -1519,7 +1518,7 @@ class ReferenceMolecule(ReferenceEntity):
     class_class_uri: ClassVar[URIRef] = REACTOME["ReferenceMolecule"]
     class_class_curie: ClassVar[str] = "reactome:ReferenceMolecule"
     class_name: ClassVar[str] = "reference_molecule"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.ReferenceMolecule
+    class_model_uri: ClassVar[URIRef] = REACTOME.ReferenceMolecule
 
     id: Union[str, ReferenceMoleculeId] = None
     reactome_db_id: int = None
@@ -1549,7 +1548,7 @@ class ReferenceGroup(ReferenceEntity):
     class_class_uri: ClassVar[URIRef] = REACTOME["ReferenceGroup"]
     class_class_curie: ClassVar[str] = "reactome:ReferenceGroup"
     class_name: ClassVar[str] = "reference_group"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.ReferenceGroup
+    class_model_uri: ClassVar[URIRef] = REACTOME.ReferenceGroup
 
     id: Union[str, ReferenceGroupId] = None
     reactome_db_id: int = None
@@ -1578,7 +1577,7 @@ class ReferenceTherapeutic(ReferenceEntity):
     class_class_uri: ClassVar[URIRef] = REACTOME["ReferenceTherapeutic"]
     class_class_curie: ClassVar[str] = "reactome:ReferenceTherapeutic"
     class_name: ClassVar[str] = "reference_therapeutic"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.ReferenceTherapeutic
+    class_model_uri: ClassVar[URIRef] = REACTOME.ReferenceTherapeutic
 
     id: Union[str, ReferenceTherapeuticId] = None
     reactome_db_id: int = None
@@ -1607,7 +1606,7 @@ class ReferenceDatabase(DatabaseObject):
     class_class_uri: ClassVar[URIRef] = REACTOME["ReferenceDatabase"]
     class_class_curie: ClassVar[str] = "reactome:ReferenceDatabase"
     class_name: ClassVar[str] = "reference_database"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.ReferenceDatabase
+    class_model_uri: ClassVar[URIRef] = REACTOME.ReferenceDatabase
 
     id: Union[str, ReferenceDatabaseId] = None
     reactome_db_id: int = None
@@ -1651,7 +1650,7 @@ class DatabaseIdentifier(DatabaseObject):
     class_class_uri: ClassVar[URIRef] = REACTOME["DatabaseIdentifier"]
     class_class_curie: ClassVar[str] = "reactome:DatabaseIdentifier"
     class_name: ClassVar[str] = "database_identifier"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.DatabaseIdentifier
+    class_model_uri: ClassVar[URIRef] = REACTOME.DatabaseIdentifier
 
     id: Union[str, DatabaseIdentifierId] = None
     reactome_db_id: int = None
@@ -1688,7 +1687,7 @@ class CatalystActivity(DatabaseObject):
     class_class_uri: ClassVar[URIRef] = REACTOME["CatalystActivity"]
     class_class_curie: ClassVar[str] = "reactome:CatalystActivity"
     class_name: ClassVar[str] = "catalyst_activity"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.CatalystActivity
+    class_model_uri: ClassVar[URIRef] = REACTOME.CatalystActivity
 
     id: Union[str, CatalystActivityId] = None
     reactome_db_id: int = None
@@ -1739,7 +1738,7 @@ class Regulation(DatabaseObject):
     class_class_uri: ClassVar[URIRef] = REACTOME["Regulation"]
     class_class_curie: ClassVar[str] = "reactome:Regulation"
     class_name: ClassVar[str] = "regulation"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.Regulation
+    class_model_uri: ClassVar[URIRef] = REACTOME.Regulation
 
     id: Union[str, RegulationId] = None
     reactome_db_id: int = None
@@ -1782,7 +1781,7 @@ class PositiveRegulation(Regulation):
     class_class_uri: ClassVar[URIRef] = REACTOME["PositiveRegulation"]
     class_class_curie: ClassVar[str] = "reactome:PositiveRegulation"
     class_name: ClassVar[str] = "positive_regulation"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.PositiveRegulation
+    class_model_uri: ClassVar[URIRef] = REACTOME.PositiveRegulation
 
     id: Union[str, PositiveRegulationId] = None
     reactome_db_id: int = None
@@ -1813,7 +1812,7 @@ class NegativeRegulation(Regulation):
     class_class_uri: ClassVar[URIRef] = REACTOME["NegativeRegulation"]
     class_class_curie: ClassVar[str] = "reactome:NegativeRegulation"
     class_name: ClassVar[str] = "negative_regulation"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.NegativeRegulation
+    class_model_uri: ClassVar[URIRef] = REACTOME.NegativeRegulation
 
     id: Union[str, NegativeRegulationId] = None
     reactome_db_id: int = None
@@ -1844,7 +1843,7 @@ class Requirement(Regulation):
     class_class_uri: ClassVar[URIRef] = REACTOME["Requirement"]
     class_class_curie: ClassVar[str] = "reactome:Requirement"
     class_name: ClassVar[str] = "requirement"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.Requirement
+    class_model_uri: ClassVar[URIRef] = REACTOME.Requirement
 
     id: Union[str, RequirementId] = None
     reactome_db_id: int = None
@@ -1874,7 +1873,7 @@ class Interaction(DatabaseObject):
     class_class_uri: ClassVar[URIRef] = REACTOME["Interaction"]
     class_class_curie: ClassVar[str] = "reactome:Interaction"
     class_name: ClassVar[str] = "interaction"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.Interaction
+    class_model_uri: ClassVar[URIRef] = REACTOME.Interaction
 
     id: Union[str, InteractionId] = None
     reactome_db_id: int = None
@@ -1902,7 +1901,7 @@ class ReactionTypeTerm(DatabaseObject):
     class_class_uri: ClassVar[URIRef] = REACTOME["ReactionTypeTerm"]
     class_class_curie: ClassVar[str] = "reactome:ReactionTypeTerm"
     class_name: ClassVar[str] = "reaction_type_term"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.ReactionTypeTerm
+    class_model_uri: ClassVar[URIRef] = REACTOME.ReactionTypeTerm
 
     id: Union[str, ReactionTypeTermId] = None
     reactome_db_id: int = None
@@ -1930,7 +1929,7 @@ class AbstractModifiedResidue(DatabaseObject):
     class_class_uri: ClassVar[URIRef] = REACTOME["AbstractModifiedResidue"]
     class_class_curie: ClassVar[str] = "reactome:AbstractModifiedResidue"
     class_name: ClassVar[str] = "abstract_modified_residue"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.AbstractModifiedResidue
+    class_model_uri: ClassVar[URIRef] = REACTOME.AbstractModifiedResidue
 
     id: Union[str, AbstractModifiedResidueId] = None
     reactome_db_id: int = None
@@ -1958,7 +1957,7 @@ class OrganismTaxon(DatabaseObject):
     class_class_uri: ClassVar[URIRef] = REACTOME["OrganismTaxon"]
     class_class_curie: ClassVar[str] = "reactome:OrganismTaxon"
     class_name: ClassVar[str] = "organism_taxon"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.OrganismTaxon
+    class_model_uri: ClassVar[URIRef] = REACTOME.OrganismTaxon
 
     id: Union[str, OrganismTaxonId] = None
     reactome_db_id: int = None
@@ -1990,7 +1989,7 @@ class Taxon(DatabaseObject):
     class_class_uri: ClassVar[URIRef] = REACTOME["Taxon"]
     class_class_curie: ClassVar[str] = "reactome:Taxon"
     class_name: ClassVar[str] = "taxon"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.Taxon
+    class_model_uri: ClassVar[URIRef] = REACTOME.Taxon
 
     id: Union[str, TaxonId] = None
     reactome_db_id: int = None
@@ -2022,7 +2021,7 @@ class Compartment(DatabaseObject):
     class_class_uri: ClassVar[URIRef] = REACTOME["Compartment"]
     class_class_curie: ClassVar[str] = "reactome:Compartment"
     class_name: ClassVar[str] = "compartment"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.Compartment
+    class_model_uri: ClassVar[URIRef] = REACTOME.Compartment
 
     id: Union[str, CompartmentId] = None
     reactome_db_id: int = None
@@ -2050,7 +2049,7 @@ class Disease(DatabaseObject):
     class_class_uri: ClassVar[URIRef] = REACTOME["Disease"]
     class_class_curie: ClassVar[str] = "reactome:Disease"
     class_name: ClassVar[str] = "disease"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.Disease
+    class_model_uri: ClassVar[URIRef] = REACTOME.Disease
 
     id: Union[str, DiseaseId] = None
     reactome_db_id: int = None
@@ -2078,7 +2077,7 @@ class GoMolecularFunctionTerm(DatabaseObject):
     class_class_uri: ClassVar[URIRef] = REACTOME["GoMolecularFunctionTerm"]
     class_class_curie: ClassVar[str] = "reactome:GoMolecularFunctionTerm"
     class_name: ClassVar[str] = "go_molecular_function_term"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.GoMolecularFunctionTerm
+    class_model_uri: ClassVar[URIRef] = REACTOME.GoMolecularFunctionTerm
 
     id: Union[str, GoMolecularFunctionTermId] = None
     reactome_db_id: int = None
@@ -2106,7 +2105,7 @@ class GoBiologicalProcessTerm(DatabaseObject):
     class_class_uri: ClassVar[URIRef] = REACTOME["GoBiologicalProcessTerm"]
     class_class_curie: ClassVar[str] = "reactome:GoBiologicalProcessTerm"
     class_name: ClassVar[str] = "go_biological_process_term"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.GoBiologicalProcessTerm
+    class_model_uri: ClassVar[URIRef] = REACTOME.GoBiologicalProcessTerm
 
     id: Union[str, GoBiologicalProcessTermId] = None
     reactome_db_id: int = None
@@ -2134,7 +2133,7 @@ class GoCellularComponentTerm(DatabaseObject):
     class_class_uri: ClassVar[URIRef] = REACTOME["GoCellularComponentTerm"]
     class_class_curie: ClassVar[str] = "reactome:GoCellularComponentTerm"
     class_name: ClassVar[str] = "go_cellular_component_term"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.GoCellularComponentTerm
+    class_model_uri: ClassVar[URIRef] = REACTOME.GoCellularComponentTerm
 
     id: Union[str, GoCellularComponentTermId] = None
     reactome_db_id: int = None
@@ -2162,7 +2161,7 @@ class ReactomeDataset(YAMLRoot):
     class_class_uri: ClassVar[URIRef] = REACTOME["ReactomeDataset"]
     class_class_curie: ClassVar[str] = "reactome:ReactomeDataset"
     class_name: ClassVar[str] = "reactome_dataset"
-    class_model_uri: ClassVar[URIRef] = REACTOMEO.ReactomeDataset
+    class_model_uri: ClassVar[URIRef] = REACTOME.ReactomeDataset
 
     database_objects: Optional[Union[dict[Union[str, DatabaseObjectId], Union[dict, DatabaseObject]], list[Union[dict, DatabaseObject]]]] = empty_dict()
 
@@ -2180,249 +2179,249 @@ class slots:
     pass
 
 slots.id = Slot(uri=DCTERMS.identifier, name="id", curie=DCTERMS.curie('identifier'),
-                   model_uri=REACTOMEO.id, domain=None, range=URIRef)
+                   model_uri=REACTOME.id, domain=None, range=URIRef)
 
-slots.category = Slot(uri=REACTOMEO.category, name="category", curie=REACTOMEO.curie('category'),
-                   model_uri=REACTOMEO.category, domain=None, range=Optional[str])
+slots.category = Slot(uri=REACTOME.category, name="category", curie=REACTOME.curie('category'),
+                   model_uri=REACTOME.category, domain=None, range=Optional[str])
 
 slots.name = Slot(uri=RDFS.label, name="name", curie=RDFS.curie('label'),
-                   model_uri=REACTOMEO.name, domain=None, range=Optional[str])
+                   model_uri=REACTOME.name, domain=None, range=Optional[str])
 
 slots.description = Slot(uri=DCTERMS.description, name="description", curie=DCTERMS.curie('description'),
-                   model_uri=REACTOMEO.description, domain=None, range=Optional[str])
+                   model_uri=REACTOME.description, domain=None, range=Optional[str])
 
-slots.reactome_db_id = Slot(uri=REACTOMEO.reactomeDbId, name="reactome_db_id", curie=REACTOMEO.curie('reactomeDbId'),
-                   model_uri=REACTOMEO.reactome_db_id, domain=None, range=Optional[int])
+slots.reactome_db_id = Slot(uri=REACTOME.reactomeDbId, name="reactome_db_id", curie=REACTOME.curie('reactomeDbId'),
+                   model_uri=REACTOME.reactome_db_id, domain=None, range=Optional[int])
 
-slots.reactome_stable_identifier = Slot(uri=REACTOMEO.reactomeStableIdentifier, name="reactome_stable_identifier", curie=REACTOMEO.curie('reactomeStableIdentifier'),
-                   model_uri=REACTOMEO.reactome_stable_identifier, domain=None, range=Optional[str])
+slots.reactome_stable_identifier = Slot(uri=REACTOME.reactomeStableIdentifier, name="reactome_stable_identifier", curie=REACTOME.curie('reactomeStableIdentifier'),
+                   model_uri=REACTOME.reactome_stable_identifier, domain=None, range=Optional[str])
 
-slots.source_schema_class = Slot(uri=REACTOMEO.sourceSchemaClass, name="source_schema_class", curie=REACTOMEO.curie('sourceSchemaClass'),
-                   model_uri=REACTOMEO.source_schema_class, domain=None, range=Optional[str])
+slots.source_schema_class = Slot(uri=REACTOME.sourceSchemaClass, name="source_schema_class", curie=REACTOME.curie('sourceSchemaClass'),
+                   model_uri=REACTOME.source_schema_class, domain=None, range=Optional[str])
 
-slots.display_label = Slot(uri=REACTOMEO.displayLabel, name="display_label", curie=REACTOMEO.curie('displayLabel'),
-                   model_uri=REACTOMEO.display_label, domain=None, range=Optional[str])
+slots.display_label = Slot(uri=REACTOME.displayLabel, name="display_label", curie=REACTOME.curie('displayLabel'),
+                   model_uri=REACTOME.display_label, domain=None, range=Optional[str])
 
-slots.definition = Slot(uri=REACTOMEO.definition, name="definition", curie=REACTOMEO.curie('definition'),
-                   model_uri=REACTOMEO.definition, domain=None, range=Optional[str])
+slots.definition = Slot(uri=REACTOME.definition, name="definition", curie=REACTOME.curie('definition'),
+                   model_uri=REACTOME.definition, domain=None, range=Optional[str])
 
-slots.systematic_name = Slot(uri=REACTOMEO.systematicName, name="systematic_name", curie=REACTOMEO.curie('systematicName'),
-                   model_uri=REACTOMEO.systematic_name, domain=None, range=Optional[str])
+slots.systematic_name = Slot(uri=REACTOME.systematicName, name="systematic_name", curie=REACTOME.curie('systematicName'),
+                   model_uri=REACTOME.systematic_name, domain=None, range=Optional[str])
 
-slots.release_date = Slot(uri=REACTOMEO.releaseDate, name="release_date", curie=REACTOMEO.curie('releaseDate'),
-                   model_uri=REACTOMEO.release_date, domain=None, range=Optional[Union[str, XSDDate]])
+slots.release_date = Slot(uri=REACTOME.releaseDate, name="release_date", curie=REACTOME.curie('releaseDate'),
+                   model_uri=REACTOME.release_date, domain=None, range=Optional[Union[str, XSDDate]])
 
-slots.release_status = Slot(uri=REACTOMEO.releaseStatus, name="release_status", curie=REACTOMEO.curie('releaseStatus'),
-                   model_uri=REACTOMEO.release_status, domain=None, range=Optional[str])
+slots.release_status = Slot(uri=REACTOME.releaseStatus, name="release_status", curie=REACTOME.curie('releaseStatus'),
+                   model_uri=REACTOME.release_status, domain=None, range=Optional[str])
 
-slots.is_inferred = Slot(uri=REACTOMEO.isInferred, name="is_inferred", curie=REACTOMEO.curie('isInferred'),
-                   model_uri=REACTOMEO.is_inferred, domain=None, range=Optional[Union[bool, Bool]])
+slots.is_inferred = Slot(uri=REACTOME.isInferred, name="is_inferred", curie=REACTOME.curie('isInferred'),
+                   model_uri=REACTOME.is_inferred, domain=None, range=Optional[Union[bool, Bool]])
 
-slots.is_in_disease_context = Slot(uri=REACTOMEO.isInDiseaseContext, name="is_in_disease_context", curie=REACTOMEO.curie('isInDiseaseContext'),
-                   model_uri=REACTOMEO.is_in_disease_context, domain=None, range=Optional[Union[bool, Bool]])
+slots.is_in_disease_context = Slot(uri=REACTOME.isInDiseaseContext, name="is_in_disease_context", curie=REACTOME.curie('isInDiseaseContext'),
+                   model_uri=REACTOME.is_in_disease_context, domain=None, range=Optional[Union[bool, Bool]])
 
-slots.created = Slot(uri=REACTOMEO.created, name="created", curie=REACTOMEO.curie('created'),
-                   model_uri=REACTOMEO.created, domain=None, range=Optional[Union[str, InstanceEditId]])
+slots.created = Slot(uri=REACTOME.created, name="created", curie=REACTOME.curie('created'),
+                   model_uri=REACTOME.created, domain=None, range=Optional[Union[str, InstanceEditId]])
 
-slots.modified = Slot(uri=REACTOMEO.modified, name="modified", curie=REACTOMEO.curie('modified'),
-                   model_uri=REACTOMEO.modified, domain=None, range=Optional[Union[Union[str, InstanceEditId], list[Union[str, InstanceEditId]]]])
+slots.modified = Slot(uri=REACTOME.modified, name="modified", curie=REACTOME.curie('modified'),
+                   model_uri=REACTOME.modified, domain=None, range=Optional[Union[Union[str, InstanceEditId], list[Union[str, InstanceEditId]]]])
 
-slots.reviewed = Slot(uri=REACTOMEO.reviewed, name="reviewed", curie=REACTOMEO.curie('reviewed'),
-                   model_uri=REACTOMEO.reviewed, domain=None, range=Optional[Union[Union[str, InstanceEditId], list[Union[str, InstanceEditId]]]])
+slots.reviewed = Slot(uri=REACTOME.reviewed, name="reviewed", curie=REACTOME.curie('reviewed'),
+                   model_uri=REACTOME.reviewed, domain=None, range=Optional[Union[Union[str, InstanceEditId], list[Union[str, InstanceEditId]]]])
 
-slots.revised = Slot(uri=REACTOMEO.revised, name="revised", curie=REACTOMEO.curie('revised'),
-                   model_uri=REACTOMEO.revised, domain=None, range=Optional[Union[Union[str, InstanceEditId], list[Union[str, InstanceEditId]]]])
+slots.revised = Slot(uri=REACTOME.revised, name="revised", curie=REACTOME.curie('revised'),
+                   model_uri=REACTOME.revised, domain=None, range=Optional[Union[Union[str, InstanceEditId], list[Union[str, InstanceEditId]]]])
 
-slots.authored = Slot(uri=REACTOMEO.authored, name="authored", curie=REACTOMEO.curie('authored'),
-                   model_uri=REACTOMEO.authored, domain=None, range=Optional[Union[Union[str, InstanceEditId], list[Union[str, InstanceEditId]]]])
+slots.authored = Slot(uri=REACTOME.authored, name="authored", curie=REACTOME.curie('authored'),
+                   model_uri=REACTOME.authored, domain=None, range=Optional[Union[Union[str, InstanceEditId], list[Union[str, InstanceEditId]]]])
 
-slots.in_taxon = Slot(uri=REACTOMEO.inTaxon, name="in_taxon", curie=REACTOMEO.curie('inTaxon'),
-                   model_uri=REACTOMEO.in_taxon, domain=None, range=Optional[Union[Union[str, OrganismTaxonId], list[Union[str, OrganismTaxonId]]]])
+slots.in_taxon = Slot(uri=REACTOME.inTaxon, name="in_taxon", curie=REACTOME.curie('inTaxon'),
+                   model_uri=REACTOME.in_taxon, domain=None, range=Optional[Union[Union[str, OrganismTaxonId], list[Union[str, OrganismTaxonId]]]])
 
-slots.located_in_compartment = Slot(uri=REACTOMEO.locatedInCompartment, name="located_in_compartment", curie=REACTOMEO.curie('locatedInCompartment'),
-                   model_uri=REACTOMEO.located_in_compartment, domain=None, range=Optional[Union[Union[str, CompartmentId], list[Union[str, CompartmentId]]]])
+slots.located_in_compartment = Slot(uri=REACTOME.locatedInCompartment, name="located_in_compartment", curie=REACTOME.curie('locatedInCompartment'),
+                   model_uri=REACTOME.located_in_compartment, domain=None, range=Optional[Union[Union[str, CompartmentId], list[Union[str, CompartmentId]]]])
 
-slots.has_summation = Slot(uri=REACTOMEO.hasSummation, name="has_summation", curie=REACTOMEO.curie('hasSummation'),
-                   model_uri=REACTOMEO.has_summation, domain=None, range=Optional[Union[str, SummationId]])
+slots.has_summation = Slot(uri=REACTOME.hasSummation, name="has_summation", curie=REACTOME.curie('hasSummation'),
+                   model_uri=REACTOME.has_summation, domain=None, range=Optional[Union[str, SummationId]])
 
-slots.supported_by = Slot(uri=REACTOMEO.supportedBy, name="supported_by", curie=REACTOMEO.curie('supportedBy'),
-                   model_uri=REACTOMEO.supported_by, domain=None, range=Optional[Union[Union[str, PublicationId], list[Union[str, PublicationId]]]])
+slots.supported_by = Slot(uri=REACTOME.supportedBy, name="supported_by", curie=REACTOME.curie('supportedBy'),
+                   model_uri=REACTOME.supported_by, domain=None, range=Optional[Union[Union[str, PublicationId], list[Union[str, PublicationId]]]])
 
-slots.has_cross_reference = Slot(uri=REACTOMEO.hasCrossReference, name="has_cross_reference", curie=REACTOMEO.curie('hasCrossReference'),
-                   model_uri=REACTOMEO.has_cross_reference, domain=None, range=Optional[Union[Union[str, DatabaseIdentifierId], list[Union[str, DatabaseIdentifierId]]]])
+slots.has_cross_reference = Slot(uri=REACTOME.hasCrossReference, name="has_cross_reference", curie=REACTOME.curie('hasCrossReference'),
+                   model_uri=REACTOME.has_cross_reference, domain=None, range=Optional[Union[Union[str, DatabaseIdentifierId], list[Union[str, DatabaseIdentifierId]]]])
 
-slots.has_disease_context = Slot(uri=REACTOMEO.hasDiseaseContext, name="has_disease_context", curie=REACTOMEO.curie('hasDiseaseContext'),
-                   model_uri=REACTOMEO.has_disease_context, domain=None, range=Optional[Union[Union[str, DiseaseId], list[Union[str, DiseaseId]]]])
+slots.has_disease_context = Slot(uri=REACTOME.hasDiseaseContext, name="has_disease_context", curie=REACTOME.curie('hasDiseaseContext'),
+                   model_uri=REACTOME.has_disease_context, domain=None, range=Optional[Union[Union[str, DiseaseId], list[Union[str, DiseaseId]]]])
 
-slots.has_go_biological_process = Slot(uri=REACTOMEO.hasGoBiologicalProcess, name="has_go_biological_process", curie=REACTOMEO.curie('hasGoBiologicalProcess'),
-                   model_uri=REACTOMEO.has_go_biological_process, domain=None, range=Optional[Union[str, GoBiologicalProcessTermId]])
+slots.has_go_biological_process = Slot(uri=REACTOME.hasGoBiologicalProcess, name="has_go_biological_process", curie=REACTOME.curie('hasGoBiologicalProcess'),
+                   model_uri=REACTOME.has_go_biological_process, domain=None, range=Optional[Union[str, GoBiologicalProcessTermId]])
 
-slots.has_go_cellular_component = Slot(uri=REACTOMEO.hasGoCellularComponent, name="has_go_cellular_component", curie=REACTOMEO.curie('hasGoCellularComponent'),
-                   model_uri=REACTOMEO.has_go_cellular_component, domain=None, range=Optional[Union[str, GoCellularComponentTermId]])
+slots.has_go_cellular_component = Slot(uri=REACTOME.hasGoCellularComponent, name="has_go_cellular_component", curie=REACTOME.curie('hasGoCellularComponent'),
+                   model_uri=REACTOME.has_go_cellular_component, domain=None, range=Optional[Union[str, GoCellularComponentTermId]])
 
-slots.has_go_molecular_function = Slot(uri=REACTOMEO.hasGoMolecularFunction, name="has_go_molecular_function", curie=REACTOMEO.curie('hasGoMolecularFunction'),
-                   model_uri=REACTOMEO.has_go_molecular_function, domain=None, range=Optional[Union[str, GoMolecularFunctionTermId]])
+slots.has_go_molecular_function = Slot(uri=REACTOME.hasGoMolecularFunction, name="has_go_molecular_function", curie=REACTOME.curie('hasGoMolecularFunction'),
+                   model_uri=REACTOME.has_go_molecular_function, domain=None, range=Optional[Union[str, GoMolecularFunctionTermId]])
 
-slots.has_event = Slot(uri=REACTOMEO.hasEvent, name="has_event", curie=REACTOMEO.curie('hasEvent'),
-                   model_uri=REACTOMEO.has_event, domain=None, range=Optional[Union[dict[Union[str, EventId], Union[dict, Event]], list[Union[dict, Event]]]])
+slots.has_event = Slot(uri=REACTOME.hasEvent, name="has_event", curie=REACTOME.curie('hasEvent'),
+                   model_uri=REACTOME.has_event, domain=None, range=Optional[Union[dict[Union[str, EventId], Union[dict, Event]], list[Union[dict, Event]]]])
 
-slots.preceded_by = Slot(uri=REACTOMEO.precededBy, name="preceded_by", curie=REACTOMEO.curie('precededBy'),
-                   model_uri=REACTOMEO.preceded_by, domain=None, range=Optional[Union[dict[Union[str, EventId], Union[dict, Event]], list[Union[dict, Event]]]])
+slots.preceded_by = Slot(uri=REACTOME.precededBy, name="preceded_by", curie=REACTOME.curie('precededBy'),
+                   model_uri=REACTOME.preceded_by, domain=None, range=Optional[Union[dict[Union[str, EventId], Union[dict, Event]], list[Union[dict, Event]]]])
 
-slots.has_input = Slot(uri=REACTOMEO.hasInput, name="has_input", curie=REACTOMEO.curie('hasInput'),
-                   model_uri=REACTOMEO.has_input, domain=None, range=Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]])
+slots.has_input = Slot(uri=REACTOME.hasInput, name="has_input", curie=REACTOME.curie('hasInput'),
+                   model_uri=REACTOME.has_input, domain=None, range=Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]])
 
-slots.has_output = Slot(uri=REACTOMEO.hasOutput, name="has_output", curie=REACTOMEO.curie('hasOutput'),
-                   model_uri=REACTOMEO.has_output, domain=None, range=Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]])
+slots.has_output = Slot(uri=REACTOME.hasOutput, name="has_output", curie=REACTOME.curie('hasOutput'),
+                   model_uri=REACTOME.has_output, domain=None, range=Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]])
 
-slots.requires_component = Slot(uri=REACTOMEO.requiresComponent, name="requires_component", curie=REACTOMEO.curie('requiresComponent'),
-                   model_uri=REACTOMEO.requires_component, domain=None, range=Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]])
+slots.requires_component = Slot(uri=REACTOME.requiresComponent, name="requires_component", curie=REACTOME.curie('requiresComponent'),
+                   model_uri=REACTOME.requires_component, domain=None, range=Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]])
 
-slots.has_catalyst_activity = Slot(uri=REACTOMEO.hasCatalystActivity, name="has_catalyst_activity", curie=REACTOMEO.curie('hasCatalystActivity'),
-                   model_uri=REACTOMEO.has_catalyst_activity, domain=None, range=Optional[Union[dict[Union[str, CatalystActivityId], Union[dict, CatalystActivity]], list[Union[dict, CatalystActivity]]]])
+slots.has_catalyst_activity = Slot(uri=REACTOME.hasCatalystActivity, name="has_catalyst_activity", curie=REACTOME.curie('hasCatalystActivity'),
+                   model_uri=REACTOME.has_catalyst_activity, domain=None, range=Optional[Union[dict[Union[str, CatalystActivityId], Union[dict, CatalystActivity]], list[Union[dict, CatalystActivity]]]])
 
-slots.has_regulation = Slot(uri=REACTOMEO.hasRegulation, name="has_regulation", curie=REACTOMEO.curie('hasRegulation'),
-                   model_uri=REACTOMEO.has_regulation, domain=None, range=Optional[Union[dict[Union[str, RegulationId], Union[dict, Regulation]], list[Union[dict, Regulation]]]])
+slots.has_regulation = Slot(uri=REACTOME.hasRegulation, name="has_regulation", curie=REACTOME.curie('hasRegulation'),
+                   model_uri=REACTOME.has_regulation, domain=None, range=Optional[Union[dict[Union[str, RegulationId], Union[dict, Regulation]], list[Union[dict, Regulation]]]])
 
-slots.has_interacting_entity_on_other_cell = Slot(uri=REACTOMEO.hasInteractingEntityOnOtherCell, name="has_interacting_entity_on_other_cell", curie=REACTOMEO.curie('hasInteractingEntityOnOtherCell'),
-                   model_uri=REACTOMEO.has_interacting_entity_on_other_cell, domain=None, range=Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]])
+slots.has_interacting_entity_on_other_cell = Slot(uri=REACTOME.hasInteractingEntityOnOtherCell, name="has_interacting_entity_on_other_cell", curie=REACTOME.curie('hasInteractingEntityOnOtherCell'),
+                   model_uri=REACTOME.has_interacting_entity_on_other_cell, domain=None, range=Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]])
 
-slots.has_interaction = Slot(uri=REACTOMEO.hasInteraction, name="has_interaction", curie=REACTOMEO.curie('hasInteraction'),
-                   model_uri=REACTOMEO.has_interaction, domain=None, range=Optional[Union[dict[Union[str, InteractionId], Union[dict, Interaction]], list[Union[dict, Interaction]]]])
+slots.has_interaction = Slot(uri=REACTOME.hasInteraction, name="has_interaction", curie=REACTOME.curie('hasInteraction'),
+                   model_uri=REACTOME.has_interaction, domain=None, range=Optional[Union[dict[Union[str, InteractionId], Union[dict, Interaction]], list[Union[dict, Interaction]]]])
 
-slots.has_reaction_type = Slot(uri=REACTOMEO.hasReactionType, name="has_reaction_type", curie=REACTOMEO.curie('hasReactionType'),
-                   model_uri=REACTOMEO.has_reaction_type, domain=None, range=Optional[Union[Union[str, ReactionTypeTermId], list[Union[str, ReactionTypeTermId]]]])
+slots.has_reaction_type = Slot(uri=REACTOME.hasReactionType, name="has_reaction_type", curie=REACTOME.curie('hasReactionType'),
+                   model_uri=REACTOME.has_reaction_type, domain=None, range=Optional[Union[Union[str, ReactionTypeTermId], list[Union[str, ReactionTypeTermId]]]])
 
-slots.has_reference_entity = Slot(uri=REACTOMEO.hasReferenceEntity, name="has_reference_entity", curie=REACTOMEO.curie('hasReferenceEntity'),
-                   model_uri=REACTOMEO.has_reference_entity, domain=None, range=Optional[Union[str, ReferenceEntityId]])
+slots.has_reference_entity = Slot(uri=REACTOME.hasReferenceEntity, name="has_reference_entity", curie=REACTOME.curie('hasReferenceEntity'),
+                   model_uri=REACTOME.has_reference_entity, domain=None, range=Optional[Union[str, ReferenceEntityId]])
 
-slots.has_modified_residue = Slot(uri=REACTOMEO.hasModifiedResidue, name="has_modified_residue", curie=REACTOMEO.curie('hasModifiedResidue'),
-                   model_uri=REACTOMEO.has_modified_residue, domain=None, range=Optional[Union[dict[Union[str, AbstractModifiedResidueId], Union[dict, AbstractModifiedResidue]], list[Union[dict, AbstractModifiedResidue]]]])
+slots.has_modified_residue = Slot(uri=REACTOME.hasModifiedResidue, name="has_modified_residue", curie=REACTOME.curie('hasModifiedResidue'),
+                   model_uri=REACTOME.has_modified_residue, domain=None, range=Optional[Union[dict[Union[str, AbstractModifiedResidueId], Union[dict, AbstractModifiedResidue]], list[Union[dict, AbstractModifiedResidue]]]])
 
-slots.start_coordinate = Slot(uri=REACTOMEO.startCoordinate, name="start_coordinate", curie=REACTOMEO.curie('startCoordinate'),
-                   model_uri=REACTOMEO.start_coordinate, domain=None, range=Optional[int])
+slots.start_coordinate = Slot(uri=REACTOME.startCoordinate, name="start_coordinate", curie=REACTOME.curie('startCoordinate'),
+                   model_uri=REACTOME.start_coordinate, domain=None, range=Optional[int])
 
-slots.end_coordinate = Slot(uri=REACTOMEO.endCoordinate, name="end_coordinate", curie=REACTOMEO.curie('endCoordinate'),
-                   model_uri=REACTOMEO.end_coordinate, domain=None, range=Optional[int])
+slots.end_coordinate = Slot(uri=REACTOME.endCoordinate, name="end_coordinate", curie=REACTOME.curie('endCoordinate'),
+                   model_uri=REACTOME.end_coordinate, domain=None, range=Optional[int])
 
-slots.sequence_reference_type = Slot(uri=REACTOMEO.sequenceReferenceType, name="sequence_reference_type", curie=REACTOMEO.curie('sequenceReferenceType'),
-                   model_uri=REACTOMEO.sequence_reference_type, domain=None, range=Optional[str])
+slots.sequence_reference_type = Slot(uri=REACTOME.sequenceReferenceType, name="sequence_reference_type", curie=REACTOME.curie('sequenceReferenceType'),
+                   model_uri=REACTOME.sequence_reference_type, domain=None, range=Optional[str])
 
-slots.has_component = Slot(uri=REACTOMEO.hasComponent, name="has_component", curie=REACTOMEO.curie('hasComponent'),
-                   model_uri=REACTOMEO.has_component, domain=None, range=Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]])
+slots.has_component = Slot(uri=REACTOME.hasComponent, name="has_component", curie=REACTOME.curie('hasComponent'),
+                   model_uri=REACTOME.has_component, domain=None, range=Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]])
 
-slots.has_member = Slot(uri=REACTOMEO.hasMember, name="has_member", curie=REACTOMEO.curie('hasMember'),
-                   model_uri=REACTOMEO.has_member, domain=None, range=Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]])
+slots.has_member = Slot(uri=REACTOME.hasMember, name="has_member", curie=REACTOME.curie('hasMember'),
+                   model_uri=REACTOME.has_member, domain=None, range=Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]])
 
-slots.has_repeated_unit = Slot(uri=REACTOMEO.hasRepeatedUnit, name="has_repeated_unit", curie=REACTOMEO.curie('hasRepeatedUnit'),
-                   model_uri=REACTOMEO.has_repeated_unit, domain=None, range=Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]])
+slots.has_repeated_unit = Slot(uri=REACTOME.hasRepeatedUnit, name="has_repeated_unit", curie=REACTOME.curie('hasRepeatedUnit'),
+                   model_uri=REACTOME.has_repeated_unit, domain=None, range=Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]])
 
-slots.has_regulator = Slot(uri=REACTOMEO.hasRegulator, name="has_regulator", curie=REACTOMEO.curie('hasRegulator'),
-                   model_uri=REACTOMEO.has_regulator, domain=None, range=Optional[Union[str, PhysicalEntityId]])
+slots.has_regulator = Slot(uri=REACTOME.hasRegulator, name="has_regulator", curie=REACTOME.curie('hasRegulator'),
+                   model_uri=REACTOME.has_regulator, domain=None, range=Optional[Union[str, PhysicalEntityId]])
 
-slots.regulates = Slot(uri=REACTOMEO.regulates, name="regulates", curie=REACTOMEO.curie('regulates'),
-                   model_uri=REACTOMEO.regulates, domain=None, range=Optional[Union[str, ReactionLikeEventId]])
+slots.regulates = Slot(uri=REACTOME.regulates, name="regulates", curie=REACTOME.curie('regulates'),
+                   model_uri=REACTOME.regulates, domain=None, range=Optional[Union[str, ReactionLikeEventId]])
 
-slots.has_active_unit = Slot(uri=REACTOMEO.hasActiveUnit, name="has_active_unit", curie=REACTOMEO.curie('hasActiveUnit'),
-                   model_uri=REACTOMEO.has_active_unit, domain=None, range=Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]])
+slots.has_active_unit = Slot(uri=REACTOME.hasActiveUnit, name="has_active_unit", curie=REACTOME.curie('hasActiveUnit'),
+                   model_uri=REACTOME.has_active_unit, domain=None, range=Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]])
 
-slots.has_catalyst = Slot(uri=REACTOMEO.hasCatalyst, name="has_catalyst", curie=REACTOMEO.curie('hasCatalyst'),
-                   model_uri=REACTOMEO.has_catalyst, domain=None, range=Optional[Union[str, PhysicalEntityId]])
+slots.has_catalyst = Slot(uri=REACTOME.hasCatalyst, name="has_catalyst", curie=REACTOME.curie('hasCatalyst'),
+                   model_uri=REACTOME.has_catalyst, domain=None, range=Optional[Union[str, PhysicalEntityId]])
 
-slots.catalyzes = Slot(uri=REACTOMEO.catalyzes, name="catalyzes", curie=REACTOMEO.curie('catalyzes'),
-                   model_uri=REACTOMEO.catalyzes, domain=None, range=Optional[Union[dict[Union[str, ReactionLikeEventId], Union[dict, ReactionLikeEvent]], list[Union[dict, ReactionLikeEvent]]]])
+slots.catalyzes = Slot(uri=REACTOME.catalyzes, name="catalyzes", curie=REACTOME.curie('catalyzes'),
+                   model_uri=REACTOME.catalyzes, domain=None, range=Optional[Union[dict[Union[str, ReactionLikeEventId], Union[dict, ReactionLikeEvent]], list[Union[dict, ReactionLikeEvent]]]])
 
-slots.has_reference_database = Slot(uri=REACTOMEO.hasReferenceDatabase, name="has_reference_database", curie=REACTOMEO.curie('hasReferenceDatabase'),
-                   model_uri=REACTOMEO.has_reference_database, domain=None, range=Optional[Union[str, ReferenceDatabaseId]])
+slots.has_reference_database = Slot(uri=REACTOME.hasReferenceDatabase, name="has_reference_database", curie=REACTOME.curie('hasReferenceDatabase'),
+                   model_uri=REACTOME.has_reference_database, domain=None, range=Optional[Union[str, ReferenceDatabaseId]])
 
-slots.identifier = Slot(uri=REACTOMEO.identifier, name="identifier", curie=REACTOMEO.curie('identifier'),
-                   model_uri=REACTOMEO.identifier, domain=None, range=Optional[str])
+slots.identifier = Slot(uri=REACTOME.identifier, name="identifier", curie=REACTOME.curie('identifier'),
+                   model_uri=REACTOME.identifier, domain=None, range=Optional[str])
 
-slots.access_url = Slot(uri=REACTOMEO.accessUrl, name="access_url", curie=REACTOMEO.curie('accessUrl'),
-                   model_uri=REACTOMEO.access_url, domain=None, range=Optional[Union[str, URI]])
+slots.access_url = Slot(uri=REACTOME.accessUrl, name="access_url", curie=REACTOME.curie('accessUrl'),
+                   model_uri=REACTOME.access_url, domain=None, range=Optional[Union[str, URI]])
 
-slots.identifier_prefix = Slot(uri=REACTOMEO.identifierPrefix, name="identifier_prefix", curie=REACTOMEO.curie('identifierPrefix'),
-                   model_uri=REACTOMEO.identifier_prefix, domain=None, range=Optional[str])
+slots.identifier_prefix = Slot(uri=REACTOME.identifierPrefix, name="identifier_prefix", curie=REACTOME.curie('identifierPrefix'),
+                   model_uri=REACTOME.identifier_prefix, domain=None, range=Optional[str])
 
-slots.resource_identifier = Slot(uri=REACTOMEO.resourceIdentifier, name="resource_identifier", curie=REACTOMEO.curie('resourceIdentifier'),
-                   model_uri=REACTOMEO.resource_identifier, domain=None, range=Optional[str])
+slots.resource_identifier = Slot(uri=REACTOME.resourceIdentifier, name="resource_identifier", curie=REACTOME.curie('resourceIdentifier'),
+                   model_uri=REACTOME.resource_identifier, domain=None, range=Optional[str])
 
-slots.url = Slot(uri=REACTOMEO.url, name="url", curie=REACTOMEO.curie('url'),
-                   model_uri=REACTOMEO.url, domain=None, range=Optional[Union[str, URI]])
+slots.url = Slot(uri=REACTOME.url, name="url", curie=REACTOME.curie('url'),
+                   model_uri=REACTOME.url, domain=None, range=Optional[Union[str, URI]])
 
-slots.pubmed_id = Slot(uri=REACTOMEO.pubmedId, name="pubmed_id", curie=REACTOMEO.curie('pubmedId'),
-                   model_uri=REACTOMEO.pubmed_id, domain=None, range=Optional[str],
+slots.pubmed_id = Slot(uri=REACTOME.pubmedId, name="pubmed_id", curie=REACTOME.curie('pubmedId'),
+                   model_uri=REACTOME.pubmed_id, domain=None, range=Optional[str],
                    pattern=re.compile(r'^[0-9]+$'))
 
-slots.orcid = Slot(uri=REACTOMEO.orcid, name="orcid", curie=REACTOMEO.curie('orcid'),
-                   model_uri=REACTOMEO.orcid, domain=None, range=Optional[Union[str, URI]])
+slots.orcid = Slot(uri=REACTOME.orcid, name="orcid", curie=REACTOME.curie('orcid'),
+                   model_uri=REACTOME.orcid, domain=None, range=Optional[Union[str, URI]])
 
-slots.ncbi_taxon_id = Slot(uri=REACTOMEO.ncbiTaxonId, name="ncbi_taxon_id", curie=REACTOMEO.curie('ncbiTaxonId'),
-                   model_uri=REACTOMEO.ncbi_taxon_id, domain=None, range=Optional[str],
+slots.ncbi_taxon_id = Slot(uri=REACTOME.ncbiTaxonId, name="ncbi_taxon_id", curie=REACTOME.curie('ncbiTaxonId'),
+                   model_uri=REACTOME.ncbi_taxon_id, domain=None, range=Optional[str],
                    pattern=re.compile(r'^[0-9]+$'))
 
-slots.previous_stable_identifier = Slot(uri=REACTOMEO.previousStableIdentifier, name="previous_stable_identifier", curie=REACTOMEO.curie('previousStableIdentifier'),
-                   model_uri=REACTOMEO.previous_stable_identifier, domain=None, range=Optional[str])
+slots.previous_stable_identifier = Slot(uri=REACTOME.previousStableIdentifier, name="previous_stable_identifier", curie=REACTOME.curie('previousStableIdentifier'),
+                   model_uri=REACTOME.previous_stable_identifier, domain=None, range=Optional[str])
 
-slots.instanceEdit__date = Slot(uri=REACTOMEO.date, name="instanceEdit__date", curie=REACTOMEO.curie('date'),
-                   model_uri=REACTOMEO.instanceEdit__date, domain=None, range=Optional[Union[str, XSDDateTime]])
+slots.instanceEdit__date = Slot(uri=REACTOME.date, name="instanceEdit__date", curie=REACTOME.curie('date'),
+                   model_uri=REACTOME.instanceEdit__date, domain=None, range=Optional[Union[str, XSDDateTime]])
 
-slots.instanceEdit__author = Slot(uri=REACTOMEO.author, name="instanceEdit__author", curie=REACTOMEO.curie('author'),
-                   model_uri=REACTOMEO.instanceEdit__author, domain=None, range=Optional[Union[dict[Union[str, PersonId], Union[dict, Person]], list[Union[dict, Person]]]])
+slots.instanceEdit__author = Slot(uri=REACTOME.author, name="instanceEdit__author", curie=REACTOME.curie('author'),
+                   model_uri=REACTOME.instanceEdit__author, domain=None, range=Optional[Union[dict[Union[str, PersonId], Union[dict, Person]], list[Union[dict, Person]]]])
 
-slots.summation__text = Slot(uri=REACTOMEO.text, name="summation__text", curie=REACTOMEO.curie('text'),
-                   model_uri=REACTOMEO.summation__text, domain=None, range=str)
+slots.summation__text = Slot(uri=REACTOME.text, name="summation__text", curie=REACTOME.curie('text'),
+                   model_uri=REACTOME.summation__text, domain=None, range=str)
 
-slots.reactomeDataset__database_objects = Slot(uri=REACTOMEO.database_objects, name="reactomeDataset__database_objects", curie=REACTOMEO.curie('database_objects'),
-                   model_uri=REACTOMEO.reactomeDataset__database_objects, domain=None, range=Optional[Union[dict[Union[str, DatabaseObjectId], Union[dict, DatabaseObject]], list[Union[dict, DatabaseObject]]]])
+slots.reactomeDataset__database_objects = Slot(uri=REACTOME.database_objects, name="reactomeDataset__database_objects", curie=REACTOME.curie('database_objects'),
+                   model_uri=REACTOME.reactomeDataset__database_objects, domain=None, range=Optional[Union[dict[Union[str, DatabaseObjectId], Union[dict, DatabaseObject]], list[Union[dict, DatabaseObject]]]])
 
-slots.database_object_reactome_db_id = Slot(uri=REACTOMEO.reactomeDbId, name="database_object_reactome_db_id", curie=REACTOMEO.curie('reactomeDbId'),
-                   model_uri=REACTOMEO.database_object_reactome_db_id, domain=DatabaseObject, range=int)
+slots.database_object_reactome_db_id = Slot(uri=REACTOME.reactomeDbId, name="database_object_reactome_db_id", curie=REACTOME.curie('reactomeDbId'),
+                   model_uri=REACTOME.database_object_reactome_db_id, domain=DatabaseObject, range=int)
 
-slots.database_object_reactome_stable_identifier = Slot(uri=REACTOMEO.reactomeStableIdentifier, name="database_object_reactome_stable_identifier", curie=REACTOMEO.curie('reactomeStableIdentifier'),
-                   model_uri=REACTOMEO.database_object_reactome_stable_identifier, domain=DatabaseObject, range=str)
+slots.database_object_reactome_stable_identifier = Slot(uri=REACTOME.reactomeStableIdentifier, name="database_object_reactome_stable_identifier", curie=REACTOME.curie('reactomeStableIdentifier'),
+                   model_uri=REACTOME.database_object_reactome_stable_identifier, domain=DatabaseObject, range=str)
 
-slots.database_object_source_schema_class = Slot(uri=REACTOMEO.sourceSchemaClass, name="database_object_source_schema_class", curie=REACTOMEO.curie('sourceSchemaClass'),
-                   model_uri=REACTOMEO.database_object_source_schema_class, domain=DatabaseObject, range=str)
+slots.database_object_source_schema_class = Slot(uri=REACTOME.sourceSchemaClass, name="database_object_source_schema_class", curie=REACTOME.curie('sourceSchemaClass'),
+                   model_uri=REACTOME.database_object_source_schema_class, domain=DatabaseObject, range=str)
 
-slots.database_object_display_label = Slot(uri=REACTOMEO.displayLabel, name="database_object_display_label", curie=REACTOMEO.curie('displayLabel'),
-                   model_uri=REACTOMEO.database_object_display_label, domain=DatabaseObject, range=str)
+slots.database_object_display_label = Slot(uri=REACTOME.displayLabel, name="database_object_display_label", curie=REACTOME.curie('displayLabel'),
+                   model_uri=REACTOME.database_object_display_label, domain=DatabaseObject, range=str)
 
-slots.database_object_created = Slot(uri=REACTOMEO.created, name="database_object_created", curie=REACTOMEO.curie('created'),
-                   model_uri=REACTOMEO.database_object_created, domain=DatabaseObject, range=Union[str, InstanceEditId])
+slots.database_object_created = Slot(uri=REACTOME.created, name="database_object_created", curie=REACTOME.curie('created'),
+                   model_uri=REACTOME.database_object_created, domain=DatabaseObject, range=Union[str, InstanceEditId])
 
-slots.pathway_has_event = Slot(uri=REACTOMEO.hasEvent, name="pathway_has_event", curie=REACTOMEO.curie('hasEvent'),
-                   model_uri=REACTOMEO.pathway_has_event, domain=Pathway, range=Union[dict[Union[str, EventId], Union[dict, Event]], list[Union[dict, Event]]])
+slots.pathway_has_event = Slot(uri=REACTOME.hasEvent, name="pathway_has_event", curie=REACTOME.curie('hasEvent'),
+                   model_uri=REACTOME.pathway_has_event, domain=Pathway, range=Union[dict[Union[str, EventId], Union[dict, Event]], list[Union[dict, Event]]])
 
-slots.reaction_has_input = Slot(uri=REACTOMEO.hasInput, name="reaction_has_input", curie=REACTOMEO.curie('hasInput'),
-                   model_uri=REACTOMEO.reaction_has_input, domain=Reaction, range=Union[dict[Union[str, PhysicalEntityId], Union[dict, "PhysicalEntity"]], list[Union[dict, "PhysicalEntity"]]])
+slots.reaction_has_input = Slot(uri=REACTOME.hasInput, name="reaction_has_input", curie=REACTOME.curie('hasInput'),
+                   model_uri=REACTOME.reaction_has_input, domain=Reaction, range=Union[dict[Union[str, PhysicalEntityId], Union[dict, "PhysicalEntity"]], list[Union[dict, "PhysicalEntity"]]])
 
-slots.reaction_has_output = Slot(uri=REACTOMEO.hasOutput, name="reaction_has_output", curie=REACTOMEO.curie('hasOutput'),
-                   model_uri=REACTOMEO.reaction_has_output, domain=Reaction, range=Union[dict[Union[str, PhysicalEntityId], Union[dict, "PhysicalEntity"]], list[Union[dict, "PhysicalEntity"]]])
+slots.reaction_has_output = Slot(uri=REACTOME.hasOutput, name="reaction_has_output", curie=REACTOME.curie('hasOutput'),
+                   model_uri=REACTOME.reaction_has_output, domain=Reaction, range=Union[dict[Union[str, PhysicalEntityId], Union[dict, "PhysicalEntity"]], list[Union[dict, "PhysicalEntity"]]])
 
-slots.simple_entity_has_reference_entity = Slot(uri=REACTOMEO.hasReferenceEntity, name="simple_entity_has_reference_entity", curie=REACTOMEO.curie('hasReferenceEntity'),
-                   model_uri=REACTOMEO.simple_entity_has_reference_entity, domain=SimpleEntity, range=Union[str, ReferenceMoleculeId])
+slots.simple_entity_has_reference_entity = Slot(uri=REACTOME.hasReferenceEntity, name="simple_entity_has_reference_entity", curie=REACTOME.curie('hasReferenceEntity'),
+                   model_uri=REACTOME.simple_entity_has_reference_entity, domain=SimpleEntity, range=Union[str, ReferenceMoleculeId])
 
-slots.sequence_entity_has_reference_entity = Slot(uri=REACTOMEO.hasReferenceEntity, name="sequence_entity_has_reference_entity", curie=REACTOMEO.curie('hasReferenceEntity'),
-                   model_uri=REACTOMEO.sequence_entity_has_reference_entity, domain=SequenceEntity, range=Union[str, ReferenceSequenceId])
+slots.sequence_entity_has_reference_entity = Slot(uri=REACTOME.hasReferenceEntity, name="sequence_entity_has_reference_entity", curie=REACTOME.curie('hasReferenceEntity'),
+                   model_uri=REACTOME.sequence_entity_has_reference_entity, domain=SequenceEntity, range=Union[str, ReferenceSequenceId])
 
-slots.complex_has_component = Slot(uri=REACTOMEO.hasComponent, name="complex_has_component", curie=REACTOMEO.curie('hasComponent'),
-                   model_uri=REACTOMEO.complex_has_component, domain=Complex, range=Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]])
+slots.complex_has_component = Slot(uri=REACTOME.hasComponent, name="complex_has_component", curie=REACTOME.curie('hasComponent'),
+                   model_uri=REACTOME.complex_has_component, domain=Complex, range=Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]])
 
-slots.entity_set_has_member = Slot(uri=REACTOMEO.hasMember, name="entity_set_has_member", curie=REACTOMEO.curie('hasMember'),
-                   model_uri=REACTOMEO.entity_set_has_member, domain=EntitySet, range=Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]])
+slots.entity_set_has_member = Slot(uri=REACTOME.hasMember, name="entity_set_has_member", curie=REACTOME.curie('hasMember'),
+                   model_uri=REACTOME.entity_set_has_member, domain=EntitySet, range=Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]])
 
-slots.reference_entity_has_reference_database = Slot(uri=REACTOMEO.hasReferenceDatabase, name="reference_entity_has_reference_database", curie=REACTOMEO.curie('hasReferenceDatabase'),
-                   model_uri=REACTOMEO.reference_entity_has_reference_database, domain=ReferenceEntity, range=Union[str, ReferenceDatabaseId])
+slots.reference_entity_has_reference_database = Slot(uri=REACTOME.hasReferenceDatabase, name="reference_entity_has_reference_database", curie=REACTOME.curie('hasReferenceDatabase'),
+                   model_uri=REACTOME.reference_entity_has_reference_database, domain=ReferenceEntity, range=Union[str, ReferenceDatabaseId])
 
-slots.catalyst_activity_has_catalyst = Slot(uri=REACTOMEO.hasCatalyst, name="catalyst_activity_has_catalyst", curie=REACTOMEO.curie('hasCatalyst'),
-                   model_uri=REACTOMEO.catalyst_activity_has_catalyst, domain=CatalystActivity, range=Union[str, PhysicalEntityId])
+slots.catalyst_activity_has_catalyst = Slot(uri=REACTOME.hasCatalyst, name="catalyst_activity_has_catalyst", curie=REACTOME.curie('hasCatalyst'),
+                   model_uri=REACTOME.catalyst_activity_has_catalyst, domain=CatalystActivity, range=Union[str, PhysicalEntityId])
 
-slots.catalyst_activity_has_go_molecular_function = Slot(uri=REACTOMEO.hasGoMolecularFunction, name="catalyst_activity_has_go_molecular_function", curie=REACTOMEO.curie('hasGoMolecularFunction'),
-                   model_uri=REACTOMEO.catalyst_activity_has_go_molecular_function, domain=CatalystActivity, range=Union[str, GoMolecularFunctionTermId])
+slots.catalyst_activity_has_go_molecular_function = Slot(uri=REACTOME.hasGoMolecularFunction, name="catalyst_activity_has_go_molecular_function", curie=REACTOME.curie('hasGoMolecularFunction'),
+                   model_uri=REACTOME.catalyst_activity_has_go_molecular_function, domain=CatalystActivity, range=Union[str, GoMolecularFunctionTermId])
 
-slots.regulation_has_regulator = Slot(uri=REACTOMEO.hasRegulator, name="regulation_has_regulator", curie=REACTOMEO.curie('hasRegulator'),
-                   model_uri=REACTOMEO.regulation_has_regulator, domain=Regulation, range=Union[str, PhysicalEntityId])
+slots.regulation_has_regulator = Slot(uri=REACTOME.hasRegulator, name="regulation_has_regulator", curie=REACTOME.curie('hasRegulator'),
+                   model_uri=REACTOME.regulation_has_regulator, domain=Regulation, range=Union[str, PhysicalEntityId])
 
-slots.regulation_regulates = Slot(uri=REACTOMEO.regulates, name="regulation_regulates", curie=REACTOMEO.curie('regulates'),
-                   model_uri=REACTOMEO.regulation_regulates, domain=Regulation, range=Union[str, ReactionLikeEventId])
+slots.regulation_regulates = Slot(uri=REACTOME.regulates, name="regulation_regulates", curie=REACTOME.curie('regulates'),
+                   model_uri=REACTOME.regulation_regulates, domain=Regulation, range=Union[str, ReactionLikeEventId])

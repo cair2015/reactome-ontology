@@ -1,8 +1,8 @@
-name: reactome_ontology_final
+name: reactome_ontology
 description: A final OWL-oriented LinkML schema for generating a clean Reactome ontology.
   This profile keeps ontology-facing classes and properties and removes source-mapping
   annotations, which are maintained in separate mapping files.
-title: Reactome Ontology Schema (Final OWL-oriented Profile)
+title: Reactome Ontology Model
 comments:
 - This schema favors ontology-oriented naming for OWL generation; source mappings
   are maintained in separate mapping files.
@@ -61,10 +61,7 @@ prefixes:
   xsd:
     prefix_prefix: xsd
     prefix_reference: http://www.w3.org/2001/XMLSchema#
-  reactomeo:
-    prefix_prefix: reactomeo
-    prefix_reference: https://w3id.org/reactome-ontology/
-default_prefix: reactomeo
+default_prefix: reactome
 default_range: string
 types:
   string:
@@ -359,7 +356,7 @@ slots:
     comments:
     - Useful when data are exchanged in JSON or YAML and class typing must be preserved.
     from_schema: https://w3id.org/reactome-ontology/final
-    slot_uri: reactomeo:category
+    slot_uri: reactome:category
     designates_type: true
     range: string
   name:
@@ -400,8 +397,8 @@ slots:
       public identifiers.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:reactomeDbId
-    slot_uri: reactomeo:reactomeDbId
+    - reactome:reactomeDbId
+    slot_uri: reactome:reactomeDbId
     owner: database_object
     domain_of:
     - database_object
@@ -415,8 +412,8 @@ slots:
     - Typically corresponds to the curated Reactome stable accession such as R-HSA-xxxxx.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:reactomeStableIdentifier
-    slot_uri: reactomeo:reactomeStableIdentifier
+    - reactome:reactomeStableIdentifier
+    slot_uri: reactome:reactomeStableIdentifier
     owner: database_object
     domain_of:
     - database_object
@@ -432,8 +429,8 @@ slots:
       Reactome graph.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:sourceSchemaClass
-    slot_uri: reactomeo:sourceSchemaClass
+    - reactome:sourceSchemaClass
+    slot_uri: reactome:sourceSchemaClass
     owner: database_object
     domain_of:
     - database_object
@@ -447,9 +444,9 @@ slots:
     - Often combines identity and contextual state into a concise label.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:displayLabel
+    - reactome:displayLabel
     is_a: name
-    slot_uri: reactomeo:displayLabel
+    slot_uri: reactome:displayLabel
     owner: database_object
     domain_of:
     - database_object
@@ -463,8 +460,8 @@ slots:
     - Intended for conceptual definitions rather than narrative summaries.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:definition
-    slot_uri: reactomeo:definition
+    - reactome:definition
+    slot_uri: reactome:definition
     owner: database_object
     domain_of:
     - database_object
@@ -478,8 +475,8 @@ slots:
     - Often useful for chemicals, complexes, or sequence-derived entities.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:systematicName
-    slot_uri: reactomeo:systematicName
+    - reactome:systematicName
+    slot_uri: reactome:systematicName
     owner: physical_entity
     domain_of:
     - physical_entity
@@ -493,8 +490,8 @@ slots:
     - Modeled as string to match Reactome exports; can be normalized later if needed.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:releaseDate
-    slot_uri: reactomeo:releaseDate
+    - reactome:releaseDate
+    slot_uri: reactome:releaseDate
     owner: event
     domain_of:
     - event
@@ -509,8 +506,8 @@ slots:
       source exports.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:releaseStatus
-    slot_uri: reactomeo:releaseStatus
+    - reactome:releaseStatus
+    slot_uri: reactome:releaseStatus
     owner: event
     domain_of:
     - event
@@ -525,8 +522,8 @@ slots:
     - Reactome uses inference especially for orthology-based event propagation.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:isInferred
-    slot_uri: reactomeo:isInferred
+    - reactome:isInferred
+    slot_uri: reactome:isInferred
     owner: event
     domain_of:
     - event
@@ -541,8 +538,8 @@ slots:
     - This is a contextual flag and does not by itself define a disease ontology class.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:isInDiseaseContext
-    slot_uri: reactomeo:isInDiseaseContext
+    - reactome:isInDiseaseContext
+    slot_uri: reactome:isInDiseaseContext
     owner: physical_entity
     domain_of:
     - physical_entity
@@ -557,8 +554,8 @@ slots:
     - Usually points to an InstanceEdit containing editor and date metadata.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:created
-    slot_uri: reactomeo:created
+    - reactome:created
+    slot_uri: reactome:created
     owner: database_object
     domain_of:
     - database_object
@@ -572,8 +569,8 @@ slots:
     - Multiple modifications are common across curation history.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:modified
-    slot_uri: reactomeo:modified
+    - reactome:modified
+    slot_uri: reactome:modified
     owner: database_object
     domain_of:
     - database_object
@@ -587,8 +584,8 @@ slots:
     - Distinct from simple modification in Reactome curation workflows.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:reviewed
-    slot_uri: reactomeo:reviewed
+    - reactome:reviewed
+    slot_uri: reactome:reviewed
     owner: event
     domain_of:
     - event
@@ -603,8 +600,8 @@ slots:
     - Useful for tracking editorial iteration.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:revised
-    slot_uri: reactomeo:revised
+    - reactome:revised
+    slot_uri: reactome:revised
     owner: event
     domain_of:
     - event
@@ -618,8 +615,8 @@ slots:
     - Included to support richer editorial provenance when present in exports.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:authored
-    slot_uri: reactomeo:authored
+    - reactome:authored
+    slot_uri: reactome:authored
     range: instance_edit
     multivalued: true
   in_taxon:
@@ -632,8 +629,8 @@ slots:
       source organism.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:inTaxon
-    slot_uri: reactomeo:inTaxon
+    - reactome:inTaxon
+    slot_uri: reactome:inTaxon
     owner: physical_entity
     domain_of:
     - event
@@ -648,8 +645,8 @@ slots:
     - In Reactome, compartment is identity-relevant for many physical entities.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:locatedInCompartment
-    slot_uri: reactomeo:locatedInCompartment
+    - reactome:locatedInCompartment
+    slot_uri: reactome:locatedInCompartment
     owner: physical_entity
     domain_of:
     - event
@@ -664,8 +661,8 @@ slots:
     - Distinct from formal definition; usually prose intended for readers.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasSummation
-    slot_uri: reactomeo:hasSummation
+    - reactome:hasSummation
+    slot_uri: reactome:hasSummation
     owner: event
     domain_of:
     - event
@@ -680,8 +677,8 @@ slots:
     - Often points to PubMed-backed literature references.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:supportedBy
-    slot_uri: reactomeo:supportedBy
+    - reactome:supportedBy
+    slot_uri: reactome:supportedBy
     owner: regulation
     domain_of:
     - event
@@ -698,8 +695,8 @@ slots:
       related resources.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasCrossReference
-    slot_uri: reactomeo:hasCrossReference
+    - reactome:hasCrossReference
+    slot_uri: reactome:hasCrossReference
     owner: physical_entity
     domain_of:
     - event
@@ -714,8 +711,8 @@ slots:
     - Represents contextual disease association rather than broad etiologic modeling.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasDiseaseContext
-    slot_uri: reactomeo:hasDiseaseContext
+    - reactome:hasDiseaseContext
+    slot_uri: reactome:hasDiseaseContext
     owner: physical_entity
     domain_of:
     - event
@@ -732,8 +729,8 @@ slots:
       all cases.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasGoBiologicalProcess
-    slot_uri: reactomeo:hasGoBiologicalProcess
+    - reactome:hasGoBiologicalProcess
+    slot_uri: reactome:hasGoBiologicalProcess
     owner: pathway
     domain_of:
     - pathway
@@ -748,8 +745,8 @@ slots:
     - Often complements the explicit compartment modeling in Reactome.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasGoCellularComponent
-    slot_uri: reactomeo:hasGoCellularComponent
+    - reactome:hasGoCellularComponent
+    slot_uri: reactome:hasGoCellularComponent
     owner: physical_entity
     domain_of:
     - physical_entity
@@ -763,8 +760,8 @@ slots:
     - Reactome reifies catalysis so the molecular function can be attached explicitly.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasGoMolecularFunction
-    slot_uri: reactomeo:hasGoMolecularFunction
+    - reactome:hasGoMolecularFunction
+    slot_uri: reactome:hasGoMolecularFunction
     owner: catalyst_activity
     domain_of:
     - catalyst_activity
@@ -779,8 +776,8 @@ slots:
       pathways.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasEvent
-    slot_uri: reactomeo:hasEvent
+    - reactome:hasEvent
+    slot_uri: reactome:hasEvent
     owner: pathway
     domain_of:
     - pathway
@@ -796,8 +793,8 @@ slots:
     - Encodes partial ordering rather than necessarily strict temporal or causal completeness.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:precededBy
-    slot_uri: reactomeo:precededBy
+    - reactome:precededBy
+    slot_uri: reactome:precededBy
     owner: reaction_like_event
     domain_of:
     - reaction_like_event
@@ -815,8 +812,8 @@ slots:
       all event subclasses.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasInput
-    slot_uri: reactomeo:hasInput
+    - reactome:hasInput
+    slot_uri: reactome:hasInput
     owner: reaction_like_event
     domain_of:
     - reaction_like_event
@@ -833,8 +830,8 @@ slots:
       state.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasOutput
-    slot_uri: reactomeo:hasOutput
+    - reactome:hasOutput
+    slot_uri: reactome:hasOutput
     owner: reaction_like_event
     domain_of:
     - reaction_like_event
@@ -851,8 +848,8 @@ slots:
     - Useful for contextual cofactors, platform components, or required participants.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:requiresComponent
-    slot_uri: reactomeo:requiresComponent
+    - reactome:requiresComponent
+    slot_uri: reactome:requiresComponent
     owner: reaction_like_event
     domain_of:
     - reaction_like_event
@@ -869,8 +866,8 @@ slots:
       active-unit context.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasCatalystActivity
-    slot_uri: reactomeo:hasCatalystActivity
+    - reactome:hasCatalystActivity
+    slot_uri: reactome:hasCatalystActivity
     owner: reaction_like_event
     domain_of:
     - reaction_like_event
@@ -886,8 +883,8 @@ slots:
     - Supports positive, negative, and requirement-style regulatory semantics.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasRegulation
-    slot_uri: reactomeo:hasRegulation
+    - reactome:hasRegulation
+    slot_uri: reactome:hasRegulation
     owner: reaction_like_event
     domain_of:
     - reaction_like_event
@@ -904,8 +901,8 @@ slots:
     - Useful for immune, adhesion, and receptor-ligand interaction contexts.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasInteractingEntityOnOtherCell
-    slot_uri: reactomeo:hasInteractingEntityOnOtherCell
+    - reactome:hasInteractingEntityOnOtherCell
+    slot_uri: reactome:hasInteractingEntityOnOtherCell
     owner: reaction_like_event
     domain_of:
     - reaction_like_event
@@ -921,8 +918,8 @@ slots:
     - Preserves interaction-level detail when Reactome models such assertions explicitly.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasInteraction
-    slot_uri: reactomeo:hasInteraction
+    - reactome:hasInteraction
+    slot_uri: reactome:hasInteraction
     owner: reaction_like_event
     domain_of:
     - reaction_like_event
@@ -939,8 +936,8 @@ slots:
     - Useful for grouping reaction-like events into broad mechanistic categories.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasReactionType
-    slot_uri: reactomeo:hasReactionType
+    - reactome:hasReactionType
+    slot_uri: reactome:hasReactionType
     owner: reaction_like_event
     domain_of:
     - reaction_like_event
@@ -956,8 +953,8 @@ slots:
       from stateful physical instantiation.''}'
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasReferenceEntity
-    slot_uri: reactomeo:hasReferenceEntity
+    - reactome:hasReferenceEntity
+    slot_uri: reactome:hasReferenceEntity
     owner: sequence_entity
     domain_of:
     - simple_entity
@@ -973,8 +970,8 @@ slots:
       state modeling.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasModifiedResidue
-    slot_uri: reactomeo:hasModifiedResidue
+    - reactome:hasModifiedResidue
+    slot_uri: reactome:hasModifiedResidue
     owner: sequence_entity
     domain_of:
     - sequence_entity
@@ -991,8 +988,8 @@ slots:
     - Useful for proteolytic fragments, domains, and sequence-trimmed entity forms.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:startCoordinate
-    slot_uri: reactomeo:startCoordinate
+    - reactome:startCoordinate
+    slot_uri: reactome:startCoordinate
     owner: sequence_entity
     domain_of:
     - sequence_entity
@@ -1007,8 +1004,8 @@ slots:
     - Typically paired with start_coordinate.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:endCoordinate
-    slot_uri: reactomeo:endCoordinate
+    - reactome:endCoordinate
+    slot_uri: reactome:endCoordinate
     owner: sequence_entity
     domain_of:
     - sequence_entity
@@ -1022,8 +1019,8 @@ slots:
     - Included for compatibility with Reactome exports.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:sequenceReferenceType
-    slot_uri: reactomeo:sequenceReferenceType
+    - reactome:sequenceReferenceType
+    slot_uri: reactome:sequenceReferenceType
     owner: sequence_entity
     domain_of:
     - sequence_entity
@@ -1037,8 +1034,8 @@ slots:
     - Complex identity is distinct from component identity in Reactome.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasComponent
-    slot_uri: reactomeo:hasComponent
+    - reactome:hasComponent
+    slot_uri: reactome:hasComponent
     owner: complex
     domain_of:
     - complex
@@ -1055,8 +1052,8 @@ slots:
     - Entity sets are curated graph objects, not simply OWL classes over their members.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasMember
-    slot_uri: reactomeo:hasMember
+    - reactome:hasMember
+    slot_uri: reactome:hasMember
     owner: entity_set
     domain_of:
     - entity_set
@@ -1072,8 +1069,8 @@ slots:
     - Used when Reactome models a polymer abstractly in terms of repeating constituents.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasRepeatedUnit
-    slot_uri: reactomeo:hasRepeatedUnit
+    - reactome:hasRepeatedUnit
+    slot_uri: reactome:hasRepeatedUnit
     owner: polymer
     domain_of:
     - polymer
@@ -1089,8 +1086,8 @@ slots:
     - May be a protein, complex, small molecule, set, or other physical entity.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasRegulator
-    slot_uri: reactomeo:hasRegulator
+    - reactome:hasRegulator
+    slot_uri: reactome:hasRegulator
     owner: regulation
     domain_of:
     - regulation
@@ -1104,8 +1101,8 @@ slots:
     - Kept explicit through reified regulation nodes rather than flattened triples.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:regulates
-    slot_uri: reactomeo:regulates
+    - reactome:regulates
+    slot_uri: reactome:regulates
     owner: regulation
     domain_of:
     - regulation
@@ -1121,8 +1118,8 @@ slots:
       objects.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasActiveUnit
-    slot_uri: reactomeo:hasActiveUnit
+    - reactome:hasActiveUnit
+    slot_uri: reactome:hasActiveUnit
     owner: regulation
     domain_of:
     - catalyst_activity
@@ -1139,8 +1136,8 @@ slots:
     - Used inside reified catalyst activity objects.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasCatalyst
-    slot_uri: reactomeo:hasCatalyst
+    - reactome:hasCatalyst
+    slot_uri: reactome:hasCatalyst
     owner: catalyst_activity
     domain_of:
     - catalyst_activity
@@ -1154,8 +1151,8 @@ slots:
     - Allows one catalyst activity node to connect molecular function and event participation.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:catalyzes
-    slot_uri: reactomeo:catalyzes
+    - reactome:catalyzes
+    slot_uri: reactome:catalyzes
     owner: catalyst_activity
     domain_of:
     - catalyst_activity
@@ -1172,8 +1169,8 @@ slots:
     - Provides the namespace and interpretation context for an identifier.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasReferenceDatabase
-    slot_uri: reactomeo:hasReferenceDatabase
+    - reactome:hasReferenceDatabase
+    slot_uri: reactome:hasReferenceDatabase
     owner: database_identifier
     domain_of:
     - reference_entity
@@ -1188,8 +1185,8 @@ slots:
     - Examples include UniProt accessions, ChEBI identifiers, or GO term identifiers.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:identifier
-    slot_uri: reactomeo:identifier
+    - reactome:identifier
+    slot_uri: reactome:identifier
     owner: database_identifier
     domain_of:
     - reference_entity
@@ -1205,8 +1202,8 @@ slots:
     - Can encode direct or templated resolver behavior.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:accessUrl
-    slot_uri: reactomeo:accessUrl
+    - reactome:accessUrl
+    slot_uri: reactome:accessUrl
     owner: reference_database
     domain_of:
     - reference_database
@@ -1220,8 +1217,8 @@ slots:
     - Useful for CURIE generation and namespace harmonization.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:identifierPrefix
-    slot_uri: reactomeo:identifierPrefix
+    - reactome:identifierPrefix
+    slot_uri: reactome:identifierPrefix
     owner: reference_database
     domain_of:
     - reference_database
@@ -1236,8 +1233,8 @@ slots:
     - Supports metadata about the authority record for a database.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:resourceIdentifier
-    slot_uri: reactomeo:resourceIdentifier
+    - reactome:resourceIdentifier
+    slot_uri: reactome:resourceIdentifier
     owner: reference_database
     domain_of:
     - reference_database
@@ -1251,8 +1248,8 @@ slots:
     - Often used for resource metadata pages or resolver entry points.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:url
-    slot_uri: reactomeo:url
+    - reactome:url
+    slot_uri: reactome:url
     owner: reference_database
     domain_of:
     - reference_database
@@ -1266,8 +1263,8 @@ slots:
     - Stored as string for broad interoperability with exports and loaders.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:pubmedId
-    slot_uri: reactomeo:pubmedId
+    - reactome:pubmedId
+    slot_uri: reactome:pubmedId
     owner: literature_reference
     domain_of:
     - literature_reference
@@ -1282,8 +1279,8 @@ slots:
     - Useful for curator and contributor disambiguation.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:orcid
-    slot_uri: reactomeo:orcid
+    - reactome:orcid
+    slot_uri: reactome:orcid
     owner: person
     domain_of:
     - person
@@ -1297,8 +1294,8 @@ slots:
     - Often used on species or taxon-like records.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:ncbiTaxonId
-    slot_uri: reactomeo:ncbiTaxonId
+    - reactome:ncbiTaxonId
+    slot_uri: reactome:ncbiTaxonId
     owner: taxon
     domain_of:
     - organism_taxon
@@ -1314,8 +1311,8 @@ slots:
     - Useful during migration, identifier replacement, and legacy resolution.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:previousStableIdentifier
-    slot_uri: reactomeo:previousStableIdentifier
+    - reactome:previousStableIdentifier
+    slot_uri: reactome:previousStableIdentifier
     owner: database_object
     domain_of:
     - database_object
@@ -1325,7 +1322,7 @@ slots:
     name: instanceEdit__date
     description: Timestamp or date string for the edit activity.
     from_schema: https://w3id.org/reactome-ontology/final
-    slot_uri: reactomeo:date
+    slot_uri: reactome:date
     alias: date
     owner: instance_edit
     domain_of:
@@ -1335,7 +1332,7 @@ slots:
     name: instanceEdit__author
     description: Person or people responsible for the edit activity.
     from_schema: https://w3id.org/reactome-ontology/final
-    slot_uri: reactomeo:author
+    slot_uri: reactome:author
     alias: author
     owner: instance_edit
     domain_of:
@@ -1348,7 +1345,7 @@ slots:
     name: summation__text
     description: Narrative summary text.
     from_schema: https://w3id.org/reactome-ontology/final
-    slot_uri: reactomeo:text
+    slot_uri: reactome:text
     alias: text
     owner: summation
     domain_of:
@@ -1359,7 +1356,7 @@ slots:
     name: reactomeDataset__database_objects
     description: Collection of Reactome objects keyed by identifier.
     from_schema: https://w3id.org/reactome-ontology/final
-    slot_uri: reactomeo:database_objects
+    slot_uri: reactome:database_objects
     alias: database_objects
     owner: reactome_dataset
     domain_of:
@@ -1377,10 +1374,10 @@ slots:
       public identifiers.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:reactomeDbId
+    - reactome:reactomeDbId
     is_a: reactome_db_id
     domain: database_object
-    slot_uri: reactomeo:reactomeDbId
+    slot_uri: reactome:reactomeDbId
     alias: reactome_db_id
     owner: database_object
     domain_of:
@@ -1398,10 +1395,10 @@ slots:
     - Typically corresponds to the curated Reactome stable accession such as R-HSA-xxxxx.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:reactomeStableIdentifier
+    - reactome:reactomeStableIdentifier
     is_a: reactome_stable_identifier
     domain: database_object
-    slot_uri: reactomeo:reactomeStableIdentifier
+    slot_uri: reactome:reactomeStableIdentifier
     alias: reactome_stable_identifier
     owner: database_object
     domain_of:
@@ -1421,10 +1418,10 @@ slots:
       Reactome graph.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:sourceSchemaClass
+    - reactome:sourceSchemaClass
     is_a: source_schema_class
     domain: database_object
-    slot_uri: reactomeo:sourceSchemaClass
+    slot_uri: reactome:sourceSchemaClass
     alias: source_schema_class
     owner: database_object
     domain_of:
@@ -1442,10 +1439,10 @@ slots:
     - Often combines identity and contextual state into a concise label.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:displayLabel
+    - reactome:displayLabel
     is_a: display_label
     domain: database_object
-    slot_uri: reactomeo:displayLabel
+    slot_uri: reactome:displayLabel
     alias: display_label
     owner: database_object
     domain_of:
@@ -1464,10 +1461,10 @@ slots:
     - Usually points to an InstanceEdit containing editor and date metadata.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:created
+    - reactome:created
     is_a: created
     domain: database_object
-    slot_uri: reactomeo:created
+    slot_uri: reactome:created
     alias: created
     owner: database_object
     domain_of:
@@ -1486,10 +1483,10 @@ slots:
       pathways.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasEvent
+    - reactome:hasEvent
     is_a: has_event
     domain: pathway
-    slot_uri: reactomeo:hasEvent
+    slot_uri: reactome:hasEvent
     alias: has_event
     owner: pathway
     domain_of:
@@ -1511,10 +1508,10 @@ slots:
       all event subclasses.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasInput
+    - reactome:hasInput
     is_a: has_input
     domain: reaction
-    slot_uri: reactomeo:hasInput
+    slot_uri: reactome:hasInput
     alias: has_input
     owner: reaction
     domain_of:
@@ -1535,10 +1532,10 @@ slots:
       state.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasOutput
+    - reactome:hasOutput
     is_a: has_output
     domain: reaction
-    slot_uri: reactomeo:hasOutput
+    slot_uri: reactome:hasOutput
     alias: has_output
     owner: reaction
     domain_of:
@@ -1560,10 +1557,10 @@ slots:
       from stateful physical instantiation.''}'
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasReferenceEntity
+    - reactome:hasReferenceEntity
     is_a: has_reference_entity
     domain: simple_entity
-    slot_uri: reactomeo:hasReferenceEntity
+    slot_uri: reactome:hasReferenceEntity
     alias: has_reference_entity
     owner: simple_entity
     domain_of:
@@ -1583,10 +1580,10 @@ slots:
       from stateful physical instantiation.''}'
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasReferenceEntity
+    - reactome:hasReferenceEntity
     is_a: has_reference_entity
     domain: sequence_entity
-    slot_uri: reactomeo:hasReferenceEntity
+    slot_uri: reactome:hasReferenceEntity
     alias: has_reference_entity
     owner: sequence_entity
     domain_of:
@@ -1604,10 +1601,10 @@ slots:
     - Complex identity is distinct from component identity in Reactome.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasComponent
+    - reactome:hasComponent
     is_a: has_component
     domain: complex
-    slot_uri: reactomeo:hasComponent
+    slot_uri: reactome:hasComponent
     alias: has_component
     owner: complex
     domain_of:
@@ -1628,10 +1625,10 @@ slots:
     - Entity sets are curated graph objects, not simply OWL classes over their members.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasMember
+    - reactome:hasMember
     is_a: has_member
     domain: entity_set
-    slot_uri: reactomeo:hasMember
+    slot_uri: reactome:hasMember
     alias: has_member
     owner: entity_set
     domain_of:
@@ -1652,10 +1649,10 @@ slots:
     - Provides the namespace and interpretation context for an identifier.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasReferenceDatabase
+    - reactome:hasReferenceDatabase
     is_a: has_reference_database
     domain: reference_entity
-    slot_uri: reactomeo:hasReferenceDatabase
+    slot_uri: reactome:hasReferenceDatabase
     alias: has_reference_database
     owner: reference_entity
     domain_of:
@@ -1673,10 +1670,10 @@ slots:
     - Used inside reified catalyst activity objects.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasCatalyst
+    - reactome:hasCatalyst
     is_a: has_catalyst
     domain: catalyst_activity
-    slot_uri: reactomeo:hasCatalyst
+    slot_uri: reactome:hasCatalyst
     alias: has_catalyst
     owner: catalyst_activity
     domain_of:
@@ -1694,10 +1691,10 @@ slots:
     - Reactome reifies catalysis so the molecular function can be attached explicitly.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasGoMolecularFunction
+    - reactome:hasGoMolecularFunction
     is_a: has_go_molecular_function
     domain: catalyst_activity
-    slot_uri: reactomeo:hasGoMolecularFunction
+    slot_uri: reactome:hasGoMolecularFunction
     alias: has_go_molecular_function
     owner: catalyst_activity
     domain_of:
@@ -1715,10 +1712,10 @@ slots:
     - May be a protein, complex, small molecule, set, or other physical entity.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:hasRegulator
+    - reactome:hasRegulator
     is_a: has_regulator
     domain: regulation
-    slot_uri: reactomeo:hasRegulator
+    slot_uri: reactome:hasRegulator
     alias: has_regulator
     owner: regulation
     domain_of:
@@ -1736,10 +1733,10 @@ slots:
     - Kept explicit through reified regulation nodes rather than flattened triples.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:regulates
+    - reactome:regulates
     is_a: regulates
     domain: regulation
-    slot_uri: reactomeo:regulates
+    slot_uri: reactome:regulates
     alias: regulates
     owner: regulation
     domain_of:
@@ -1760,13 +1757,13 @@ classes:
       Reactome-specific hierarchy.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:NamedEntity
+    - reactome:NamedEntity
     abstract: true
     slots:
     - id
     - name
     - description
-    class_uri: reactomeo:NamedEntity
+    class_uri: reactome:NamedEntity
   database_object:
     name: database_object
     definition_uri: https://w3id.org/reactome-ontology/DatabaseObject
@@ -1777,7 +1774,7 @@ classes:
       \ for curated graph records."
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:DatabaseObject
+    - reactome:DatabaseObject
     is_a: named_entity
     slots:
     - id
@@ -1807,7 +1804,7 @@ classes:
       created:
         name: created
         required: true
-    class_uri: reactomeo:DatabaseObject
+    class_uri: reactome:DatabaseObject
   instance_edit:
     name: instance_edit
     definition_uri: https://w3id.org/reactome-ontology/InstanceEdit
@@ -1817,7 +1814,7 @@ classes:
     - Typically stores who performed an edit and when the edit occurred.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:InstanceEdit
+    - reactome:InstanceEdit
     is_a: database_object
     slots:
     - id
@@ -1844,7 +1841,7 @@ classes:
         range: person
         multivalued: true
         inlined_as_list: true
-    class_uri: reactomeo:InstanceEdit
+    class_uri: reactome:InstanceEdit
   publication:
     name: publication
     definition_uri: https://w3id.org/reactome-ontology/Publication
@@ -1854,7 +1851,7 @@ classes:
     - Abstract superclass for specific publication-like records.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:Publication
+    - reactome:Publication
     is_a: database_object
     abstract: true
     slots:
@@ -1869,7 +1866,7 @@ classes:
     - previous_stable_identifier
     - database_object_created
     - modified
-    class_uri: reactomeo:Publication
+    class_uri: reactome:Publication
   literature_reference:
     name: literature_reference
     definition_uri: https://w3id.org/reactome-ontology/LiteratureReference
@@ -1879,7 +1876,7 @@ classes:
     - Used widely to ground events, regulations, and catalyst activities in the literature.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:LiteratureReference
+    - reactome:LiteratureReference
     is_a: publication
     slots:
     - id
@@ -1894,7 +1891,7 @@ classes:
     - database_object_created
     - modified
     - pubmed_id
-    class_uri: reactomeo:LiteratureReference
+    class_uri: reactome:LiteratureReference
   person:
     name: person
     definition_uri: https://w3id.org/reactome-ontology/Person
@@ -1904,7 +1901,7 @@ classes:
     - May represent curators, reviewers, or contributors.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:Person
+    - reactome:Person
     is_a: database_object
     slots:
     - id
@@ -1919,7 +1916,7 @@ classes:
     - database_object_created
     - modified
     - orcid
-    class_uri: reactomeo:Person
+    class_uri: reactome:Person
   summation:
     name: summation
     definition_uri: https://w3id.org/reactome-ontology/Summation
@@ -1929,7 +1926,7 @@ classes:
     - Distinct from a formal definition; meant for human reading.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:Summation
+    - reactome:Summation
     is_a: database_object
     slots:
     - id
@@ -1950,7 +1947,7 @@ classes:
         description: Narrative summary text.
         range: string
         required: true
-    class_uri: reactomeo:Summation
+    class_uri: reactome:Summation
   event:
     name: event
     definition_uri: https://w3id.org/reactome-ontology/Event
@@ -1960,7 +1957,7 @@ classes:
     - Event is one of the central abstractions in the Reactome model.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:Event
+    - reactome:Event
     is_a: database_object
     abstract: true
     slots:
@@ -1986,7 +1983,7 @@ classes:
     - release_date
     - release_status
     - is_inferred
-    class_uri: reactomeo:Event
+    class_uri: reactome:Event
   pathway:
     name: pathway
     definition_uri: https://w3id.org/reactome-ontology/Pathway
@@ -1996,7 +1993,7 @@ classes:
     - Pathways can overlap; event membership is not exclusive.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:Pathway
+    - reactome:Pathway
     is_a: event
     slots:
     - id
@@ -2027,7 +2024,7 @@ classes:
       has_event:
         name: has_event
         required: true
-    class_uri: reactomeo:Pathway
+    class_uri: reactome:Pathway
   reaction_like_event:
     name: reaction_like_event
     definition_uri: https://w3id.org/reactome-ontology/ReactionLikeEvent
@@ -2038,7 +2035,7 @@ classes:
       subclasses.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:ReactionLikeEvent
+    - reactome:ReactionLikeEvent
     is_a: event
     abstract: true
     slots:
@@ -2073,7 +2070,7 @@ classes:
     - has_interacting_entity_on_other_cell
     - has_interaction
     - has_reaction_type
-    class_uri: reactomeo:ReactionLikeEvent
+    class_uri: reactome:ReactionLikeEvent
   reaction:
     name: reaction
     definition_uri: https://w3id.org/reactome-ontology/Reaction
@@ -2083,7 +2080,7 @@ classes:
     - Best used for relatively well-resolved mechanistic conversions.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:Reaction
+    - reactome:Reaction
     is_a: reaction_like_event
     slots:
     - id
@@ -2124,7 +2121,7 @@ classes:
       has_output:
         name: has_output
         required: true
-    class_uri: reactomeo:Reaction
+    class_uri: reactome:Reaction
   black_box_event:
     name: black_box_event
     definition_uri: https://w3id.org/reactome-ontology/BlackBoxEvent
@@ -2135,7 +2132,7 @@ classes:
       mechanism.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:BlackBoxEvent
+    - reactome:BlackBoxEvent
     is_a: reaction_like_event
     slots:
     - id
@@ -2169,7 +2166,7 @@ classes:
     - has_interacting_entity_on_other_cell
     - has_interaction
     - has_reaction_type
-    class_uri: reactomeo:BlackBoxEvent
+    class_uri: reactome:BlackBoxEvent
   polymerization:
     name: polymerization
     definition_uri: https://w3id.org/reactome-ontology/Polymerization
@@ -2180,7 +2177,7 @@ classes:
       balance.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:Polymerization
+    - reactome:Polymerization
     is_a: reaction_like_event
     slots:
     - id
@@ -2214,7 +2211,7 @@ classes:
     - has_interacting_entity_on_other_cell
     - has_interaction
     - has_reaction_type
-    class_uri: reactomeo:Polymerization
+    class_uri: reactome:Polymerization
   depolymerization:
     name: depolymerization
     definition_uri: https://w3id.org/reactome-ontology/Depolymerization
@@ -2224,7 +2221,7 @@ classes:
     - Complementary to polymerisation.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:Depolymerization
+    - reactome:Depolymerization
     is_a: reaction_like_event
     slots:
     - id
@@ -2258,7 +2255,7 @@ classes:
     - has_interacting_entity_on_other_cell
     - has_interaction
     - has_reaction_type
-    class_uri: reactomeo:Depolymerization
+    class_uri: reactome:Depolymerization
   physical_entity:
     name: physical_entity
     definition_uri: https://w3id.org/reactome-ontology/PhysicalEntity
@@ -2269,7 +2266,7 @@ classes:
       one physical entity from another.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:PhysicalEntity
+    - reactome:PhysicalEntity
     is_a: database_object
     abstract: true
     slots:
@@ -2291,7 +2288,7 @@ classes:
     - has_go_cellular_component
     - systematic_name
     - is_in_disease_context
-    class_uri: reactomeo:PhysicalEntity
+    class_uri: reactome:PhysicalEntity
   simple_entity:
     name: simple_entity
     definition_uri: https://w3id.org/reactome-ontology/SimpleEntity
@@ -2301,7 +2298,7 @@ classes:
     - Commonly aligned to ChEBI-like reference identities through ReferenceMolecule.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:SimpleEntity
+    - reactome:SimpleEntity
     is_a: physical_entity
     slots:
     - id
@@ -2328,7 +2325,7 @@ classes:
         name: has_reference_entity
         range: reference_molecule
         required: true
-    class_uri: reactomeo:SimpleEntity
+    class_uri: reactome:SimpleEntity
   genome_encoded_entity:
     name: genome_encoded_entity
     definition_uri: https://w3id.org/reactome-ontology/GenomeEncodedEntity
@@ -2338,7 +2335,7 @@ classes:
     - Serves as a superclass for accessioned sequence-based entities.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:GenomeEncodedEntity
+    - reactome:GenomeEncodedEntity
     is_a: physical_entity
     slots:
     - id
@@ -2359,7 +2356,7 @@ classes:
     - has_go_cellular_component
     - systematic_name
     - is_in_disease_context
-    class_uri: reactomeo:GenomeEncodedEntity
+    class_uri: reactome:GenomeEncodedEntity
   sequence_entity:
     name: sequence_entity
     definition_uri: https://w3id.org/reactome-ontology/SequenceEntity
@@ -2370,7 +2367,7 @@ classes:
       in specific states.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:SequenceEntity
+    - reactome:SequenceEntity
     is_a: genome_encoded_entity
     slots:
     - id
@@ -2401,7 +2398,7 @@ classes:
         name: has_reference_entity
         range: reference_sequence
         required: true
-    class_uri: reactomeo:SequenceEntity
+    class_uri: reactome:SequenceEntity
   complex:
     name: complex
     definition_uri: https://w3id.org/reactome-ontology/Complex
@@ -2411,7 +2408,7 @@ classes:
     - The complex is treated as an entity distinct from its components.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:Complex
+    - reactome:Complex
     is_a: physical_entity
     slots:
     - id
@@ -2437,7 +2434,7 @@ classes:
       has_component:
         name: has_component
         required: true
-    class_uri: reactomeo:Complex
+    class_uri: reactome:Complex
   entity_set:
     name: entity_set
     definition_uri: https://w3id.org/reactome-ontology/EntitySet
@@ -2448,7 +2445,7 @@ classes:
       over its members.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:EntitySet
+    - reactome:EntitySet
     is_a: physical_entity
     slots:
     - id
@@ -2474,7 +2471,7 @@ classes:
       has_member:
         name: has_member
         required: true
-    class_uri: reactomeo:EntitySet
+    class_uri: reactome:EntitySet
   candidate_set:
     name: candidate_set
     definition_uri: https://w3id.org/reactome-ontology/CandidateSet
@@ -2484,7 +2481,7 @@ classes:
     - Often reflects partial knowledge or broad functional grouping.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:CandidateSet
+    - reactome:CandidateSet
     is_a: entity_set
     slots:
     - id
@@ -2506,7 +2503,7 @@ classes:
     - systematic_name
     - is_in_disease_context
     - entity_set_has_member
-    class_uri: reactomeo:CandidateSet
+    class_uri: reactome:CandidateSet
   defined_set:
     name: defined_set
     definition_uri: https://w3id.org/reactome-ontology/DefinedSet
@@ -2516,7 +2513,7 @@ classes:
     - Stronger editorial commitment than a candidate set.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:DefinedSet
+    - reactome:DefinedSet
     is_a: entity_set
     slots:
     - id
@@ -2538,7 +2535,7 @@ classes:
     - systematic_name
     - is_in_disease_context
     - entity_set_has_member
-    class_uri: reactomeo:DefinedSet
+    class_uri: reactome:DefinedSet
   polymer:
     name: polymer
     definition_uri: https://w3id.org/reactome-ontology/Polymer
@@ -2548,7 +2545,7 @@ classes:
       instance.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:Polymer
+    - reactome:Polymer
     is_a: physical_entity
     slots:
     - id
@@ -2570,7 +2567,7 @@ classes:
     - systematic_name
     - is_in_disease_context
     - has_repeated_unit
-    class_uri: reactomeo:Polymer
+    class_uri: reactome:Polymer
   cell:
     name: cell
     definition_uri: https://w3id.org/reactome-ontology/Cell
@@ -2581,7 +2578,7 @@ classes:
       entities.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:Cell
+    - reactome:Cell
     is_a: physical_entity
     slots:
     - id
@@ -2602,7 +2599,7 @@ classes:
     - has_go_cellular_component
     - systematic_name
     - is_in_disease_context
-    class_uri: reactomeo:Cell
+    class_uri: reactome:Cell
   other_entity:
     name: other_entity
     definition_uri: https://w3id.org/reactome-ontology/OtherEntity
@@ -2612,7 +2609,7 @@ classes:
     - Helps preserve source fidelity when Reactome uses residual categorization.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:OtherEntity
+    - reactome:OtherEntity
     is_a: physical_entity
     slots:
     - id
@@ -2633,7 +2630,7 @@ classes:
     - has_go_cellular_component
     - systematic_name
     - is_in_disease_context
-    class_uri: reactomeo:OtherEntity
+    class_uri: reactome:OtherEntity
   drug:
     name: drug
     definition_uri: https://w3id.org/reactome-ontology/Drug
@@ -2643,7 +2640,7 @@ classes:
     - Drug subclasses distinguish broad molecular kinds of therapeutic agents.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:Drug
+    - reactome:Drug
     is_a: physical_entity
     slots:
     - id
@@ -2664,7 +2661,7 @@ classes:
     - has_go_cellular_component
     - systematic_name
     - is_in_disease_context
-    class_uri: reactomeo:Drug
+    class_uri: reactome:Drug
   chemical_drug:
     name: chemical_drug
     definition_uri: https://w3id.org/reactome-ontology/ChemicalDrug
@@ -2674,7 +2671,7 @@ classes:
     - Often alignable to small-molecule reference identities.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:ChemicalDrug
+    - reactome:ChemicalDrug
     is_a: drug
     slots:
     - id
@@ -2695,7 +2692,7 @@ classes:
     - has_go_cellular_component
     - systematic_name
     - is_in_disease_context
-    class_uri: reactomeo:ChemicalDrug
+    class_uri: reactome:ChemicalDrug
   protein_drug:
     name: protein_drug
     definition_uri: https://w3id.org/reactome-ontology/ProteinDrug
@@ -2705,7 +2702,7 @@ classes:
       entities.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:ProteinDrug
+    - reactome:ProteinDrug
     is_a: drug
     slots:
     - id
@@ -2726,7 +2723,7 @@ classes:
     - has_go_cellular_component
     - systematic_name
     - is_in_disease_context
-    class_uri: reactomeo:ProteinDrug
+    class_uri: reactome:ProteinDrug
   rna_drug:
     name: rna_drug
     definition_uri: https://w3id.org/reactome-ontology/RnaDrug
@@ -2735,7 +2732,7 @@ classes:
     - Can cover antisense, siRNA, or related RNA therapeutic modalities.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:RnaDrug
+    - reactome:RnaDrug
     is_a: drug
     slots:
     - id
@@ -2756,7 +2753,7 @@ classes:
     - has_go_cellular_component
     - systematic_name
     - is_in_disease_context
-    class_uri: reactomeo:RnaDrug
+    class_uri: reactome:RnaDrug
   reference_entity:
     name: reference_entity
     definition_uri: https://w3id.org/reactome-ontology/ReferenceEntity
@@ -2767,7 +2764,7 @@ classes:
       canonical identity.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:ReferenceEntity
+    - reactome:ReferenceEntity
     is_a: database_object
     abstract: true
     slots:
@@ -2788,7 +2785,7 @@ classes:
       has_reference_database:
         name: has_reference_database
         required: true
-    class_uri: reactomeo:ReferenceEntity
+    class_uri: reactome:ReferenceEntity
   reference_sequence:
     name: reference_sequence
     definition_uri: https://w3id.org/reactome-ontology/ReferenceSequence
@@ -2797,7 +2794,7 @@ classes:
     - Commonly used for protein, DNA, RNA, and isoform references.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:ReferenceSequence
+    - reactome:ReferenceSequence
     is_a: reference_entity
     slots:
     - id
@@ -2813,7 +2810,7 @@ classes:
     - modified
     - reference_entity_has_reference_database
     - identifier
-    class_uri: reactomeo:ReferenceSequence
+    class_uri: reactome:ReferenceSequence
   reference_gene_product:
     name: reference_gene_product
     definition_uri: https://w3id.org/reactome-ontology/ReferenceGeneProduct
@@ -2822,7 +2819,7 @@ classes:
     - Often alignable to UniProt entries for proteins.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:ReferenceGeneProduct
+    - reactome:ReferenceGeneProduct
     is_a: reference_sequence
     slots:
     - id
@@ -2838,7 +2835,7 @@ classes:
     - modified
     - reference_entity_has_reference_database
     - identifier
-    class_uri: reactomeo:ReferenceGeneProduct
+    class_uri: reactome:ReferenceGeneProduct
   reference_isoform:
     name: reference_isoform
     definition_uri: https://w3id.org/reactome-ontology/ReferenceIsoform
@@ -2847,7 +2844,7 @@ classes:
     - Useful when isoform distinction matters biologically.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:ReferenceIsoform
+    - reactome:ReferenceIsoform
     is_a: reference_sequence
     slots:
     - id
@@ -2863,7 +2860,7 @@ classes:
     - modified
     - reference_entity_has_reference_database
     - identifier
-    class_uri: reactomeo:ReferenceIsoform
+    class_uri: reactome:ReferenceIsoform
   reference_dna_sequence:
     name: reference_dna_sequence
     definition_uri: https://w3id.org/reactome-ontology/ReferenceDnaSequence
@@ -2872,7 +2869,7 @@ classes:
     - Supports DNA-centric entities in the Reactome schema.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:ReferenceDnaSequence
+    - reactome:ReferenceDnaSequence
     is_a: reference_sequence
     slots:
     - id
@@ -2888,7 +2885,7 @@ classes:
     - modified
     - reference_entity_has_reference_database
     - identifier
-    class_uri: reactomeo:ReferenceDnaSequence
+    class_uri: reactome:ReferenceDnaSequence
   reference_rna_sequence:
     name: reference_rna_sequence
     definition_uri: https://w3id.org/reactome-ontology/ReferenceRnaSequence
@@ -2897,7 +2894,7 @@ classes:
     - Supports transcript and RNA molecule identity modeling.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:ReferenceRnaSequence
+    - reactome:ReferenceRnaSequence
     is_a: reference_sequence
     slots:
     - id
@@ -2913,7 +2910,7 @@ classes:
     - modified
     - reference_entity_has_reference_database
     - identifier
-    class_uri: reactomeo:ReferenceRnaSequence
+    class_uri: reactome:ReferenceRnaSequence
   reference_molecule:
     name: reference_molecule
     definition_uri: https://w3id.org/reactome-ontology/ReferenceMolecule
@@ -2923,7 +2920,7 @@ classes:
     - Naturally alignable to ChEBI-like references.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:ReferenceMolecule
+    - reactome:ReferenceMolecule
     is_a: reference_entity
     slots:
     - id
@@ -2939,7 +2936,7 @@ classes:
     - modified
     - reference_entity_has_reference_database
     - identifier
-    class_uri: reactomeo:ReferenceMolecule
+    class_uri: reactome:ReferenceMolecule
   reference_group:
     name: reference_group
     definition_uri: https://w3id.org/reactome-ontology/ReferenceGroup
@@ -2949,7 +2946,7 @@ classes:
     - Useful for families or grouped reference semantics in source data.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:ReferenceGroup
+    - reactome:ReferenceGroup
     is_a: reference_entity
     slots:
     - id
@@ -2965,7 +2962,7 @@ classes:
     - modified
     - reference_entity_has_reference_database
     - identifier
-    class_uri: reactomeo:ReferenceGroup
+    class_uri: reactome:ReferenceGroup
   reference_therapeutic:
     name: reference_therapeutic
     definition_uri: https://w3id.org/reactome-ontology/ReferenceTherapeutic
@@ -2974,7 +2971,7 @@ classes:
     - Supports the reference-layer counterpart of drug-like modeled entities.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:ReferenceTherapeutic
+    - reactome:ReferenceTherapeutic
     is_a: reference_entity
     slots:
     - id
@@ -2990,7 +2987,7 @@ classes:
     - modified
     - reference_entity_has_reference_database
     - identifier
-    class_uri: reactomeo:ReferenceTherapeutic
+    class_uri: reactome:ReferenceTherapeutic
   reference_database:
     name: reference_database
     definition_uri: https://w3id.org/reactome-ontology/ReferenceDatabase
@@ -3000,7 +2997,7 @@ classes:
     - Holds resolver and namespace information for identifier interpretation.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:ReferenceDatabase
+    - reactome:ReferenceDatabase
     is_a: database_object
     slots:
     - id
@@ -3018,7 +3015,7 @@ classes:
     - identifier_prefix
     - resource_identifier
     - url
-    class_uri: reactomeo:ReferenceDatabase
+    class_uri: reactome:ReferenceDatabase
   database_identifier:
     name: database_identifier
     definition_uri: https://w3id.org/reactome-ontology/DatabaseIdentifier
@@ -3028,7 +3025,7 @@ classes:
     - Useful as a reified identifier object rather than a bare literal.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:DatabaseIdentifier
+    - reactome:DatabaseIdentifier
     is_a: database_object
     slots:
     - id
@@ -3044,7 +3041,7 @@ classes:
     - modified
     - identifier
     - has_reference_database
-    class_uri: reactomeo:DatabaseIdentifier
+    class_uri: reactome:DatabaseIdentifier
   catalyst_activity:
     name: catalyst_activity
     definition_uri: https://w3id.org/reactome-ontology/CatalystActivity
@@ -3054,7 +3051,7 @@ classes:
     - This is one of the most semantically important reified node types in Reactome.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:CatalystActivity
+    - reactome:CatalystActivity
     is_a: database_object
     slots:
     - id
@@ -3080,7 +3077,7 @@ classes:
       has_go_molecular_function:
         name: has_go_molecular_function
         required: true
-    class_uri: reactomeo:CatalystActivity
+    class_uri: reactome:CatalystActivity
   regulation:
     name: regulation
     definition_uri: https://w3id.org/reactome-ontology/Regulation
@@ -3091,7 +3088,7 @@ classes:
       binary relation.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:Regulation
+    - reactome:Regulation
     is_a: database_object
     abstract: true
     slots:
@@ -3117,7 +3114,7 @@ classes:
       regulates:
         name: regulates
         required: true
-    class_uri: reactomeo:Regulation
+    class_uri: reactome:Regulation
   positive_regulation:
     name: positive_regulation
     definition_uri: https://w3id.org/reactome-ontology/PositiveRegulation
@@ -3127,7 +3124,7 @@ classes:
     - Semantic polarity is explicit at the class level.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:PositiveRegulation
+    - reactome:PositiveRegulation
     is_a: regulation
     slots:
     - id
@@ -3145,7 +3142,7 @@ classes:
     - regulation_regulates
     - has_active_unit
     - supported_by
-    class_uri: reactomeo:PositiveRegulation
+    class_uri: reactome:PositiveRegulation
   negative_regulation:
     name: negative_regulation
     definition_uri: https://w3id.org/reactome-ontology/NegativeRegulation
@@ -3155,7 +3152,7 @@ classes:
     - Semantic polarity is explicit at the class level.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:NegativeRegulation
+    - reactome:NegativeRegulation
     is_a: regulation
     slots:
     - id
@@ -3173,7 +3170,7 @@ classes:
     - regulation_regulates
     - has_active_unit
     - supported_by
-    class_uri: reactomeo:NegativeRegulation
+    class_uri: reactome:NegativeRegulation
   requirement:
     name: requirement
     definition_uri: https://w3id.org/reactome-ontology/Requirement
@@ -3184,7 +3181,7 @@ classes:
       modulation.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:Requirement
+    - reactome:Requirement
     is_a: regulation
     slots:
     - id
@@ -3202,7 +3199,7 @@ classes:
     - regulation_regulates
     - has_active_unit
     - supported_by
-    class_uri: reactomeo:Requirement
+    class_uri: reactome:Requirement
   interaction:
     name: interaction
     definition_uri: https://w3id.org/reactome-ontology/Interaction
@@ -3212,7 +3209,7 @@ classes:
       explicitly modeled.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:Interaction
+    - reactome:Interaction
     is_a: database_object
     slots:
     - id
@@ -3226,7 +3223,7 @@ classes:
     - previous_stable_identifier
     - database_object_created
     - modified
-    class_uri: reactomeo:Interaction
+    class_uri: reactome:Interaction
   reaction_type_term:
     name: reaction_type_term
     definition_uri: https://w3id.org/reactome-ontology/ReactionTypeTerm
@@ -3235,7 +3232,7 @@ classes:
     - Supports editorial or mechanistic grouping of reaction events.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:ReactionTypeTerm
+    - reactome:ReactionTypeTerm
     is_a: database_object
     slots:
     - id
@@ -3249,7 +3246,7 @@ classes:
     - previous_stable_identifier
     - database_object_created
     - modified
-    class_uri: reactomeo:ReactionTypeTerm
+    class_uri: reactome:ReactionTypeTerm
   abstract_modified_residue:
     name: abstract_modified_residue
     definition_uri: https://w3id.org/reactome-ontology/AbstractModifiedResidue
@@ -3259,7 +3256,7 @@ classes:
     - Abstract superclass for phosphorylation-like or other residue modification records.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:AbstractModifiedResidue
+    - reactome:AbstractModifiedResidue
     is_a: database_object
     slots:
     - id
@@ -3273,7 +3270,7 @@ classes:
     - previous_stable_identifier
     - database_object_created
     - modified
-    class_uri: reactomeo:AbstractModifiedResidue
+    class_uri: reactome:AbstractModifiedResidue
   organism_taxon:
     name: organism_taxon
     definition_uri: https://w3id.org/reactome-ontology/OrganismTaxon
@@ -3284,7 +3281,7 @@ classes:
       concepts.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:OrganismTaxon
+    - reactome:OrganismTaxon
     is_a: database_object
     slots:
     - id
@@ -3299,7 +3296,7 @@ classes:
     - database_object_created
     - modified
     - ncbi_taxon_id
-    class_uri: reactomeo:OrganismTaxon
+    class_uri: reactome:OrganismTaxon
   taxon:
     name: taxon
     definition_uri: https://w3id.org/reactome-ontology/Taxon
@@ -3308,7 +3305,7 @@ classes:
     - Can be used in parallel with or beneath species-oriented records.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:Taxon
+    - reactome:Taxon
     is_a: database_object
     slots:
     - id
@@ -3323,7 +3320,7 @@ classes:
     - database_object_created
     - modified
     - ncbi_taxon_id
-    class_uri: reactomeo:Taxon
+    class_uri: reactome:Taxon
   compartment:
     name: compartment
     definition_uri: https://w3id.org/reactome-ontology/Compartment
@@ -3334,7 +3331,7 @@ classes:
       in role.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:Compartment
+    - reactome:Compartment
     is_a: database_object
     slots:
     - id
@@ -3348,7 +3345,7 @@ classes:
     - previous_stable_identifier
     - database_object_created
     - modified
-    class_uri: reactomeo:Compartment
+    class_uri: reactome:Compartment
   disease:
     name: disease
     definition_uri: https://w3id.org/reactome-ontology/Disease
@@ -3358,7 +3355,7 @@ classes:
     - Represents disease context rather than a full disease ontology commitment.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:Disease
+    - reactome:Disease
     is_a: database_object
     slots:
     - id
@@ -3372,7 +3369,7 @@ classes:
     - previous_stable_identifier
     - database_object_created
     - modified
-    class_uri: reactomeo:Disease
+    class_uri: reactome:Disease
   go_molecular_function_term:
     name: go_molecular_function_term
     definition_uri: https://w3id.org/reactome-ontology/GoMolecularFunctionTerm
@@ -3382,7 +3379,7 @@ classes:
     - Particularly important in CatalystActivity.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:GoMolecularFunctionTerm
+    - reactome:GoMolecularFunctionTerm
     is_a: database_object
     slots:
     - id
@@ -3396,7 +3393,7 @@ classes:
     - previous_stable_identifier
     - database_object_created
     - modified
-    class_uri: reactomeo:GoMolecularFunctionTerm
+    class_uri: reactome:GoMolecularFunctionTerm
   go_biological_process_term:
     name: go_biological_process_term
     definition_uri: https://w3id.org/reactome-ontology/GoBiologicalProcessTerm
@@ -3406,7 +3403,7 @@ classes:
     - Useful for crosswalks between Reactome pathways and GO process knowledge.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:GoBiologicalProcessTerm
+    - reactome:GoBiologicalProcessTerm
     is_a: database_object
     slots:
     - id
@@ -3420,7 +3417,7 @@ classes:
     - previous_stable_identifier
     - database_object_created
     - modified
-    class_uri: reactomeo:GoBiologicalProcessTerm
+    class_uri: reactome:GoBiologicalProcessTerm
   go_cellular_component_term:
     name: go_cellular_component_term
     definition_uri: https://w3id.org/reactome-ontology/GoCellularComponentTerm
@@ -3430,7 +3427,7 @@ classes:
     - Often complements explicit compartment modeling.
     from_schema: https://w3id.org/reactome-ontology/final
     mappings:
-    - reactomeo:GoCellularComponentTerm
+    - reactome:GoCellularComponentTerm
     is_a: database_object
     slots:
     - id
@@ -3444,7 +3441,7 @@ classes:
     - previous_stable_identifier
     - database_object_created
     - modified
-    class_uri: reactomeo:GoCellularComponentTerm
+    class_uri: reactome:GoCellularComponentTerm
   reactome_dataset:
     name: reactome_dataset
     definition_uri: https://w3id.org/reactome-ontology/ReactomeDataset
@@ -3463,11 +3460,11 @@ classes:
         multivalued: true
         inlined: true
         inlined_as_list: false
-    class_uri: reactomeo:ReactomeDataset
+    class_uri: reactome:ReactomeDataset
     tree_root: true
 metamodel_version: 1.7.0
 source_file: reactome_ontology.yaml
-source_file_date: '2026-04-09T19:48:00'
-source_file_size: 39110
-generation_date: '2026-04-09T19:52:53'
+source_file_date: '2026-04-09T22:12:11'
+source_file_size: 39679
+generation_date: '2026-04-09T22:16:12'
 

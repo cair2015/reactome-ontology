@@ -1,5 +1,5 @@
-# reactome-ontology
+<meta http-equiv="refresh" content="0; url=elements/">
 
-This is the project description.
+# Redirecting
 
-- Auto-generated [schema documentation](elements/index.md)
+Go to the [Schema Reference](elements/index.md).

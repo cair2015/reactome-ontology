@@ -1,11 +1,24 @@
 id: https://w3id.org/reactome-ontology/final
-name: reactome_ontology_final
-title: Reactome Ontology Schema (Final OWL-oriented Profile)
+name: reactome_ontology
+title: Reactome Ontology Model
 description: A final OWL-oriented LinkML schema for generating a clean Reactome ontology.
   This profile keeps ontology-facing classes and properties and removes source-mapping
   annotations, which are maintained in separate mapping files.
 license: https://creativecommons.org/licenses/by/4.0/
 version: 1.0.0
+
+## ------------
+##
+## PREFIXES
+## ------------
+# CURIE namespaces (prefixes/base URI's) mappings of prefixes used in the body of the Biolink Model specification
+# are resolved using a specific precedence order, for use in the generation of the Biolink Model context.jsonld
+# mappings to namespaces. Any prefixes encountered in the Biolink Model but not resolved by the following
+# precedence sources, are anonymously declared by linkml as http://example.org/UNKNOWN/ rooted base URI's
+# which should ideally be repaired in one of the precedence lists.
+#
+# 1. The following 'prefixes:' delimited list has first precedence in resolution.
+#
 prefixes:
   linkml: https://w3id.org/linkml/
   reactome: https://w3id.org/reactome-ontology/
@@ -22,11 +35,18 @@ prefixes:
   rdfs: http://www.w3.org/2000/01/rdf-schema#
   orcid: https://orcid.org/
   xsd: http://www.w3.org/2001/XMLSchema#
-  reactomeo: https://w3id.org/reactome-ontology/
-default_prefix: reactomeo
+default_prefix: reactome
 default_range: string
+
+## ------------
+## TYPES
+## ------------
 imports:
 - linkml:types
+
+## ------------
+## SLOTS
+## ------------
 slots:
   id:
     identifier: true
@@ -62,14 +82,14 @@ slots:
     comments:
     - Reactome DB_ID values are implementation-oriented identifiers rather than stable
       public identifiers.
-    slot_uri: reactomeo:reactomeDbId
+    slot_uri: reactome:reactomeDbId
   reactome_stable_identifier:
     range: string
     multivalued: false
     description: Stable public Reactome identifier for an object.
     comments:
     - Typically corresponds to the curated Reactome stable accession such as R-HSA-xxxxx.
-    slot_uri: reactomeo:reactomeStableIdentifier
+    slot_uri: reactome:reactomeStableIdentifier
   source_schema_class:
     range: string
     multivalued: false
@@ -78,7 +98,7 @@ slots:
     comments:
     - Useful when preserving frame-schema provenance or round-tripping with the original
       Reactome graph.
-    slot_uri: reactomeo:sourceSchemaClass
+    slot_uri: reactome:sourceSchemaClass
   display_label:
     is_a: name
     range: string
@@ -86,28 +106,28 @@ slots:
     description: Preferred display label used by Reactome for user-facing presentation.
     comments:
     - Often combines identity and contextual state into a concise label.
-    slot_uri: reactomeo:displayLabel
+    slot_uri: reactome:displayLabel
   definition:
     range: string
     multivalued: false
     description: Curated textual definition that states what the object is.
     comments:
     - Intended for conceptual definitions rather than narrative summaries.
-    slot_uri: reactomeo:definition
+    slot_uri: reactome:definition
   systematic_name:
     range: string
     multivalued: false
     description: Formal or systematic name for an entity when available.
     comments:
     - Often useful for chemicals, complexes, or sequence-derived entities.
-    slot_uri: reactomeo:systematicName
+    slot_uri: reactome:systematicName
   release_date:
     range: date
     multivalued: false
     description: Release date associated with a curation or publication cycle.
     comments:
     - Modeled as string to match Reactome exports; can be normalized later if needed.
-    slot_uri: reactomeo:releaseDate
+    slot_uri: reactome:releaseDate
   release_status:
     range: string
     multivalued: false
@@ -115,7 +135,7 @@ slots:
     comments:
     - Examples might include draft-like or released-like status labels depending on
       source exports.
-    slot_uri: reactomeo:releaseStatus
+    slot_uri: reactome:releaseStatus
   is_inferred:
     range: boolean
     multivalued: false
@@ -123,7 +143,7 @@ slots:
       directly curated.
     comments:
     - Reactome uses inference especially for orthology-based event propagation.
-    slot_uri: reactomeo:isInferred
+    slot_uri: reactome:isInferred
   is_in_disease_context:
     range: boolean
     multivalued: false
@@ -131,7 +151,7 @@ slots:
       to a disease state.
     comments:
     - This is a contextual flag and does not by itself define a disease ontology class.
-    slot_uri: reactomeo:isInDiseaseContext
+    slot_uri: reactome:isInDiseaseContext
   created:
     range: instance_edit
     multivalued: false
@@ -139,21 +159,21 @@ slots:
       object record.
     comments:
     - Usually points to an InstanceEdit containing editor and date metadata.
-    slot_uri: reactomeo:created
+    slot_uri: reactome:created
   modified:
     range: instance_edit
     multivalued: true
     description: Provenance links to subsequent modifications of the object record.
     comments:
     - Multiple modifications are common across curation history.
-    slot_uri: reactomeo:modified
+    slot_uri: reactome:modified
   reviewed:
     range: instance_edit
     multivalued: true
     description: Provenance links to formal review actions on the object.
     comments:
     - Distinct from simple modification in Reactome curation workflows.
-    slot_uri: reactomeo:reviewed
+    slot_uri: reactome:reviewed
   revised:
     range: instance_edit
     multivalued: true
@@ -161,14 +181,14 @@ slots:
       or review.
     comments:
     - Useful for tracking editorial iteration.
-    slot_uri: reactomeo:revised
+    slot_uri: reactome:revised
   authored:
     range: instance_edit
     multivalued: true
     description: Provenance links capturing authoring actions for the object.
     comments:
     - Included to support richer editorial provenance when present in exports.
-    slot_uri: reactomeo:authored
+    slot_uri: reactome:authored
   in_taxon:
     range: organism_taxon
     multivalued: true
@@ -177,21 +197,21 @@ slots:
     comments:
     - For events this denotes the organism context; for entities it denotes the biological
       source organism.
-    slot_uri: reactomeo:inTaxon
+    slot_uri: reactome:inTaxon
   located_in_compartment:
     range: compartment
     multivalued: true
     description: Compartment in which an entity resides or an event occurs.
     comments:
     - In Reactome, compartment is identity-relevant for many physical entities.
-    slot_uri: reactomeo:locatedInCompartment
+    slot_uri: reactome:locatedInCompartment
   has_summation:
     range: summation
     multivalued: false
     description: Narrative summary object explaining the biology of an event or entity.
     comments:
     - Distinct from formal definition; usually prose intended for readers.
-    slot_uri: reactomeo:hasSummation
+    slot_uri: reactome:hasSummation
   supported_by:
     range: publication
     multivalued: true
@@ -199,7 +219,7 @@ slots:
       object.
     comments:
     - Often points to PubMed-backed literature references.
-    slot_uri: reactomeo:supportedBy
+    slot_uri: reactome:supportedBy
   has_cross_reference:
     range: database_identifier
     multivalued: true
@@ -207,14 +227,14 @@ slots:
     comments:
     - Used for interoperating with identifiers from GO, ChEBI, UniProt, Ensembl, and
       related resources.
-    slot_uri: reactomeo:hasCrossReference
+    slot_uri: reactome:hasCrossReference
   has_disease_context:
     range: disease
     multivalued: true
     description: Disease context associated with an event or physical entity.
     comments:
     - Represents contextual disease association rather than broad etiologic modeling.
-    slot_uri: reactomeo:hasDiseaseContext
+    slot_uri: reactome:hasDiseaseContext
   has_go_biological_process:
     range: go_biological_process_term
     multivalued: false
@@ -223,7 +243,7 @@ slots:
     comments:
     - Useful as a high-level semantic alignment rather than an exact equivalence in
       all cases.
-    slot_uri: reactomeo:hasGoBiologicalProcess
+    slot_uri: reactome:hasGoBiologicalProcess
   has_go_cellular_component:
     range: go_cellular_component_term
     multivalued: false
@@ -231,14 +251,14 @@ slots:
       context.
     comments:
     - Often complements the explicit compartment modeling in Reactome.
-    slot_uri: reactomeo:hasGoCellularComponent
+    slot_uri: reactome:hasGoCellularComponent
   has_go_molecular_function:
     range: go_molecular_function_term
     multivalued: false
     description: GO molecular function term asserted in a catalyst activity.
     comments:
     - Reactome reifies catalysis so the molecular function can be attached explicitly.
-    slot_uri: reactomeo:hasGoMolecularFunction
+    slot_uri: reactome:hasGoMolecularFunction
   has_event:
     range: event
     multivalued: true
@@ -247,7 +267,7 @@ slots:
     comments:
     - Pathways in Reactome are curated groupings of events and can overlap with other
       pathways.
-    slot_uri: reactomeo:hasEvent
+    slot_uri: reactome:hasEvent
   preceded_by:
     range: event
     multivalued: true
@@ -255,7 +275,7 @@ slots:
     description: Event that occurs before the current event in a curated process sequence.
     comments:
     - Encodes partial ordering rather than necessarily strict temporal or causal completeness.
-    slot_uri: reactomeo:precededBy
+    slot_uri: reactome:precededBy
   has_input:
     range: physical_entity
     multivalued: true
@@ -265,7 +285,7 @@ slots:
     comments:
     - Inputs need not always be fully consumed in a strict stoichiometric sense across
       all event subclasses.
-    slot_uri: reactomeo:hasInput
+    slot_uri: reactome:hasInput
   has_output:
     range: physical_entity
     multivalued: true
@@ -274,7 +294,7 @@ slots:
     comments:
     - Output identity often reflects new compartment, modification state, or assembly
       state.
-    slot_uri: reactomeo:hasOutput
+    slot_uri: reactome:hasOutput
   requires_component:
     range: physical_entity
     multivalued: true
@@ -283,7 +303,7 @@ slots:
       as a transforming input.
     comments:
     - Useful for contextual cofactors, platform components, or required participants.
-    slot_uri: reactomeo:requiresComponent
+    slot_uri: reactome:requiresComponent
   has_catalyst_activity:
     range: catalyst_activity
     multivalued: true
@@ -292,7 +312,7 @@ slots:
     comments:
     - A central Reactome modeling pattern that preserves GO molecular function and
       active-unit context.
-    slot_uri: reactomeo:hasCatalystActivity
+    slot_uri: reactome:hasCatalystActivity
   has_regulation:
     range: regulation
     multivalued: true
@@ -300,7 +320,7 @@ slots:
     description: Reified regulation assertion attached to an event.
     comments:
     - Supports positive, negative, and requirement-style regulatory semantics.
-    slot_uri: reactomeo:hasRegulation
+    slot_uri: reactome:hasRegulation
   has_interacting_entity_on_other_cell:
     range: physical_entity
     multivalued: true
@@ -309,7 +329,7 @@ slots:
       biology.
     comments:
     - Useful for immune, adhesion, and receptor-ligand interaction contexts.
-    slot_uri: reactomeo:hasInteractingEntityOnOtherCell
+    slot_uri: reactome:hasInteractingEntityOnOtherCell
   has_interaction:
     range: interaction
     multivalued: true
@@ -317,7 +337,7 @@ slots:
     description: Associated interaction object linked to an event.
     comments:
     - Preserves interaction-level detail when Reactome models such assertions explicitly.
-    slot_uri: reactomeo:hasInteraction
+    slot_uri: reactome:hasInteraction
   has_reaction_type:
     range: reaction_type_term
     multivalued: true
@@ -325,7 +345,7 @@ slots:
       editorial type of a reaction.
     comments:
     - Useful for grouping reaction-like events into broad mechanistic categories.
-    slot_uri: reactomeo:hasReactionType
+    slot_uri: reactome:hasReactionType
   has_reference_entity:
     range: reference_entity
     multivalued: false
@@ -334,7 +354,7 @@ slots:
     comments:
     - One of the key distinctions in Reactome: reference identity is separate from
         stateful physical instantiation.
-    slot_uri: reactomeo:hasReferenceEntity
+    slot_uri: reactome:hasReferenceEntity
   has_modified_residue:
     range: abstract_modified_residue
     multivalued: true
@@ -343,7 +363,7 @@ slots:
     comments:
     - Supports phosphorylation, cleavage, ubiquitination, and related residue-level
       state modeling.
-    slot_uri: reactomeo:hasModifiedResidue
+    slot_uri: reactome:hasModifiedResidue
   start_coordinate:
     range: integer
     multivalued: false
@@ -351,7 +371,7 @@ slots:
       on a sequence entity.
     comments:
     - Useful for proteolytic fragments, domains, and sequence-trimmed entity forms.
-    slot_uri: reactomeo:startCoordinate
+    slot_uri: reactome:startCoordinate
   end_coordinate:
     range: integer
     multivalued: false
@@ -359,14 +379,14 @@ slots:
       on a sequence entity.
     comments:
     - Typically paired with start_coordinate.
-    slot_uri: reactomeo:endCoordinate
+    slot_uri: reactome:endCoordinate
   sequence_reference_type:
     range: string
     multivalued: false
     description: Textual qualifier for the kind of referenced sequence or entity.
     comments:
     - Included for compatibility with Reactome exports.
-    slot_uri: reactomeo:sequenceReferenceType
+    slot_uri: reactome:sequenceReferenceType
   has_component:
     range: physical_entity
     multivalued: true
@@ -374,7 +394,7 @@ slots:
     description: Component physical entities that make up a complex.
     comments:
     - Complex identity is distinct from component identity in Reactome.
-    slot_uri: reactomeo:hasComponent
+    slot_uri: reactome:hasComponent
   has_member:
     range: physical_entity
     multivalued: true
@@ -383,7 +403,7 @@ slots:
       participants.
     comments:
     - Entity sets are curated graph objects, not simply OWL classes over their members.
-    slot_uri: reactomeo:hasMember
+    slot_uri: reactome:hasMember
   has_repeated_unit:
     range: physical_entity
     multivalued: true
@@ -391,21 +411,21 @@ slots:
     description: Repeated unit composing a polymer entity.
     comments:
     - Used when Reactome models a polymer abstractly in terms of repeating constituents.
-    slot_uri: reactomeo:hasRepeatedUnit
+    slot_uri: reactome:hasRepeatedUnit
   has_regulator:
     range: physical_entity
     multivalued: false
     description: Physical entity that exerts regulatory influence on a regulated event.
     comments:
     - May be a protein, complex, small molecule, set, or other physical entity.
-    slot_uri: reactomeo:hasRegulator
+    slot_uri: reactome:hasRegulator
   regulates:
     range: reaction_like_event
     multivalued: false
     description: Reaction-like event that is the target of regulation.
     comments:
     - Kept explicit through reified regulation nodes rather than flattened triples.
-    slot_uri: reactomeo:regulates
+    slot_uri: reactome:regulates
   has_active_unit:
     range: physical_entity
     multivalued: true
@@ -415,14 +435,14 @@ slots:
     comments:
     - Reactome can attach active-unit detail to catalyst activities and regulation
       objects.
-    slot_uri: reactomeo:hasActiveUnit
+    slot_uri: reactome:hasActiveUnit
   has_catalyst:
     range: physical_entity
     multivalued: false
     description: Physical entity serving as the bearer of a catalyst activity.
     comments:
     - Used inside reified catalyst activity objects.
-    slot_uri: reactomeo:hasCatalyst
+    slot_uri: reactome:hasCatalyst
   catalyzes:
     range: reaction_like_event
     multivalued: true
@@ -430,7 +450,7 @@ slots:
     description: Reaction-like event catalyzed by the given catalyst activity.
     comments:
     - Allows one catalyst activity node to connect molecular function and event participation.
-    slot_uri: reactomeo:catalyzes
+    slot_uri: reactome:catalyzes
   has_reference_database:
     range: reference_database
     multivalued: false
@@ -438,14 +458,14 @@ slots:
       database identifier.
     comments:
     - Provides the namespace and interpretation context for an identifier.
-    slot_uri: reactomeo:hasReferenceDatabase
+    slot_uri: reactome:hasReferenceDatabase
   identifier:
     range: string
     multivalued: false
     description: Identifier string assigned by an external reference database.
     comments:
     - Examples include UniProt accessions, ChEBI identifiers, or GO term identifiers.
-    slot_uri: reactomeo:identifier
+    slot_uri: reactome:identifier
   access_url:
     range: uri
     multivalued: false
@@ -453,14 +473,14 @@ slots:
       database.
     comments:
     - Can encode direct or templated resolver behavior.
-    slot_uri: reactomeo:accessUrl
+    slot_uri: reactome:accessUrl
   identifier_prefix:
     range: string
     multivalued: false
     description: Prefix or namespace abbreviation used by a reference database.
     comments:
     - Useful for CURIE generation and namespace harmonization.
-    slot_uri: reactomeo:identifierPrefix
+    slot_uri: reactome:identifierPrefix
   resource_identifier:
     range: string
     multivalued: false
@@ -468,21 +488,21 @@ slots:
       inside it.
     comments:
     - Supports metadata about the authority record for a database.
-    slot_uri: reactomeo:resourceIdentifier
+    slot_uri: reactome:resourceIdentifier
   url:
     range: uri
     multivalued: false
     description: General URL associated with an object.
     comments:
     - Often used for resource metadata pages or resolver entry points.
-    slot_uri: reactomeo:url
+    slot_uri: reactome:url
   pubmed_id:
     range: string
     multivalued: false
     description: PubMed identifier for a literature reference.
     comments:
     - Stored as string for broad interoperability with exports and loaders.
-    slot_uri: reactomeo:pubmedId
+    slot_uri: reactome:pubmedId
     pattern: ^[0-9]+$
   orcid:
     range: uri
@@ -490,14 +510,14 @@ slots:
     description: ORCID identifier for a person involved in curation or authorship.
     comments:
     - Useful for curator and contributor disambiguation.
-    slot_uri: reactomeo:orcid
+    slot_uri: reactome:orcid
   ncbi_taxon_id:
     range: string
     multivalued: false
     description: Taxonomic identifier, typically aligned to the NCBI Taxonomy.
     comments:
     - Often used on species or taxon-like records.
-    slot_uri: reactomeo:ncbiTaxonId
+    slot_uri: reactome:ncbiTaxonId
     pattern: ^[0-9]+$
   previous_stable_identifier:
     range: string
@@ -505,7 +525,11 @@ slots:
     description: Deprecated or previous stable Reactome identifier retained for traceability.
     comments:
     - Useful during migration, identifier replacement, and legacy resolution.
-    slot_uri: reactomeo:previousStableIdentifier
+    slot_uri: reactome:previousStableIdentifier
+
+## ------------
+## CLASSES
+## ------------
 classes:
   named_entity:
     abstract: true
@@ -518,7 +542,7 @@ classes:
     - id
     - name
     - description
-    class_uri: reactomeo:NamedEntity
+    class_uri: reactome:NamedEntity
   database_object:
     is_a: named_entity
     description: Root class for most Reactome schema objects and the main provenance-bearing
@@ -526,7 +550,7 @@ classes:
     comments:
     - Reactome’s frame-based model uses DatabaseObject as the common ancestor for
       curated graph records.
-    class_uri: reactomeo:DatabaseObject
+    class_uri: reactome:DatabaseObject
     slots:
     - reactome_db_id
     - reactome_stable_identifier
@@ -553,7 +577,7 @@ classes:
       modification, review, or revision.
     comments:
     - Typically stores who performed an edit and when the edit occurred.
-    class_uri: reactomeo:InstanceEdit
+    class_uri: reactome:InstanceEdit
     attributes:
       date:
         range: datetime
@@ -570,14 +594,14 @@ classes:
       curated biology.
     comments:
     - Abstract superclass for specific publication-like records.
-    class_uri: reactomeo:Publication
+    class_uri: reactome:Publication
   literature_reference:
     is_a: publication
     description: Literature citation record, commonly representing a PubMed-indexed
       paper supporting a Reactome assertion.
     comments:
     - Used widely to ground events, regulations, and catalyst activities in the literature.
-    class_uri: reactomeo:LiteratureReference
+    class_uri: reactome:LiteratureReference
     slots:
     - pubmed_id
   person:
@@ -586,7 +610,7 @@ classes:
       attribution.
     comments:
     - May represent curators, reviewers, or contributors.
-    class_uri: reactomeo:Person
+    class_uri: reactome:Person
     slots:
     - orcid
   summation:
@@ -595,7 +619,7 @@ classes:
       meaning of an entity or event.
     comments:
     - Distinct from a formal definition; meant for human reading.
-    class_uri: reactomeo:Summation
+    class_uri: reactome:Summation
     attributes:
       text:
         range: string
@@ -608,7 +632,7 @@ classes:
       pathways and reaction-like events.
     comments:
     - Event is one of the central abstractions in the Reactome model.
-    class_uri: reactomeo:Event
+    class_uri: reactome:Event
     slots:
     - in_taxon
     - located_in_compartment
@@ -627,7 +651,7 @@ classes:
       or pathway-like module.
     comments:
     - Pathways can overlap; event membership is not exclusive.
-    class_uri: reactomeo:Pathway
+    class_uri: reactome:Pathway
     slots:
     - has_event
     - has_go_biological_process
@@ -642,7 +666,7 @@ classes:
     comments:
     - Covers canonical reactions as well as black-box and polymerization-style event
       subclasses.
-    class_uri: reactomeo:ReactionLikeEvent
+    class_uri: reactome:ReactionLikeEvent
     slots:
     - has_input
     - has_output
@@ -659,7 +683,7 @@ classes:
       outputs.
     comments:
     - Best used for relatively well-resolved mechanistic conversions.
-    class_uri: reactomeo:Reaction
+    class_uri: reactome:Reaction
     slot_usage:
       has_input:
         required: true
@@ -672,7 +696,7 @@ classes:
     comments:
     - Useful when biological evidence supports the event but not a full molecular
       mechanism.
-    class_uri: reactomeo:BlackBoxEvent
+    class_uri: reactome:BlackBoxEvent
   polymerization:
     is_a: reaction_like_event
     description: Event representing formation of a polymer from repeated or assembling
@@ -680,14 +704,14 @@ classes:
     comments:
     - Kept distinct because its participant semantics can differ from ordinary reaction
       balance.
-    class_uri: reactomeo:Polymerization
+    class_uri: reactome:Polymerization
   depolymerization:
     is_a: reaction_like_event
     description: Event representing breakdown of a polymer into constituent or smaller
       units.
     comments:
     - Complementary to polymerisation.
-    class_uri: reactomeo:Depolymerization
+    class_uri: reactome:Depolymerization
   physical_entity:
     is_a: database_object
     abstract: true
@@ -696,7 +720,7 @@ classes:
     comments:
     - In Reactome, compartment, modification state, and assembly state can distinguish
       one physical entity from another.
-    class_uri: reactomeo:PhysicalEntity
+    class_uri: reactome:PhysicalEntity
     slots:
     - in_taxon
     - located_in_compartment
@@ -711,7 +735,7 @@ classes:
       chemical participant.
     comments:
     - Commonly aligned to ChEBI-like reference identities through ReferenceMolecule.
-    class_uri: reactomeo:SimpleEntity
+    class_uri: reactome:SimpleEntity
     slots:
     - has_reference_entity
     slot_usage:
@@ -724,7 +748,7 @@ classes:
       such as a protein or nucleic acid.
     comments:
     - Serves as a superclass for accessioned sequence-based entities.
-    class_uri: reactomeo:GenomeEncodedEntity
+    class_uri: reactome:GenomeEncodedEntity
   sequence_entity:
     is_a: genome_encoded_entity
     description: Sequence-bearing physical entity linked to a stable reference sequence
@@ -732,7 +756,7 @@ classes:
     comments:
     - Core Reactome pattern for proteins, RNAs, and other accessioned biomolecules
       in specific states.
-    class_uri: reactomeo:SequenceEntity
+    class_uri: reactome:SequenceEntity
     slots:
     - has_reference_entity
     - has_modified_residue
@@ -749,7 +773,7 @@ classes:
       assembled into a functional complex.
     comments:
     - The complex is treated as an entity distinct from its components.
-    class_uri: reactomeo:Complex
+    class_uri: reactome:Complex
     slots:
     - has_component
     slot_usage:
@@ -762,7 +786,7 @@ classes:
     comments:
     - This is a graph object representing a curated set, not merely a class extension
       over its members.
-    class_uri: reactomeo:EntitySet
+    class_uri: reactome:EntitySet
     slots:
     - has_member
     slot_usage:
@@ -774,21 +798,21 @@ classes:
       role.
     comments:
     - Often reflects partial knowledge or broad functional grouping.
-    class_uri: reactomeo:CandidateSet
+    class_uri: reactome:CandidateSet
   defined_set:
     is_a: entity_set
     description: Entity set whose members are explicitly curated as the intended interchangeable
       participants.
     comments:
     - Stronger editorial commitment than a candidate set.
-    class_uri: reactomeo:DefinedSet
+    class_uri: reactome:DefinedSet
   polymer:
     is_a: physical_entity
     description: Polymer entity abstracted in terms of one or more repeated units.
     comments:
     - Useful for biological polymers that are not modeled by enumerating every monomer
       instance.
-    class_uri: reactomeo:Polymer
+    class_uri: reactome:Polymer
     slots:
     - has_repeated_unit
   cell:
@@ -798,41 +822,41 @@ classes:
     comments:
     - Included for cases where cells themselves are modeled as interacting biological
       entities.
-    class_uri: reactomeo:Cell
+    class_uri: reactome:Cell
   other_entity:
     is_a: physical_entity
     description: Catch-all physical entity class for biologically relevant participants
       not covered by more specific subclasses.
     comments:
     - Helps preserve source fidelity when Reactome uses residual categorization.
-    class_uri: reactomeo:OtherEntity
+    class_uri: reactome:OtherEntity
   drug:
     is_a: physical_entity
     description: Therapeutic or intervention-oriented physical entity modeled in the
       Reactome graph.
     comments:
     - Drug subclasses distinguish broad molecular kinds of therapeutic agents.
-    class_uri: reactomeo:Drug
+    class_uri: reactome:Drug
   chemical_drug:
     is_a: drug
     description: Drug represented primarily as a chemical or small-molecule therapeutic
       agent.
     comments:
     - Often alignable to small-molecule reference identities.
-    class_uri: reactomeo:ChemicalDrug
+    class_uri: reactome:ChemicalDrug
   protein_drug:
     is_a: drug
     description: Drug represented as a protein therapeutic or protein-derived biologic.
     comments:
     - Includes antibody-like or recombinant protein therapeutics when modeled as physical
       entities.
-    class_uri: reactomeo:ProteinDrug
+    class_uri: reactome:ProteinDrug
   rna_drug:
     is_a: drug
     description: Drug represented as an RNA-based therapeutic agent.
     comments:
     - Can cover antisense, siRNA, or related RNA therapeutic modalities.
-    class_uri: reactomeo:RnaDrug
+    class_uri: reactome:RnaDrug
   reference_entity:
     is_a: database_object
     abstract: true
@@ -841,7 +865,7 @@ classes:
     comments:
     - This is the key abstraction Reactome uses to separate contextual state from
       canonical identity.
-    class_uri: reactomeo:ReferenceEntity
+    class_uri: reactome:ReferenceEntity
     slots:
     - has_reference_database
     - identifier
@@ -853,58 +877,58 @@ classes:
     description: Reference identity for a sequence-bearing biomolecule.
     comments:
     - Commonly used for protein, DNA, RNA, and isoform references.
-    class_uri: reactomeo:ReferenceSequence
+    class_uri: reactome:ReferenceSequence
   reference_gene_product:
     is_a: reference_sequence
     description: Reference sequence corresponding to a gene product, typically protein-centric.
     comments:
     - Often alignable to UniProt entries for proteins.
-    class_uri: reactomeo:ReferenceGeneProduct
+    class_uri: reactome:ReferenceGeneProduct
   reference_isoform:
     is_a: reference_sequence
     description: Reference sequence representing a specific isoform-level identity.
     comments:
     - Useful when isoform distinction matters biologically.
-    class_uri: reactomeo:ReferenceIsoform
+    class_uri: reactome:ReferenceIsoform
   reference_dna_sequence:
     is_a: reference_sequence
     description: Reference identity for a DNA sequence.
     comments:
     - Supports DNA-centric entities in the Reactome schema.
-    class_uri: reactomeo:ReferenceDnaSequence
+    class_uri: reactome:ReferenceDnaSequence
   reference_rna_sequence:
     is_a: reference_sequence
     description: Reference identity for an RNA sequence.
     comments:
     - Supports transcript and RNA molecule identity modeling.
-    class_uri: reactomeo:ReferenceRnaSequence
+    class_uri: reactome:ReferenceRnaSequence
   reference_molecule:
     is_a: reference_entity
     description: Reference identity for a small molecule, simple chemical, or chemically
       grounded participant.
     comments:
     - Naturally alignable to ChEBI-like references.
-    class_uri: reactomeo:ReferenceMolecule
+    class_uri: reactome:ReferenceMolecule
   reference_group:
     is_a: reference_entity
     description: Grouped reference identity used when an invariant identity is represented
       at a grouped rather than single-entry level.
     comments:
     - Useful for families or grouped reference semantics in source data.
-    class_uri: reactomeo:ReferenceGroup
+    class_uri: reactome:ReferenceGroup
   reference_therapeutic:
     is_a: reference_entity
     description: Reference identity for a therapeutic or intervention-oriented entity.
     comments:
     - Supports the reference-layer counterpart of drug-like modeled entities.
-    class_uri: reactomeo:ReferenceTherapeutic
+    class_uri: reactome:ReferenceTherapeutic
   reference_database:
     is_a: database_object
     description: Metadata record describing an external database or authority used
       for identifiers and cross-references.
     comments:
     - Holds resolver and namespace information for identifier interpretation.
-    class_uri: reactomeo:ReferenceDatabase
+    class_uri: reactome:ReferenceDatabase
     slots:
     - access_url
     - identifier_prefix
@@ -916,7 +940,7 @@ classes:
       database authority.
     comments:
     - Useful as a reified identifier object rather than a bare literal.
-    class_uri: reactomeo:DatabaseIdentifier
+    class_uri: reactome:DatabaseIdentifier
     slots:
     - identifier
     - has_reference_database
@@ -926,7 +950,7 @@ classes:
       function, and one or more catalyzed reaction-like events.
     comments:
     - This is one of the most semantically important reified node types in Reactome.
-    class_uri: reactomeo:CatalystActivity
+    class_uri: reactome:CatalystActivity
     slots:
     - has_catalyst
     - has_go_molecular_function
@@ -946,7 +970,7 @@ classes:
     comments:
     - Reactome models regulation explicitly instead of flattening it into a simple
       binary relation.
-    class_uri: reactomeo:Regulation
+    class_uri: reactome:Regulation
     slots:
     - has_regulator
     - regulates
@@ -963,14 +987,14 @@ classes:
       occurrence or efficiency of a reaction-like event.
     comments:
     - Semantic polarity is explicit at the class level.
-    class_uri: reactomeo:PositiveRegulation
+    class_uri: reactome:PositiveRegulation
   negative_regulation:
     is_a: regulation
     description: Regulation that decreases, inhibits, or negatively influences the
       occurrence or efficiency of a reaction-like event.
     comments:
     - Semantic polarity is explicit at the class level.
-    class_uri: reactomeo:NegativeRegulation
+    class_uri: reactome:NegativeRegulation
   requirement:
     is_a: regulation
     description: Regulation-like assertion indicating that a regulator or participant
@@ -978,27 +1002,27 @@ classes:
     comments:
     - Used when necessity is the key biological relation rather than positive or negative
       modulation.
-    class_uri: reactomeo:Requirement
+    class_uri: reactome:Requirement
   interaction:
     is_a: database_object
     description: Interaction record associated with an event or set of participants.
     comments:
     - Retained as a distinct object to preserve graph fidelity when interactions are
       explicitly modeled.
-    class_uri: reactomeo:Interaction
+    class_uri: reactome:Interaction
   reaction_type_term:
     is_a: database_object
     description: Controlled vocabulary term used to characterize a reaction-like event.
     comments:
     - Supports editorial or mechanistic grouping of reaction events.
-    class_uri: reactomeo:ReactionTypeTerm
+    class_uri: reactome:ReactionTypeTerm
   abstract_modified_residue:
     is_a: database_object
     description: Feature record describing a modified residue or residue-level state
       on a sequence-bearing entity.
     comments:
     - Abstract superclass for phosphorylation-like or other residue modification records.
-    class_uri: reactomeo:AbstractModifiedResidue
+    class_uri: reactome:AbstractModifiedResidue
   organism_taxon:
     is_a: database_object
     description: Organism taxon record representing the organismal context for entities
@@ -1006,7 +1030,7 @@ classes:
     comments:
     - Often associated with taxonomy identifiers and may correspond to NCBI Taxonomy
       concepts.
-    class_uri: reactomeo:OrganismTaxon
+    class_uri: reactome:OrganismTaxon
     slots:
     - ncbi_taxon_id
   taxon:
@@ -1014,7 +1038,7 @@ classes:
     description: Taxonomic concept used for taxonomic assignment or metadata.
     comments:
     - Can be used in parallel with or beneath species-oriented records.
-    class_uri: reactomeo:Taxon
+    class_uri: reactome:Taxon
     slots:
     - ncbi_taxon_id
   compartment:
@@ -1024,35 +1048,35 @@ classes:
     comments:
     - Often alignable to GO cellular component terms, though not always identical
       in role.
-    class_uri: reactomeo:Compartment
+    class_uri: reactome:Compartment
   disease:
     is_a: database_object
     description: Disease concept used to contextualize events and entities in pathological
       settings.
     comments:
     - Represents disease context rather than a full disease ontology commitment.
-    class_uri: reactomeo:Disease
+    class_uri: reactome:Disease
   go_molecular_function_term:
     is_a: database_object
     description: Wrapper object for a GO molecular function term used in Reactome
       catalysis modeling.
     comments:
     - Particularly important in CatalystActivity.
-    class_uri: reactomeo:GoMolecularFunctionTerm
+    class_uri: reactome:GoMolecularFunctionTerm
   go_biological_process_term:
     is_a: database_object
     description: Wrapper object for a GO biological process term used for pathway
       or event alignment.
     comments:
     - Useful for crosswalks between Reactome pathways and GO process knowledge.
-    class_uri: reactomeo:GoBiologicalProcessTerm
+    class_uri: reactome:GoBiologicalProcessTerm
   go_cellular_component_term:
     is_a: database_object
     description: Wrapper object for a GO cellular component term used in entity or
       location annotation.
     comments:
     - Often complements explicit compartment modeling.
-    class_uri: reactomeo:GoCellularComponentTerm
+    class_uri: reactome:GoCellularComponentTerm
   reactome_dataset:
     tree_root: true
     description: Top-level container for a serialized Reactome dataset excerpt or
