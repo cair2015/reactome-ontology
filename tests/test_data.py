@@ -14,7 +14,8 @@ INVALID_EXAMPLE_FILES = sorted((DATA_DIR / "invalid").glob("*.yaml"))
 
 def _target_class_for(filepath: Path):
     """Resolve the generated datamodel class from the fixture filename."""
-    target_class_name = filepath.stem.split("-")[0]
+    schema_class_name = filepath.stem.split("-")[0]
+    target_class_name = "".join(part.capitalize() for part in schema_class_name.split("_"))
     return getattr(reactome_model, target_class_name)
 
 

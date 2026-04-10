@@ -1,5 +1,6 @@
 database_objects:
-  - id: person-001
+  person-001:
+    id: person-001
     name: Robin Cai
     reactome_db_id: 1
     reactome_stable_identifier: R-HSA-PERSON-001

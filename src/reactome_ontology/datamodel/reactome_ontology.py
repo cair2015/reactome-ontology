@@ -1,5 +1,5 @@
 # Auto generated from reactome_ontology.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-04-09T19:52:33
+# Generation date: 2026-04-09T20:54:28
 # Schema: reactome_ontology_final
 #
 # id: https://w3id.org/reactome-ontology/final
