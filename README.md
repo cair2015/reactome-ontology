@@ -1,5 +1,7 @@
 # Reactome Ontology
 
+Published ontology-model docs: [https://cair2015.github.io/reactome-ontology/](https://cair2015.github.io/reactome-ontology/)
+
 `reactome-ontology` is an ontology-first [LinkML](https://linkml.io/linkml/) project for representing key parts of the Reactome data model as a cleaner ontology-oriented schema.
 
 The repository centers on a curated LinkML schema that:
@@ -108,7 +110,6 @@ Example instances live in [`tests/data/valid`](https://github.com/cair2015/react
 
 - Project docs source: [`docs/`](https://github.com/cair2015/reactome-ontology/tree/main/docs)
 - MkDocs config: [`mkdocs.yml`](https://github.com/cair2015/reactome-ontology/blob/main/mkdocs.yml)
-- Published ontology-model docs: [https://cair2015.github.io/reactome-ontology/](https://cair2015.github.io/reactome-ontology/)
 
 To serve docs locally:
 
