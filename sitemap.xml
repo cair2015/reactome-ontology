@@ -2,586 +2,590 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/about/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/ontology/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/published-schema/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/AbstractModifiedResidue/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/BlackBoxEvent/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Boolean/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/CandidateSet/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/CatalystActivity/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Cell/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/ChemicalDrug/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Compartment/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Complex/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Curie/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/DatabaseIdentifier/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/DatabaseObject/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Date/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/DateOrDatetime/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Datetime/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Decimal/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/DefinedSet/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Depolymerization/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Disease/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Double/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Drug/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/EntitySet/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Event/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Float/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/GenomeEncodedEntity/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/GoBiologicalProcessTerm/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/GoCellularComponentTerm/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/GoMolecularFunctionTerm/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/InstanceEdit/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Integer/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Interaction/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Jsonpath/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Jsonpointer/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/LiteratureReference/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/NamedEntity/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Ncname/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/NegativeRegulation/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Nodeidentifier/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Objectidentifier/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/OrganismTaxon/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/OtherEntity/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Pathway/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Person/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/PhysicalEntity/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Polymer/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Polymerization/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/PositiveRegulation/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
+    </url>
+    <url>
+         <loc>https://cair2015.github.io/reactome-ontology/elements/Protein/</loc>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/ProteinDrug/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Publication/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Reaction/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/ReactionLikeEvent/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/ReactionTypeTerm/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/ReactomeDataset/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/ReferenceDatabase/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/ReferenceDnaSequence/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/ReferenceEntity/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/ReferenceGeneProduct/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/ReferenceGroup/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/ReferenceIsoform/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/ReferenceMolecule/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/ReferenceRnaSequence/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/ReferenceSequence/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/ReferenceTherapeutic/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Regulation/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Requirement/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/RnaDrug/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/SequenceEntity/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/SimpleEntity/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Sparqlpath/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/String/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Summation/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Taxon/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Time/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Uri/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/Uriorcurie/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/access_url/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/author/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/authored/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/catalyzes/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/category/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/created/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/database_objects/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/date/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/definition/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/description/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/display_label/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/end_coordinate/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/has_active_unit/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/has_catalyst/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/has_catalyst_activity/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/has_component/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/has_cross_reference/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/has_disease_context/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/has_event/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/has_go_biological_process/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/has_go_cellular_component/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/has_go_molecular_function/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/has_input/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/has_interacting_entity_on_other_cell/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/has_interaction/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/has_member/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/has_modified_residue/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/has_output/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/has_reaction_type/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/has_reference_database/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/has_reference_entity/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/has_regulation/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/has_regulator/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/has_repeated_unit/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/has_summation/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/id/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/identifier/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/identifier_prefix/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/in_taxon/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/is_in_disease_context/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/is_inferred/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/located_in_compartment/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/modified/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/name/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/ncbi_taxon_id/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/orcid/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/preceded_by/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/previous_stable_identifier/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/pubmed_id/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/reactome_db_id/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/reactome_ontology/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/reactome_stable_identifier/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/regulates/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/release_date/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/release_status/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/requires_component/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/resource_identifier/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/reviewed/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/revised/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/sequence_reference_type/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/source_schema_class/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/start_coordinate/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/supported_by/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/systematic_name/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/text/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
     <url>
          <loc>https://cair2015.github.io/reactome-ontology/elements/url/</loc>
-         <lastmod>2026-04-12</lastmod>
+         <lastmod>2026-04-14</lastmod>
     </url>
 </urlset>

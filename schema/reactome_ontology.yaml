@@ -1,13 +1,13 @@
 name: reactome_ontology
-description: Reactome Ontology Model is an ontology-oriented LinkML schema designed
-  to represent core Reactome entities, events, provenance, and related reference objects
-  in a consistent and reusable form. It provides a structured framework for describing
-  pathways, reactions, physical entities, regulatory relationships, and supporting
-  metadata. The model combines hierarchical class organization with explicitly defined
-  slots and ranges to support validation, documentation, ontology generation, and
-  downstream integration. The goal of the Reactome Ontology Model is to provide a
-  clear and interoperable schema for publishing and working with Reactome knowledge
-  in ontology-friendly formats.
+description: The Reactome Ontology Model provides a more ontology-oriented and reusable
+  representation of core parts of the Reactome data model. Using LinkML as the source
+  schema, it describes entities, events, provenance, and related reference objects
+  in a consistent and structured way. The model covers pathways, reactions, physical
+  entities, regulatory relationships, and supporting metadata through clearly defined
+  classes, slots, and ranges. This supports validation, documentation generation,
+  ontology export, and downstream integration. Its goal is to provide a clear and
+  interoperable foundation for publishing and working with Reactome knowledge in ontology-friendly
+  formats.
 title: Reactome Ontology Model
 comments:
 - This schema favors ontology-oriented naming for OWL generation; source mappings
@@ -1599,6 +1599,29 @@ slots:
     range: reference_sequence
     required: true
     multivalued: false
+  protein_has_reference_entity:
+    name: protein_has_reference_entity
+    definition_uri: https://w3id.org/reactome-ontology/has_reference_entity
+    description: Invariant reference identity underlying a contextualized physical
+      entity.
+    comments:
+    - '{''One of the key distinctions in Reactome'': ''reference identity is separate
+      from stateful physical instantiation.''}'
+    from_schema: https://w3id.org/reactome-ontology
+    mappings:
+    - reactome:hasReferenceEntity
+    is_a: sequence_entity_has_reference_entity
+    domain: protein
+    slot_uri: reactome:hasReferenceEntity
+    alias: has_reference_entity
+    owner: protein
+    domain_of:
+    - protein
+    is_usage_slot: true
+    usage_slot_name: has_reference_entity
+    range: reference_gene_product
+    required: true
+    multivalued: false
   complex_has_component:
     name: complex_has_component
     definition_uri: https://w3id.org/reactome-ontology/has_component
@@ -2407,6 +2430,47 @@ classes:
         range: reference_sequence
         required: true
     class_uri: reactome:SequenceEntity
+  protein:
+    name: protein
+    definition_uri: https://w3id.org/reactome-ontology/Protein
+    description: Protein physical entity linked to a reference gene product and optionally
+      decorated with modifications and subsequence features.
+    comments:
+    - The most common type of sequence entity in Reactome.
+    from_schema: https://w3id.org/reactome-ontology
+    mappings:
+    - reactome:Protein
+    is_a: sequence_entity
+    slots:
+    - id
+    - name
+    - description
+    - database_object_reactome_db_id
+    - database_object_reactome_stable_identifier
+    - database_object_source_schema_class
+    - database_object_display_label
+    - definition
+    - previous_stable_identifier
+    - database_object_created
+    - modified
+    - in_taxon
+    - located_in_compartment
+    - has_cross_reference
+    - has_disease_context
+    - has_go_cellular_component
+    - systematic_name
+    - is_in_disease_context
+    - has_modified_residue
+    - start_coordinate
+    - end_coordinate
+    - sequence_reference_type
+    - protein_has_reference_entity
+    slot_usage:
+      has_reference_entity:
+        name: has_reference_entity
+        range: reference_gene_product
+        required: true
+    class_uri: reactome:Protein
   complex:
     name: complex
     definition_uri: https://w3id.org/reactome-ontology/Complex
@@ -3472,7 +3536,7 @@ classes:
     tree_root: true
 metamodel_version: 1.7.0
 source_file: reactome_ontology.yaml
-source_file_date: '2026-04-12T03:42:35'
-source_file_size: 40205
-generation_date: '2026-04-12T03:42:45'
+source_file_date: '2026-04-14T04:37:02'
+source_file_size: 40580
+generation_date: '2026-04-14T04:37:13'
 
