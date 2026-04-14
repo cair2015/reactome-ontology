@@ -1,15 +1,7 @@
 id: https://w3id.org/reactome-ontology
 name: reactome_ontology
 title: Reactome Ontology Model
-description: Reactome Ontology Model is an ontology-oriented LinkML schema designed
-  to represent core Reactome entities, events, provenance, and related reference
-  objects in a consistent and reusable form. It provides a structured framework
-  for describing pathways, reactions, physical entities, regulatory relationships,
-  and supporting metadata. The model combines hierarchical class organization with
-  explicitly defined slots and ranges to support validation, documentation, ontology
-  generation, and downstream integration. The goal of the Reactome Ontology Model
-  is to provide a clear and interoperable schema for publishing and working with
-  Reactome knowledge in ontology-friendly formats.
+description: The Reactome Ontology Model provides a more ontology-oriented and reusable representation of core parts of the Reactome data model. Using LinkML as the source schema, it describes entities, events, provenance, and related reference objects in a consistent and structured way. The model covers pathways, reactions, physical entities, regulatory relationships, and supporting metadata through clearly defined classes, slots, and ranges. This supports validation, documentation generation, ontology export, and downstream integration. Its goal is to provide a clear and interoperable foundation for publishing and working with Reactome knowledge in ontology-friendly formats.
 license: https://creativecommons.org/licenses/by/4.0/
 version: 1.0.0
 
@@ -775,6 +767,17 @@ classes:
       has_reference_entity:
         required: true
         range: reference_sequence
+  protein:
+    is_a: sequence_entity
+    description: Protein physical entity linked to a reference gene product and optionally
+      decorated with modifications and subsequence features.
+    comments:
+    - The most common type of sequence entity in Reactome.
+    class_uri: reactome:Protein
+    slot_usage:
+      has_reference_entity:
+        required: true
+        range: reference_gene_product
   complex:
     is_a: physical_entity
     description: Physical entity composed of two or more component physical entities
