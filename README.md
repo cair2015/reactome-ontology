@@ -1,34 +1,38 @@
 # Reactome Ontology
 
-`reactome-ontology` is an ontology-first [LinkML](https://linkml.io/linkml/) project for representing key parts of the Reactome data model as a cleaner ontology-oriented schema.
+Published docs: [https://cair2015.github.io/reactome-ontology/](https://cair2015.github.io/reactome-ontology/)
 
-The repository centers on a curated LinkML schema that:
+`reactome-ontology` represents key parts of the Reactome data model as a cleaner, ontology-oriented schema for structured data, documentation, and ontology publication.
 
-- keeps ontology-facing classes and slots from the Reactome model
-- separates source-schema mapping details into dedicated mapping files
-- generates Python dataclasses, Pydantic models, documentation, and ontology artifacts from a single schema source
+The project uses a curated [LinkML](https://linkml.io/linkml/) schema as its source of truth. From that schema, it generates:
+
+- documentation
+- Python dataclasses
+- Pydantic models
+- ontology artifacts and exports
 
 The current primary schema is [`src/reactome_ontology/schema/reactome_ontology.yaml`](https://github.com/cair2015/reactome-ontology/blob/main/src/reactome_ontology/schema/reactome_ontology.yaml).
 
-## What This Repository Contains
-
-- [`src/reactome_ontology/schema/reactome_ontology.yaml`](https://github.com/cair2015/reactome-ontology/blob/main/src/reactome_ontology/schema/reactome_ontology.yaml): the main LinkML schema
-- [`src/reactome_ontology/schema/reactome_ontology_mapping.md`](https://github.com/cair2015/reactome-ontology/blob/main/src/reactome_ontology/schema/reactome_ontology_mapping.md): human-readable mapping from ontology terms to the Reactome source schema
-- [`src/reactome_ontology/schema/reactome_ontology_mapping.tsv`](https://github.com/cair2015/reactome-ontology/blob/main/src/reactome_ontology/schema/reactome_ontology_mapping.tsv): tabular version of the same mapping
-- [`src/reactome_ontology/datamodel/reactome_ontology.py`](https://github.com/cair2015/reactome-ontology/blob/main/src/reactome_ontology/datamodel/reactome_ontology.py): generated Python datamodel
-- [`src/reactome_ontology/datamodel/reactome_ontology_pydantic.py`](https://github.com/cair2015/reactome-ontology/blob/main/src/reactome_ontology/datamodel/reactome_ontology_pydantic.py): generated Pydantic datamodel
-- [`ontology/`](https://github.com/cair2015/reactome-ontology/tree/main/ontology): ontology exports and related alignment artifacts
-- [`docs/`](https://github.com/cair2015/reactome-ontology/tree/main/docs): MkDocs source for published documentation
-- [`tests/data/`](https://github.com/cair2015/reactome-ontology/tree/main/tests/data): example YAML instances used for validation tests
-
 ## Project Goal
 
-Reactome is a rich pathway knowledgebase, but its operational source schema is not always ideal as an ontology-facing exchange model. This project reshapes that source into a LinkML profile that is easier to:
+Reactome is a rich pathway knowledgebase, but its operational source schema is not always ideal as an ontology-facing exchange model. This project reshapes that source into a LinkML-based schema that is easier to:
 
 - align with ontology terms and URIs
 - validate as structured data
 - export into downstream semantic artifacts
 - use from Python applications
+- publish with stable documentation and term pages
+
+## What This Repository Contains
+
+- [`src/reactome_ontology/schema/reactome_ontology.yaml`](https://github.com/cair2015/reactome-ontology/blob/main/src/reactome_ontology/schema/reactome_ontology.yaml): main LinkML schema
+- [`src/reactome_ontology/schema/reactome_ontology_mapping.md`](https://github.com/cair2015/reactome-ontology/blob/main/src/reactome_ontology/schema/reactome_ontology_mapping.md): human-readable mapping from ontology terms to the Reactome source schema
+- [`src/reactome_ontology/schema/reactome_ontology_mapping.tsv`](https://github.com/cair2015/reactome-ontology/blob/main/src/reactome_ontology/schema/reactome_ontology_mapping.tsv): tabular mapping of the same correspondences
+- [`src/reactome_ontology/datamodel/reactome_ontology.py`](https://github.com/cair2015/reactome-ontology/blob/main/src/reactome_ontology/datamodel/reactome_ontology.py): generated Python datamodel
+- [`src/reactome_ontology/datamodel/reactome_ontology_pydantic.py`](https://github.com/cair2015/reactome-ontology/blob/main/src/reactome_ontology/datamodel/reactome_ontology_pydantic.py): generated Pydantic datamodel
+- [`ontology/`](https://github.com/cair2015/reactome-ontology/tree/main/ontology): ontology exports and related alignment artifacts
+- [`docs/`](https://github.com/cair2015/reactome-ontology/tree/main/docs): MkDocs source for published documentation
+- [`tests/data/`](https://github.com/cair2015/reactome-ontology/tree/main/tests/data): example YAML instances used for validation tests
 
 ## Installation
 
@@ -40,7 +44,7 @@ This project uses `uv` for dependency management and `just` for common developme
 - `uv`
 - `just`
 
-### Set Up The Environment
+### Set Up the Environment
 
 ```bash
 uv sync --group dev
@@ -73,7 +77,7 @@ This updates:
 - generated schema documentation in `docs/elements/`
 - the distributed merged schema in `docs/schema/`
 
-### Build Everything Needed For The Local Docs Site
+### Build Everything Needed for the Local Docs Site
 
 ```bash
 just site
@@ -87,7 +91,7 @@ just test
 
 This runs schema generation checks, Python tests, and example-data validation.
 
-## Using The Python Datamodel
+## Using the Python Datamodel
 
 After installing dependencies, you can import the generated classes directly:
 
@@ -98,17 +102,17 @@ pathway = Pathway(id="R-HSA-EXAMPLE", name="Example pathway")
 person = Person(id="person-1", name="Curator Name")
 ```
 
-The generated models come from the LinkML schema, so schema edits should generally be followed by regeneration with `just gen-project`.
+Because the Python models are generated from the LinkML schema, schema edits should generally be followed by regeneration with `just gen-project`.
 
-## Example Data And Validation
+## Example Data and Validation
 
-Example instances live in [`tests/data/valid`](https://github.com/cair2015/reactome-ontology/tree/main/tests/data/valid) and [`tests/data/invalid`](https://github.com/cair2015/reactome-ontology/tree/main/tests/data/invalid). The test suite loads valid examples against the generated Python classes to confirm the datamodel remains usable.
+Example instances live in [`tests/data/valid`](https://github.com/cair2015/reactome-ontology/tree/main/tests/data/valid) and [`tests/data/invalid`](https://github.com/cair2015/reactome-ontology/tree/main/tests/data/invalid). The test suite loads valid examples against the generated Python classes to confirm that the datamodel remains usable.
 
 ## Documentation
 
+- Published docs: [https://cair2015.github.io/reactome-ontology/](https://cair2015.github.io/reactome-ontology/)
 - Project docs source: [`docs/`](https://github.com/cair2015/reactome-ontology/tree/main/docs)
 - MkDocs config: [`mkdocs.yml`](https://github.com/cair2015/reactome-ontology/blob/main/mkdocs.yml)
-- Published ontology-model docs: [https://cair2015.github.io/reactome-ontology/](https://cair2015.github.io/reactome-ontology/)
 
 To serve docs locally:
 
@@ -133,8 +137,9 @@ just testdoc
 ## Development Notes
 
 - Treat [`src/reactome_ontology/schema/reactome_ontology.yaml`](https://github.com/cair2015/reactome-ontology/blob/main/src/reactome_ontology/schema/reactome_ontology.yaml) as the source of truth.
-- Generated Python files in [`src/reactome_ontology/datamodel/`](https://github.com/cair2015/reactome-ontology/tree/main/src/reactome_ontology/datamodel) should be regenerated, not hand-edited.
+- Generated files in [`src/reactome_ontology/datamodel/`](https://github.com/cair2015/reactome-ontology/tree/main/src/reactome_ontology/datamodel) should be regenerated, not hand-edited.
 - Mapping files in [`src/reactome_ontology/schema/`](https://github.com/cair2015/reactome-ontology/tree/main/src/reactome_ontology/schema) capture correspondence back to the original Reactome schema.
+- Ontology exports under [`ontology/`](https://github.com/cair2015/reactome-ontology/tree/main/ontology) are derived artifacts and should stay aligned with the source schema.
 
 ## License
 
