@@ -1,6 +1,6 @@
 # Schema Directory
 
-This directory contains the ontology-first LinkML schema for this project together with mapping files that relate it to the upstream Reactome LinkML schema.
+This directory contains the ontology-first LinkML schema for this project together with mapping files that relate it to the upstream Reactome source schema.
 
 ## Files
 
@@ -10,11 +10,11 @@ This directory contains the ontology-first LinkML schema for this project togeth
 
 ## Reference Schema
 
-The upstream Reactome LinkML schema is available at:
+The upstream Reactome source schema is available at:
 
 - https://github.com/reactome/reactome-schemas/blob/main/schema.yaml
 
-That upstream schema appears aligned with the current Reactome Neo4j-facing data model and serves as the main external reference point for this repository.
+That upstream schema is a YAML-defined source data model rather than an ontology model. It serves as the main external reference point for this repository and is used here as the source-side schema when aligning this ontology-oriented model back to the Reactome database-oriented structure.
 
 ## How To Use These Files
 

@@ -1,9 +1,9 @@
 # Auto generated from reactome_ontology.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-04-10T11:53:08
+# Generation date: 2026-05-08T15:45:31
 # Schema: reactome_ontology
 #
 # id: https://w3id.org/reactome-ontology
-# description: An OWL-oriented LinkML schema for generating a clean Reactome ontology. This profile keeps ontology-facing classes and properties and removes source-mapping annotations, which are maintained in separate mapping files.
+# description: The Reactome Ontology Model provides a more ontology-oriented and reusable representation of core parts of the Reactome data model. Using LinkML as the source schema, it describes entities, events, provenance, and related reference objects in a consistent and structured way. The model covers pathways, reactions, physical entities, regulatory relationships, and supporting metadata through clearly defined classes, slots, and ranges. This supports validation, documentation generation, ontology export, and downstream integration. Its goal is to provide a clear and interoperable foundation for publishing and working with Reactome knowledge in ontology-friendly formats.
 # license: https://creativecommons.org/licenses/by/4.0/
 
 import dataclasses
@@ -56,15 +56,17 @@ from rdflib import (
     URIRef
 )
 
-from linkml_runtime.linkml_model.types import Boolean, Date, Datetime, Integer, String, Uri
-from linkml_runtime.utils.metamodelcore import Bool, URI, XSDDate, XSDDateTime
+from linkml_runtime.linkml_model.types import Boolean, Date, Datetime, Integer, String, Uri, Uriorcurie
+from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDate, XSDDateTime
 
 metamodel_version = "1.7.0"
-version = "1.0.0"
+version = "1.1.0"
 
 # Namespaces
 BFO = CurieNamespace('BFO', 'http://purl.obolibrary.org/obo/BFO_')
 CHEBI = CurieNamespace('CHEBI', 'http://purl.obolibrary.org/obo/CHEBI_')
+DOID = CurieNamespace('DOID', 'http://purl.obolibrary.org/obo/DOID_')
+ENSEMBL = CurieNamespace('Ensembl', 'http://identifiers.org/ensembl/')
 GO = CurieNamespace('GO', 'http://purl.obolibrary.org/obo/GO_')
 NCBITAXON = CurieNamespace('NCBITaxon', 'http://purl.obolibrary.org/obo/NCBITaxon_')
 RO = CurieNamespace('RO', 'http://purl.obolibrary.org/obo/RO_')
@@ -84,7 +86,7 @@ DEFAULT_ = REACTOME
 # Types
 
 # Class references
-class NamedEntityId(extended_str):
+class NamedEntityId(URIorCURIE):
     pass
 
 
@@ -153,6 +155,10 @@ class GenomeEncodedEntityId(PhysicalEntityId):
 
 
 class SequenceEntityId(GenomeEncodedEntityId):
+    pass
+
+
+class ProteinId(SequenceEntityId):
     pass
 
 
@@ -349,12 +355,14 @@ class DatabaseObject(NamedEntity):
 
     id: Union[str, DatabaseObjectId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
+    category: Optional[str] = None
+    reactome_stable_identifier: Optional[str] = None
+    synonym: Optional[Union[str, list[str]]] = empty_list()
     definition: Optional[str] = None
     previous_stable_identifier: Optional[str] = None
+    created: Optional[Union[str, InstanceEditId]] = None
     modified: Optional[Union[Union[str, InstanceEditId], list[Union[str, InstanceEditId]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -368,11 +376,6 @@ class DatabaseObject(NamedEntity):
         if not isinstance(self.reactome_db_id, int):
             self.reactome_db_id = int(self.reactome_db_id)
 
-        if self._is_empty(self.reactome_stable_identifier):
-            self.MissingRequiredField("reactome_stable_identifier")
-        if not isinstance(self.reactome_stable_identifier, str):
-            self.reactome_stable_identifier = str(self.reactome_stable_identifier)
-
         if self._is_empty(self.source_schema_class):
             self.MissingRequiredField("source_schema_class")
         if not isinstance(self.source_schema_class, str):
@@ -383,16 +386,24 @@ class DatabaseObject(NamedEntity):
         if not isinstance(self.display_label, str):
             self.display_label = str(self.display_label)
 
-        if self._is_empty(self.created):
-            self.MissingRequiredField("created")
-        if not isinstance(self.created, InstanceEditId):
-            self.created = InstanceEditId(self.created)
+        if self.category is not None and not isinstance(self.category, str):
+            self.category = str(self.category)
+
+        if self.reactome_stable_identifier is not None and not isinstance(self.reactome_stable_identifier, str):
+            self.reactome_stable_identifier = str(self.reactome_stable_identifier)
+
+        if not isinstance(self.synonym, list):
+            self.synonym = [self.synonym] if self.synonym is not None else []
+        self.synonym = [v if isinstance(v, str) else str(v) for v in self.synonym]
 
         if self.definition is not None and not isinstance(self.definition, str):
             self.definition = str(self.definition)
 
         if self.previous_stable_identifier is not None and not isinstance(self.previous_stable_identifier, str):
             self.previous_stable_identifier = str(self.previous_stable_identifier)
+
+        if self.created is not None and not isinstance(self.created, InstanceEditId):
+            self.created = InstanceEditId(self.created)
 
         if not isinstance(self.modified, list):
             self.modified = [self.modified] if self.modified is not None else []
@@ -415,12 +426,10 @@ class InstanceEdit(DatabaseObject):
 
     id: Union[str, InstanceEditId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
     date: Optional[Union[str, XSDDateTime]] = None
-    author: Optional[Union[dict[Union[str, PersonId], Union[dict, "Person"]], list[Union[dict, "Person"]]]] = empty_dict()
+    author: Optional[Union[Union[str, PersonId], list[Union[str, PersonId]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -431,7 +440,9 @@ class InstanceEdit(DatabaseObject):
         if self.date is not None and not isinstance(self.date, XSDDateTime):
             self.date = XSDDateTime(self.date)
 
-        self._normalize_inlined_as_list(slot_name="author", slot_type=Person, key_name="id", keyed=True)
+        if not isinstance(self.author, list):
+            self.author = [self.author] if self.author is not None else []
+        self.author = [v if isinstance(v, PersonId) else PersonId(v) for v in self.author]
 
         super().__post_init__(**kwargs)
 
@@ -450,10 +461,8 @@ class Publication(DatabaseObject):
 
     id: Union[str, PublicationId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
 
 @dataclass(repr=False)
 class LiteratureReference(Publication):
@@ -469,10 +478,8 @@ class LiteratureReference(Publication):
 
     id: Union[str, LiteratureReferenceId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
     pubmed_id: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -501,10 +508,8 @@ class Person(DatabaseObject):
 
     id: Union[str, PersonId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
     orcid: Optional[Union[str, URI]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -533,10 +538,8 @@ class Summation(DatabaseObject):
 
     id: Union[str, SummationId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
     text: str = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -567,10 +570,8 @@ class Event(DatabaseObject):
 
     id: Union[str, EventId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
     in_taxon: Optional[Union[Union[str, OrganismTaxonId], list[Union[str, OrganismTaxonId]]]] = empty_list()
     located_in_compartment: Optional[Union[Union[str, CompartmentId], list[Union[str, CompartmentId]]]] = empty_list()
     has_summation: Optional[Union[str, SummationId]] = None
@@ -579,6 +580,7 @@ class Event(DatabaseObject):
     supported_by: Optional[Union[Union[str, PublicationId], list[Union[str, PublicationId]]]] = empty_list()
     reviewed: Optional[Union[Union[str, InstanceEditId], list[Union[str, InstanceEditId]]]] = empty_list()
     revised: Optional[Union[Union[str, InstanceEditId], list[Union[str, InstanceEditId]]]] = empty_list()
+    authored: Optional[Union[Union[str, InstanceEditId], list[Union[str, InstanceEditId]]]] = empty_list()
     release_date: Optional[Union[str, XSDDate]] = None
     release_status: Optional[str] = None
     is_inferred: Optional[Union[bool, Bool]] = None
@@ -615,6 +617,10 @@ class Event(DatabaseObject):
             self.revised = [self.revised] if self.revised is not None else []
         self.revised = [v if isinstance(v, InstanceEditId) else InstanceEditId(v) for v in self.revised]
 
+        if not isinstance(self.authored, list):
+            self.authored = [self.authored] if self.authored is not None else []
+        self.authored = [v if isinstance(v, InstanceEditId) else InstanceEditId(v) for v in self.authored]
+
         if self.release_date is not None and not isinstance(self.release_date, XSDDate):
             self.release_date = XSDDate(self.release_date)
 
@@ -641,11 +647,9 @@ class Pathway(Event):
 
     id: Union[str, PathwayId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
-    has_event: Union[dict[Union[str, EventId], Union[dict, Event]], list[Union[dict, Event]]] = empty_dict()
+    has_event: Union[Union[str, EventId], list[Union[str, EventId]]] = None
     has_go_biological_process: Optional[Union[str, GoBiologicalProcessTermId]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -656,7 +660,9 @@ class Pathway(Event):
 
         if self._is_empty(self.has_event):
             self.MissingRequiredField("has_event")
-        self._normalize_inlined_as_list(slot_name="has_event", slot_type=Event, key_name="id", keyed=True)
+        if not isinstance(self.has_event, list):
+            self.has_event = [self.has_event] if self.has_event is not None else []
+        self.has_event = [v if isinstance(v, EventId) else EventId(v) for v in self.has_event]
 
         if self.has_go_biological_process is not None and not isinstance(self.has_go_biological_process, GoBiologicalProcessTermId):
             self.has_go_biological_process = GoBiologicalProcessTermId(self.has_go_biological_process)
@@ -679,36 +685,50 @@ class ReactionLikeEvent(Event):
 
     id: Union[str, ReactionLikeEventId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
-    has_input: Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, "PhysicalEntity"]], list[Union[dict, "PhysicalEntity"]]]] = empty_dict()
-    has_output: Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, "PhysicalEntity"]], list[Union[dict, "PhysicalEntity"]]]] = empty_dict()
-    requires_component: Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, "PhysicalEntity"]], list[Union[dict, "PhysicalEntity"]]]] = empty_dict()
-    has_catalyst_activity: Optional[Union[dict[Union[str, CatalystActivityId], Union[dict, "CatalystActivity"]], list[Union[dict, "CatalystActivity"]]]] = empty_dict()
-    has_regulation: Optional[Union[dict[Union[str, RegulationId], Union[dict, "Regulation"]], list[Union[dict, "Regulation"]]]] = empty_dict()
-    preceded_by: Optional[Union[dict[Union[str, EventId], Union[dict, Event]], list[Union[dict, Event]]]] = empty_dict()
-    has_interacting_entity_on_other_cell: Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, "PhysicalEntity"]], list[Union[dict, "PhysicalEntity"]]]] = empty_dict()
-    has_interaction: Optional[Union[dict[Union[str, InteractionId], Union[dict, "Interaction"]], list[Union[dict, "Interaction"]]]] = empty_dict()
+    has_input: Optional[Union[Union[str, PhysicalEntityId], list[Union[str, PhysicalEntityId]]]] = empty_list()
+    has_output: Optional[Union[Union[str, PhysicalEntityId], list[Union[str, PhysicalEntityId]]]] = empty_list()
+    requires_component: Optional[Union[Union[str, PhysicalEntityId], list[Union[str, PhysicalEntityId]]]] = empty_list()
+    has_catalyst_activity: Optional[Union[Union[str, CatalystActivityId], list[Union[str, CatalystActivityId]]]] = empty_list()
+    has_regulation: Optional[Union[Union[str, RegulationId], list[Union[str, RegulationId]]]] = empty_list()
+    preceded_by: Optional[Union[Union[str, EventId], list[Union[str, EventId]]]] = empty_list()
+    has_interacting_entity_on_other_cell: Optional[Union[Union[str, PhysicalEntityId], list[Union[str, PhysicalEntityId]]]] = empty_list()
+    has_interaction: Optional[Union[Union[str, InteractionId], list[Union[str, InteractionId]]]] = empty_list()
     has_reaction_type: Optional[Union[Union[str, ReactionTypeTermId], list[Union[str, ReactionTypeTermId]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        self._normalize_inlined_as_list(slot_name="has_input", slot_type=PhysicalEntity, key_name="id", keyed=True)
+        if not isinstance(self.has_input, list):
+            self.has_input = [self.has_input] if self.has_input is not None else []
+        self.has_input = [v if isinstance(v, PhysicalEntityId) else PhysicalEntityId(v) for v in self.has_input]
 
-        self._normalize_inlined_as_list(slot_name="has_output", slot_type=PhysicalEntity, key_name="id", keyed=True)
+        if not isinstance(self.has_output, list):
+            self.has_output = [self.has_output] if self.has_output is not None else []
+        self.has_output = [v if isinstance(v, PhysicalEntityId) else PhysicalEntityId(v) for v in self.has_output]
 
-        self._normalize_inlined_as_list(slot_name="requires_component", slot_type=PhysicalEntity, key_name="id", keyed=True)
+        if not isinstance(self.requires_component, list):
+            self.requires_component = [self.requires_component] if self.requires_component is not None else []
+        self.requires_component = [v if isinstance(v, PhysicalEntityId) else PhysicalEntityId(v) for v in self.requires_component]
 
-        self._normalize_inlined_as_list(slot_name="has_catalyst_activity", slot_type=CatalystActivity, key_name="id", keyed=True)
+        if not isinstance(self.has_catalyst_activity, list):
+            self.has_catalyst_activity = [self.has_catalyst_activity] if self.has_catalyst_activity is not None else []
+        self.has_catalyst_activity = [v if isinstance(v, CatalystActivityId) else CatalystActivityId(v) for v in self.has_catalyst_activity]
 
-        self._normalize_inlined_as_list(slot_name="has_regulation", slot_type=Regulation, key_name="id", keyed=True)
+        if not isinstance(self.has_regulation, list):
+            self.has_regulation = [self.has_regulation] if self.has_regulation is not None else []
+        self.has_regulation = [v if isinstance(v, RegulationId) else RegulationId(v) for v in self.has_regulation]
 
-        self._normalize_inlined_as_list(slot_name="preceded_by", slot_type=Event, key_name="id", keyed=True)
+        if not isinstance(self.preceded_by, list):
+            self.preceded_by = [self.preceded_by] if self.preceded_by is not None else []
+        self.preceded_by = [v if isinstance(v, EventId) else EventId(v) for v in self.preceded_by]
 
-        self._normalize_inlined_as_list(slot_name="has_interacting_entity_on_other_cell", slot_type=PhysicalEntity, key_name="id", keyed=True)
+        if not isinstance(self.has_interacting_entity_on_other_cell, list):
+            self.has_interacting_entity_on_other_cell = [self.has_interacting_entity_on_other_cell] if self.has_interacting_entity_on_other_cell is not None else []
+        self.has_interacting_entity_on_other_cell = [v if isinstance(v, PhysicalEntityId) else PhysicalEntityId(v) for v in self.has_interacting_entity_on_other_cell]
 
-        self._normalize_inlined_as_list(slot_name="has_interaction", slot_type=Interaction, key_name="id", keyed=True)
+        if not isinstance(self.has_interaction, list):
+            self.has_interaction = [self.has_interaction] if self.has_interaction is not None else []
+        self.has_interaction = [v if isinstance(v, InteractionId) else InteractionId(v) for v in self.has_interaction]
 
         if not isinstance(self.has_reaction_type, list):
             self.has_reaction_type = [self.has_reaction_type] if self.has_reaction_type is not None else []
@@ -731,12 +751,10 @@ class Reaction(ReactionLikeEvent):
 
     id: Union[str, ReactionId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
-    has_input: Union[dict[Union[str, PhysicalEntityId], Union[dict, "PhysicalEntity"]], list[Union[dict, "PhysicalEntity"]]] = empty_dict()
-    has_output: Union[dict[Union[str, PhysicalEntityId], Union[dict, "PhysicalEntity"]], list[Union[dict, "PhysicalEntity"]]] = empty_dict()
+    has_input: Union[Union[str, PhysicalEntityId], list[Union[str, PhysicalEntityId]]] = None
+    has_output: Union[Union[str, PhysicalEntityId], list[Union[str, PhysicalEntityId]]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -746,11 +764,15 @@ class Reaction(ReactionLikeEvent):
 
         if self._is_empty(self.has_input):
             self.MissingRequiredField("has_input")
-        self._normalize_inlined_as_list(slot_name="has_input", slot_type=PhysicalEntity, key_name="id", keyed=True)
+        if not isinstance(self.has_input, list):
+            self.has_input = [self.has_input] if self.has_input is not None else []
+        self.has_input = [v if isinstance(v, PhysicalEntityId) else PhysicalEntityId(v) for v in self.has_input]
 
         if self._is_empty(self.has_output):
             self.MissingRequiredField("has_output")
-        self._normalize_inlined_as_list(slot_name="has_output", slot_type=PhysicalEntity, key_name="id", keyed=True)
+        if not isinstance(self.has_output, list):
+            self.has_output = [self.has_output] if self.has_output is not None else []
+        self.has_output = [v if isinstance(v, PhysicalEntityId) else PhysicalEntityId(v) for v in self.has_output]
 
         super().__post_init__(**kwargs)
 
@@ -769,10 +791,8 @@ class BlackBoxEvent(ReactionLikeEvent):
 
     id: Union[str, BlackBoxEventId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -797,10 +817,8 @@ class Polymerization(ReactionLikeEvent):
 
     id: Union[str, PolymerizationId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -825,10 +843,8 @@ class Depolymerization(ReactionLikeEvent):
 
     id: Union[str, DepolymerizationId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -853,10 +869,8 @@ class PhysicalEntity(DatabaseObject):
 
     id: Union[str, PhysicalEntityId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
     in_taxon: Optional[Union[Union[str, OrganismTaxonId], list[Union[str, OrganismTaxonId]]]] = empty_list()
     located_in_compartment: Optional[Union[Union[str, CompartmentId], list[Union[str, CompartmentId]]]] = empty_list()
     has_cross_reference: Optional[Union[Union[str, DatabaseIdentifierId], list[Union[str, DatabaseIdentifierId]]]] = empty_list()
@@ -908,10 +922,8 @@ class SimpleEntity(PhysicalEntity):
 
     id: Union[str, SimpleEntityId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
     has_reference_entity: Union[str, ReferenceMoleculeId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -942,10 +954,8 @@ class GenomeEncodedEntity(PhysicalEntity):
 
     id: Union[str, GenomeEncodedEntityId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -971,12 +981,10 @@ class SequenceEntity(GenomeEncodedEntity):
 
     id: Union[str, SequenceEntityId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
     has_reference_entity: Union[str, ReferenceSequenceId] = None
-    has_modified_residue: Optional[Union[dict[Union[str, AbstractModifiedResidueId], Union[dict, "AbstractModifiedResidue"]], list[Union[dict, "AbstractModifiedResidue"]]]] = empty_dict()
+    has_modified_residue: Optional[Union[Union[str, AbstractModifiedResidueId], list[Union[str, AbstractModifiedResidueId]]]] = empty_list()
     start_coordinate: Optional[int] = None
     end_coordinate: Optional[int] = None
     sequence_reference_type: Optional[str] = None
@@ -992,7 +1000,9 @@ class SequenceEntity(GenomeEncodedEntity):
         if not isinstance(self.has_reference_entity, ReferenceSequenceId):
             self.has_reference_entity = ReferenceSequenceId(self.has_reference_entity)
 
-        self._normalize_inlined_as_list(slot_name="has_modified_residue", slot_type=AbstractModifiedResidue, key_name="id", keyed=True)
+        if not isinstance(self.has_modified_residue, list):
+            self.has_modified_residue = [self.has_modified_residue] if self.has_modified_residue is not None else []
+        self.has_modified_residue = [v if isinstance(v, AbstractModifiedResidueId) else AbstractModifiedResidueId(v) for v in self.has_modified_residue]
 
         if self.start_coordinate is not None and not isinstance(self.start_coordinate, int):
             self.start_coordinate = int(self.start_coordinate)
@@ -1002,6 +1012,39 @@ class SequenceEntity(GenomeEncodedEntity):
 
         if self.sequence_reference_type is not None and not isinstance(self.sequence_reference_type, str):
             self.sequence_reference_type = str(self.sequence_reference_type)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class Protein(SequenceEntity):
+    """
+    Protein physical entity linked to a reference gene product and optionally decorated with modifications and
+    subsequence features.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = REACTOME["Protein"]
+    class_class_curie: ClassVar[str] = "reactome:Protein"
+    class_name: ClassVar[str] = "protein"
+    class_model_uri: ClassVar[URIRef] = REACTOME.Protein
+
+    id: Union[str, ProteinId] = None
+    reactome_db_id: int = None
+    source_schema_class: str = None
+    display_label: str = None
+    has_reference_entity: Union[str, ReferenceGeneProductId] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, ProteinId):
+            self.id = ProteinId(self.id)
+
+        if self._is_empty(self.has_reference_entity):
+            self.MissingRequiredField("has_reference_entity")
+        if not isinstance(self.has_reference_entity, ReferenceGeneProductId):
+            self.has_reference_entity = ReferenceGeneProductId(self.has_reference_entity)
 
         super().__post_init__(**kwargs)
 
@@ -1020,11 +1063,9 @@ class Complex(PhysicalEntity):
 
     id: Union[str, ComplexId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
-    has_component: Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]] = empty_dict()
+    has_component: Union[Union[str, PhysicalEntityId], list[Union[str, PhysicalEntityId]]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -1034,7 +1075,9 @@ class Complex(PhysicalEntity):
 
         if self._is_empty(self.has_component):
             self.MissingRequiredField("has_component")
-        self._normalize_inlined_as_list(slot_name="has_component", slot_type=PhysicalEntity, key_name="id", keyed=True)
+        if not isinstance(self.has_component, list):
+            self.has_component = [self.has_component] if self.has_component is not None else []
+        self.has_component = [v if isinstance(v, PhysicalEntityId) else PhysicalEntityId(v) for v in self.has_component]
 
         super().__post_init__(**kwargs)
 
@@ -1053,11 +1096,9 @@ class EntitySet(PhysicalEntity):
 
     id: Union[str, EntitySetId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
-    has_member: Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]] = empty_dict()
+    has_member: Union[Union[str, PhysicalEntityId], list[Union[str, PhysicalEntityId]]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -1067,7 +1108,9 @@ class EntitySet(PhysicalEntity):
 
         if self._is_empty(self.has_member):
             self.MissingRequiredField("has_member")
-        self._normalize_inlined_as_list(slot_name="has_member", slot_type=PhysicalEntity, key_name="id", keyed=True)
+        if not isinstance(self.has_member, list):
+            self.has_member = [self.has_member] if self.has_member is not None else []
+        self.has_member = [v if isinstance(v, PhysicalEntityId) else PhysicalEntityId(v) for v in self.has_member]
 
         super().__post_init__(**kwargs)
 
@@ -1086,11 +1129,9 @@ class CandidateSet(EntitySet):
 
     id: Union[str, CandidateSetId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
-    has_member: Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]] = empty_dict()
+    has_member: Union[Union[str, PhysicalEntityId], list[Union[str, PhysicalEntityId]]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -1115,11 +1156,9 @@ class DefinedSet(EntitySet):
 
     id: Union[str, DefinedSetId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
-    has_member: Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]] = empty_dict()
+    has_member: Union[Union[str, PhysicalEntityId], list[Union[str, PhysicalEntityId]]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -1144,11 +1183,9 @@ class Polymer(PhysicalEntity):
 
     id: Union[str, PolymerId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
-    has_repeated_unit: Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]] = empty_dict()
+    has_repeated_unit: Optional[Union[Union[str, PhysicalEntityId], list[Union[str, PhysicalEntityId]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -1156,7 +1193,9 @@ class Polymer(PhysicalEntity):
         if not isinstance(self.id, PolymerId):
             self.id = PolymerId(self.id)
 
-        self._normalize_inlined_as_list(slot_name="has_repeated_unit", slot_type=PhysicalEntity, key_name="id", keyed=True)
+        if not isinstance(self.has_repeated_unit, list):
+            self.has_repeated_unit = [self.has_repeated_unit] if self.has_repeated_unit is not None else []
+        self.has_repeated_unit = [v if isinstance(v, PhysicalEntityId) else PhysicalEntityId(v) for v in self.has_repeated_unit]
 
         super().__post_init__(**kwargs)
 
@@ -1175,10 +1214,8 @@ class Cell(PhysicalEntity):
 
     id: Union[str, CellId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -1203,10 +1240,8 @@ class OtherEntity(PhysicalEntity):
 
     id: Union[str, OtherEntityId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -1231,16 +1266,20 @@ class Drug(PhysicalEntity):
 
     id: Union[str, DrugId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
+    has_reference_entity: Union[str, ReferenceTherapeuticId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
             self.MissingRequiredField("id")
         if not isinstance(self.id, DrugId):
             self.id = DrugId(self.id)
+
+        if self._is_empty(self.has_reference_entity):
+            self.MissingRequiredField("has_reference_entity")
+        if not isinstance(self.has_reference_entity, ReferenceTherapeuticId):
+            self.has_reference_entity = ReferenceTherapeuticId(self.has_reference_entity)
 
         super().__post_init__(**kwargs)
 
@@ -1259,10 +1298,9 @@ class ChemicalDrug(Drug):
 
     id: Union[str, ChemicalDrugId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
+    has_reference_entity: Union[str, ReferenceTherapeuticId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -1287,10 +1325,9 @@ class ProteinDrug(Drug):
 
     id: Union[str, ProteinDrugId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
+    has_reference_entity: Union[str, ReferenceTherapeuticId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -1315,10 +1352,9 @@ class RnaDrug(Drug):
 
     id: Union[str, RnaDrugId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
+    has_reference_entity: Union[str, ReferenceTherapeuticId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -1344,10 +1380,8 @@ class ReferenceEntity(DatabaseObject):
 
     id: Union[str, ReferenceEntityId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
     has_reference_database: Union[str, ReferenceDatabaseId] = None
     identifier: Optional[str] = None
 
@@ -1377,10 +1411,8 @@ class ReferenceSequence(ReferenceEntity):
 
     id: Union[str, ReferenceSequenceId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
     has_reference_database: Union[str, ReferenceDatabaseId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -1406,10 +1438,8 @@ class ReferenceGeneProduct(ReferenceSequence):
 
     id: Union[str, ReferenceGeneProductId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
     has_reference_database: Union[str, ReferenceDatabaseId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -1435,10 +1465,8 @@ class ReferenceIsoform(ReferenceSequence):
 
     id: Union[str, ReferenceIsoformId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
     has_reference_database: Union[str, ReferenceDatabaseId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -1464,10 +1492,8 @@ class ReferenceDnaSequence(ReferenceSequence):
 
     id: Union[str, ReferenceDnaSequenceId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
     has_reference_database: Union[str, ReferenceDatabaseId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -1493,10 +1519,8 @@ class ReferenceRnaSequence(ReferenceSequence):
 
     id: Union[str, ReferenceRnaSequenceId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
     has_reference_database: Union[str, ReferenceDatabaseId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -1522,10 +1546,8 @@ class ReferenceMolecule(ReferenceEntity):
 
     id: Union[str, ReferenceMoleculeId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
     has_reference_database: Union[str, ReferenceDatabaseId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -1552,10 +1574,8 @@ class ReferenceGroup(ReferenceEntity):
 
     id: Union[str, ReferenceGroupId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
     has_reference_database: Union[str, ReferenceDatabaseId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -1581,10 +1601,8 @@ class ReferenceTherapeutic(ReferenceEntity):
 
     id: Union[str, ReferenceTherapeuticId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
     has_reference_database: Union[str, ReferenceDatabaseId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -1610,10 +1628,8 @@ class ReferenceDatabase(DatabaseObject):
 
     id: Union[str, ReferenceDatabaseId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
     access_url: Optional[Union[str, URI]] = None
     identifier_prefix: Optional[str] = None
     resource_identifier: Optional[str] = None
@@ -1654,10 +1670,8 @@ class DatabaseIdentifier(DatabaseObject):
 
     id: Union[str, DatabaseIdentifierId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
     identifier: Optional[str] = None
     has_reference_database: Optional[Union[str, ReferenceDatabaseId]] = None
 
@@ -1691,14 +1705,12 @@ class CatalystActivity(DatabaseObject):
 
     id: Union[str, CatalystActivityId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
     has_catalyst: Union[str, PhysicalEntityId] = None
     has_go_molecular_function: Union[str, GoMolecularFunctionTermId] = None
-    has_active_unit: Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]] = empty_dict()
-    catalyzes: Optional[Union[dict[Union[str, ReactionLikeEventId], Union[dict, ReactionLikeEvent]], list[Union[dict, ReactionLikeEvent]]]] = empty_dict()
+    has_active_unit: Optional[Union[Union[str, PhysicalEntityId], list[Union[str, PhysicalEntityId]]]] = empty_list()
+    catalyzes: Optional[Union[Union[str, ReactionLikeEventId], list[Union[str, ReactionLikeEventId]]]] = empty_list()
     supported_by: Optional[Union[Union[str, PublicationId], list[Union[str, PublicationId]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -1717,9 +1729,13 @@ class CatalystActivity(DatabaseObject):
         if not isinstance(self.has_go_molecular_function, GoMolecularFunctionTermId):
             self.has_go_molecular_function = GoMolecularFunctionTermId(self.has_go_molecular_function)
 
-        self._normalize_inlined_as_list(slot_name="has_active_unit", slot_type=PhysicalEntity, key_name="id", keyed=True)
+        if not isinstance(self.has_active_unit, list):
+            self.has_active_unit = [self.has_active_unit] if self.has_active_unit is not None else []
+        self.has_active_unit = [v if isinstance(v, PhysicalEntityId) else PhysicalEntityId(v) for v in self.has_active_unit]
 
-        self._normalize_inlined_as_list(slot_name="catalyzes", slot_type=ReactionLikeEvent, key_name="id", keyed=True)
+        if not isinstance(self.catalyzes, list):
+            self.catalyzes = [self.catalyzes] if self.catalyzes is not None else []
+        self.catalyzes = [v if isinstance(v, ReactionLikeEventId) else ReactionLikeEventId(v) for v in self.catalyzes]
 
         if not isinstance(self.supported_by, list):
             self.supported_by = [self.supported_by] if self.supported_by is not None else []
@@ -1742,13 +1758,11 @@ class Regulation(DatabaseObject):
 
     id: Union[str, RegulationId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
     has_regulator: Union[str, PhysicalEntityId] = None
     regulates: Union[str, ReactionLikeEventId] = None
-    has_active_unit: Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]] = empty_dict()
+    has_active_unit: Optional[Union[Union[str, PhysicalEntityId], list[Union[str, PhysicalEntityId]]]] = empty_list()
     supported_by: Optional[Union[Union[str, PublicationId], list[Union[str, PublicationId]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -1762,7 +1776,9 @@ class Regulation(DatabaseObject):
         if not isinstance(self.regulates, ReactionLikeEventId):
             self.regulates = ReactionLikeEventId(self.regulates)
 
-        self._normalize_inlined_as_list(slot_name="has_active_unit", slot_type=PhysicalEntity, key_name="id", keyed=True)
+        if not isinstance(self.has_active_unit, list):
+            self.has_active_unit = [self.has_active_unit] if self.has_active_unit is not None else []
+        self.has_active_unit = [v if isinstance(v, PhysicalEntityId) else PhysicalEntityId(v) for v in self.has_active_unit]
 
         if not isinstance(self.supported_by, list):
             self.supported_by = [self.supported_by] if self.supported_by is not None else []
@@ -1785,10 +1801,8 @@ class PositiveRegulation(Regulation):
 
     id: Union[str, PositiveRegulationId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
     has_regulator: Union[str, PhysicalEntityId] = None
     regulates: Union[str, ReactionLikeEventId] = None
 
@@ -1816,10 +1830,8 @@ class NegativeRegulation(Regulation):
 
     id: Union[str, NegativeRegulationId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
     has_regulator: Union[str, PhysicalEntityId] = None
     regulates: Union[str, ReactionLikeEventId] = None
 
@@ -1847,10 +1859,8 @@ class Requirement(Regulation):
 
     id: Union[str, RequirementId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
     has_regulator: Union[str, PhysicalEntityId] = None
     regulates: Union[str, ReactionLikeEventId] = None
 
@@ -1877,10 +1887,8 @@ class Interaction(DatabaseObject):
 
     id: Union[str, InteractionId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -1905,10 +1913,8 @@ class ReactionTypeTerm(DatabaseObject):
 
     id: Union[str, ReactionTypeTermId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -1933,10 +1939,8 @@ class AbstractModifiedResidue(DatabaseObject):
 
     id: Union[str, AbstractModifiedResidueId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -1961,10 +1965,8 @@ class OrganismTaxon(DatabaseObject):
 
     id: Union[str, OrganismTaxonId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
     ncbi_taxon_id: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -1993,10 +1995,8 @@ class Taxon(DatabaseObject):
 
     id: Union[str, TaxonId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
     ncbi_taxon_id: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -2025,10 +2025,8 @@ class Compartment(DatabaseObject):
 
     id: Union[str, CompartmentId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -2053,10 +2051,8 @@ class Disease(DatabaseObject):
 
     id: Union[str, DiseaseId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -2081,10 +2077,8 @@ class GoMolecularFunctionTerm(DatabaseObject):
 
     id: Union[str, GoMolecularFunctionTermId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -2109,10 +2103,8 @@ class GoBiologicalProcessTerm(DatabaseObject):
 
     id: Union[str, GoBiologicalProcessTermId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -2137,10 +2129,8 @@ class GoCellularComponentTerm(DatabaseObject):
 
     id: Union[str, GoCellularComponentTermId] = None
     reactome_db_id: int = None
-    reactome_stable_identifier: str = None
     source_schema_class: str = None
     display_label: str = None
-    created: Union[str, InstanceEditId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -2172,20 +2162,168 @@ class ReactomeDataset(YAMLRoot):
 
 
 # Enumerations
+class ReactomeClassEnum(EnumDefinitionImpl):
+    """
+    Closed enumeration of all concrete (non-abstract) Reactome class names used as values for the category
+    discriminator slot.
+    """
+    Pathway = PermissibleValue(
+        text="Pathway",
+        description="Curated grouping of biologically related events.")
+    Reaction = PermissibleValue(
+        text="Reaction",
+        description="Standard reaction-like event with balanced inputs and outputs.")
+    BlackBoxEvent = PermissibleValue(
+        text="BlackBoxEvent",
+        description="Reaction-like event with incomplete mechanistic detail.")
+    Polymerization = PermissibleValue(
+        text="Polymerization",
+        description="Polymer-forming reaction-like event.")
+    Depolymerization = PermissibleValue(
+        text="Depolymerization",
+        description="Polymer-breaking reaction-like event.")
+    SimpleEntity = PermissibleValue(
+        text="SimpleEntity",
+        description="Small molecule or non-sequence-based chemical participant.")
+    GenomeEncodedEntity = PermissibleValue(
+        text="GenomeEncodedEntity",
+        description="Genome-encoded entity whose sequence is unknown.")
+    SequenceEntity = PermissibleValue(
+        text="SequenceEntity",
+        description="Sequence-bearing physical entity with accession and optional modifications.")
+    Protein = PermissibleValue(
+        text="Protein",
+        description="Protein physical entity linked to a reference gene product.")
+    Complex = PermissibleValue(
+        text="Complex",
+        description="Multi-component physical entity.")
+    DefinedSet = PermissibleValue(
+        text="DefinedSet",
+        description="Explicitly curated set of interchangeable physical entities.")
+    CandidateSet = PermissibleValue(
+        text="CandidateSet",
+        description="Candidate set of physical entities fulfilling a shared role.")
+    Polymer = PermissibleValue(
+        text="Polymer",
+        description="Polymer physical entity defined by repeated units.")
+    Cell = PermissibleValue(
+        text="Cell",
+        description="Cell or cell-like biological unit.")
+    OtherEntity = PermissibleValue(
+        text="OtherEntity",
+        description="Catch-all physical entity not covered by more specific subclasses.")
+    Drug = PermissibleValue(
+        text="Drug",
+        description="Therapeutic physical entity.")
+    ChemicalDrug = PermissibleValue(
+        text="ChemicalDrug",
+        description="Small-molecule therapeutic.")
+    ProteinDrug = PermissibleValue(
+        text="ProteinDrug",
+        description="Protein-derived therapeutic.")
+    RnaDrug = PermissibleValue(
+        text="RnaDrug",
+        description="RNA-based therapeutic.")
+    ReferenceGeneProduct = PermissibleValue(
+        text="ReferenceGeneProduct",
+        description="Gene product reference identity, typically UniProt-backed.")
+    ReferenceIsoform = PermissibleValue(
+        text="ReferenceIsoform",
+        description="Isoform-level reference identity.")
+    ReferenceDnaSequence = PermissibleValue(
+        text="ReferenceDnaSequence",
+        description="DNA sequence reference identity.")
+    ReferenceRnaSequence = PermissibleValue(
+        text="ReferenceRnaSequence",
+        description="RNA sequence reference identity.")
+    ReferenceMolecule = PermissibleValue(
+        text="ReferenceMolecule",
+        description="Small-molecule reference identity, typically ChEBI-backed.")
+    ReferenceGroup = PermissibleValue(
+        text="ReferenceGroup",
+        description="Grouped reference identity.")
+    ReferenceTherapeutic = PermissibleValue(
+        text="ReferenceTherapeutic",
+        description="Therapeutic reference identity.")
+    ReferenceDatabase = PermissibleValue(
+        text="ReferenceDatabase",
+        description="External database authority record.")
+    DatabaseIdentifier = PermissibleValue(
+        text="DatabaseIdentifier",
+        description="Cross-reference identifier record.")
+    CatalystActivity = PermissibleValue(
+        text="CatalystActivity",
+        description="Reified catalytic assertion.")
+    PositiveRegulation = PermissibleValue(
+        text="PositiveRegulation",
+        description="Positive regulatory assertion.")
+    NegativeRegulation = PermissibleValue(
+        text="NegativeRegulation",
+        description="Negative regulatory assertion.")
+    Requirement = PermissibleValue(
+        text="Requirement",
+        description="Requirement-style regulatory assertion.")
+    Interaction = PermissibleValue(
+        text="Interaction",
+        description="Interaction record.")
+    AbstractModifiedResidue = PermissibleValue(
+        text="AbstractModifiedResidue",
+        description="Modified residue feature on a sequence entity.")
+    OrganismTaxon = PermissibleValue(
+        text="OrganismTaxon",
+        description="Organism taxon record.")
+    Taxon = PermissibleValue(
+        text="Taxon",
+        description="Taxonomic concept record.")
+    Compartment = PermissibleValue(
+        text="Compartment",
+        description="Cellular compartment record.")
+    Disease = PermissibleValue(
+        text="Disease",
+        description="Disease context record.")
+    GoMolecularFunctionTerm = PermissibleValue(
+        text="GoMolecularFunctionTerm",
+        description="GO molecular function term wrapper.")
+    GoBiologicalProcessTerm = PermissibleValue(
+        text="GoBiologicalProcessTerm",
+        description="GO biological process term wrapper.")
+    GoCellularComponentTerm = PermissibleValue(
+        text="GoCellularComponentTerm",
+        description="GO cellular component term wrapper.")
+    InstanceEdit = PermissibleValue(
+        text="InstanceEdit",
+        description="Provenance edit record.")
+    LiteratureReference = PermissibleValue(
+        text="LiteratureReference",
+        description="Literature citation record.")
+    Person = PermissibleValue(
+        text="Person",
+        description="Person record for provenance attribution.")
+    Summation = PermissibleValue(
+        text="Summation",
+        description="Narrative summary record.")
 
+    _defn = EnumDefinition(
+        name="ReactomeClassEnum",
+        description="""Closed enumeration of all concrete (non-abstract) Reactome class names used as values for the category discriminator slot.""",
+    )
 
 # Slots
 class slots:
     pass
 
 slots.id = Slot(uri=DCTERMS.identifier, name="id", curie=DCTERMS.curie('identifier'),
-                   model_uri=REACTOME.id, domain=None, range=URIRef)
+                   model_uri=REACTOME.id, domain=None, range=URIRef,
+                   pattern=re.compile(r'^[A-Za-z][A-Za-z0-9_.+-]*:.+'))
 
 slots.category = Slot(uri=REACTOME.category, name="category", curie=REACTOME.curie('category'),
                    model_uri=REACTOME.category, domain=None, range=Optional[str])
 
 slots.name = Slot(uri=RDFS.label, name="name", curie=RDFS.curie('label'),
                    model_uri=REACTOME.name, domain=None, range=Optional[str])
+
+slots.synonym = Slot(uri=SKOS.altLabel, name="synonym", curie=SKOS.curie('altLabel'),
+                   model_uri=REACTOME.synonym, domain=None, range=Optional[Union[str, list[str]]])
 
 slots.description = Slot(uri=DCTERMS.description, name="description", curie=DCTERMS.curie('description'),
                    model_uri=REACTOME.description, domain=None, range=Optional[str])
@@ -2263,31 +2401,31 @@ slots.has_go_molecular_function = Slot(uri=REACTOME.hasGoMolecularFunction, name
                    model_uri=REACTOME.has_go_molecular_function, domain=None, range=Optional[Union[str, GoMolecularFunctionTermId]])
 
 slots.has_event = Slot(uri=REACTOME.hasEvent, name="has_event", curie=REACTOME.curie('hasEvent'),
-                   model_uri=REACTOME.has_event, domain=None, range=Optional[Union[dict[Union[str, EventId], Union[dict, Event]], list[Union[dict, Event]]]])
+                   model_uri=REACTOME.has_event, domain=None, range=Optional[Union[Union[str, EventId], list[Union[str, EventId]]]])
 
 slots.preceded_by = Slot(uri=REACTOME.precededBy, name="preceded_by", curie=REACTOME.curie('precededBy'),
-                   model_uri=REACTOME.preceded_by, domain=None, range=Optional[Union[dict[Union[str, EventId], Union[dict, Event]], list[Union[dict, Event]]]])
+                   model_uri=REACTOME.preceded_by, domain=None, range=Optional[Union[Union[str, EventId], list[Union[str, EventId]]]])
 
 slots.has_input = Slot(uri=REACTOME.hasInput, name="has_input", curie=REACTOME.curie('hasInput'),
-                   model_uri=REACTOME.has_input, domain=None, range=Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]])
+                   model_uri=REACTOME.has_input, domain=None, range=Optional[Union[Union[str, PhysicalEntityId], list[Union[str, PhysicalEntityId]]]])
 
 slots.has_output = Slot(uri=REACTOME.hasOutput, name="has_output", curie=REACTOME.curie('hasOutput'),
-                   model_uri=REACTOME.has_output, domain=None, range=Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]])
+                   model_uri=REACTOME.has_output, domain=None, range=Optional[Union[Union[str, PhysicalEntityId], list[Union[str, PhysicalEntityId]]]])
 
 slots.requires_component = Slot(uri=REACTOME.requiresComponent, name="requires_component", curie=REACTOME.curie('requiresComponent'),
-                   model_uri=REACTOME.requires_component, domain=None, range=Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]])
+                   model_uri=REACTOME.requires_component, domain=None, range=Optional[Union[Union[str, PhysicalEntityId], list[Union[str, PhysicalEntityId]]]])
 
 slots.has_catalyst_activity = Slot(uri=REACTOME.hasCatalystActivity, name="has_catalyst_activity", curie=REACTOME.curie('hasCatalystActivity'),
-                   model_uri=REACTOME.has_catalyst_activity, domain=None, range=Optional[Union[dict[Union[str, CatalystActivityId], Union[dict, CatalystActivity]], list[Union[dict, CatalystActivity]]]])
+                   model_uri=REACTOME.has_catalyst_activity, domain=None, range=Optional[Union[Union[str, CatalystActivityId], list[Union[str, CatalystActivityId]]]])
 
 slots.has_regulation = Slot(uri=REACTOME.hasRegulation, name="has_regulation", curie=REACTOME.curie('hasRegulation'),
-                   model_uri=REACTOME.has_regulation, domain=None, range=Optional[Union[dict[Union[str, RegulationId], Union[dict, Regulation]], list[Union[dict, Regulation]]]])
+                   model_uri=REACTOME.has_regulation, domain=None, range=Optional[Union[Union[str, RegulationId], list[Union[str, RegulationId]]]])
 
 slots.has_interacting_entity_on_other_cell = Slot(uri=REACTOME.hasInteractingEntityOnOtherCell, name="has_interacting_entity_on_other_cell", curie=REACTOME.curie('hasInteractingEntityOnOtherCell'),
-                   model_uri=REACTOME.has_interacting_entity_on_other_cell, domain=None, range=Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]])
+                   model_uri=REACTOME.has_interacting_entity_on_other_cell, domain=None, range=Optional[Union[Union[str, PhysicalEntityId], list[Union[str, PhysicalEntityId]]]])
 
 slots.has_interaction = Slot(uri=REACTOME.hasInteraction, name="has_interaction", curie=REACTOME.curie('hasInteraction'),
-                   model_uri=REACTOME.has_interaction, domain=None, range=Optional[Union[dict[Union[str, InteractionId], Union[dict, Interaction]], list[Union[dict, Interaction]]]])
+                   model_uri=REACTOME.has_interaction, domain=None, range=Optional[Union[Union[str, InteractionId], list[Union[str, InteractionId]]]])
 
 slots.has_reaction_type = Slot(uri=REACTOME.hasReactionType, name="has_reaction_type", curie=REACTOME.curie('hasReactionType'),
                    model_uri=REACTOME.has_reaction_type, domain=None, range=Optional[Union[Union[str, ReactionTypeTermId], list[Union[str, ReactionTypeTermId]]]])
@@ -2296,7 +2434,7 @@ slots.has_reference_entity = Slot(uri=REACTOME.hasReferenceEntity, name="has_ref
                    model_uri=REACTOME.has_reference_entity, domain=None, range=Optional[Union[str, ReferenceEntityId]])
 
 slots.has_modified_residue = Slot(uri=REACTOME.hasModifiedResidue, name="has_modified_residue", curie=REACTOME.curie('hasModifiedResidue'),
-                   model_uri=REACTOME.has_modified_residue, domain=None, range=Optional[Union[dict[Union[str, AbstractModifiedResidueId], Union[dict, AbstractModifiedResidue]], list[Union[dict, AbstractModifiedResidue]]]])
+                   model_uri=REACTOME.has_modified_residue, domain=None, range=Optional[Union[Union[str, AbstractModifiedResidueId], list[Union[str, AbstractModifiedResidueId]]]])
 
 slots.start_coordinate = Slot(uri=REACTOME.startCoordinate, name="start_coordinate", curie=REACTOME.curie('startCoordinate'),
                    model_uri=REACTOME.start_coordinate, domain=None, range=Optional[int])
@@ -2308,13 +2446,13 @@ slots.sequence_reference_type = Slot(uri=REACTOME.sequenceReferenceType, name="s
                    model_uri=REACTOME.sequence_reference_type, domain=None, range=Optional[str])
 
 slots.has_component = Slot(uri=REACTOME.hasComponent, name="has_component", curie=REACTOME.curie('hasComponent'),
-                   model_uri=REACTOME.has_component, domain=None, range=Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]])
+                   model_uri=REACTOME.has_component, domain=None, range=Optional[Union[Union[str, PhysicalEntityId], list[Union[str, PhysicalEntityId]]]])
 
 slots.has_member = Slot(uri=REACTOME.hasMember, name="has_member", curie=REACTOME.curie('hasMember'),
-                   model_uri=REACTOME.has_member, domain=None, range=Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]])
+                   model_uri=REACTOME.has_member, domain=None, range=Optional[Union[Union[str, PhysicalEntityId], list[Union[str, PhysicalEntityId]]]])
 
 slots.has_repeated_unit = Slot(uri=REACTOME.hasRepeatedUnit, name="has_repeated_unit", curie=REACTOME.curie('hasRepeatedUnit'),
-                   model_uri=REACTOME.has_repeated_unit, domain=None, range=Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]])
+                   model_uri=REACTOME.has_repeated_unit, domain=None, range=Optional[Union[Union[str, PhysicalEntityId], list[Union[str, PhysicalEntityId]]]])
 
 slots.has_regulator = Slot(uri=REACTOME.hasRegulator, name="has_regulator", curie=REACTOME.curie('hasRegulator'),
                    model_uri=REACTOME.has_regulator, domain=None, range=Optional[Union[str, PhysicalEntityId]])
@@ -2323,13 +2461,13 @@ slots.regulates = Slot(uri=REACTOME.regulates, name="regulates", curie=REACTOME.
                    model_uri=REACTOME.regulates, domain=None, range=Optional[Union[str, ReactionLikeEventId]])
 
 slots.has_active_unit = Slot(uri=REACTOME.hasActiveUnit, name="has_active_unit", curie=REACTOME.curie('hasActiveUnit'),
-                   model_uri=REACTOME.has_active_unit, domain=None, range=Optional[Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]]])
+                   model_uri=REACTOME.has_active_unit, domain=None, range=Optional[Union[Union[str, PhysicalEntityId], list[Union[str, PhysicalEntityId]]]])
 
 slots.has_catalyst = Slot(uri=REACTOME.hasCatalyst, name="has_catalyst", curie=REACTOME.curie('hasCatalyst'),
                    model_uri=REACTOME.has_catalyst, domain=None, range=Optional[Union[str, PhysicalEntityId]])
 
 slots.catalyzes = Slot(uri=REACTOME.catalyzes, name="catalyzes", curie=REACTOME.curie('catalyzes'),
-                   model_uri=REACTOME.catalyzes, domain=None, range=Optional[Union[dict[Union[str, ReactionLikeEventId], Union[dict, ReactionLikeEvent]], list[Union[dict, ReactionLikeEvent]]]])
+                   model_uri=REACTOME.catalyzes, domain=None, range=Optional[Union[Union[str, ReactionLikeEventId], list[Union[str, ReactionLikeEventId]]]])
 
 slots.has_reference_database = Slot(uri=REACTOME.hasReferenceDatabase, name="has_reference_database", curie=REACTOME.curie('hasReferenceDatabase'),
                    model_uri=REACTOME.has_reference_database, domain=None, range=Optional[Union[str, ReferenceDatabaseId]])
@@ -2367,7 +2505,7 @@ slots.instanceEdit__date = Slot(uri=REACTOME.date, name="instanceEdit__date", cu
                    model_uri=REACTOME.instanceEdit__date, domain=None, range=Optional[Union[str, XSDDateTime]])
 
 slots.instanceEdit__author = Slot(uri=REACTOME.author, name="instanceEdit__author", curie=REACTOME.curie('author'),
-                   model_uri=REACTOME.instanceEdit__author, domain=None, range=Optional[Union[dict[Union[str, PersonId], Union[dict, Person]], list[Union[dict, Person]]]])
+                   model_uri=REACTOME.instanceEdit__author, domain=None, range=Optional[Union[Union[str, PersonId], list[Union[str, PersonId]]]])
 
 slots.summation__text = Slot(uri=REACTOME.text, name="summation__text", curie=REACTOME.curie('text'),
                    model_uri=REACTOME.summation__text, domain=None, range=str)
@@ -2378,26 +2516,20 @@ slots.reactomeDataset__database_objects = Slot(uri=REACTOME.database_objects, na
 slots.database_object_reactome_db_id = Slot(uri=REACTOME.reactomeDbId, name="database_object_reactome_db_id", curie=REACTOME.curie('reactomeDbId'),
                    model_uri=REACTOME.database_object_reactome_db_id, domain=DatabaseObject, range=int)
 
-slots.database_object_reactome_stable_identifier = Slot(uri=REACTOME.reactomeStableIdentifier, name="database_object_reactome_stable_identifier", curie=REACTOME.curie('reactomeStableIdentifier'),
-                   model_uri=REACTOME.database_object_reactome_stable_identifier, domain=DatabaseObject, range=str)
-
 slots.database_object_source_schema_class = Slot(uri=REACTOME.sourceSchemaClass, name="database_object_source_schema_class", curie=REACTOME.curie('sourceSchemaClass'),
                    model_uri=REACTOME.database_object_source_schema_class, domain=DatabaseObject, range=str)
 
 slots.database_object_display_label = Slot(uri=REACTOME.displayLabel, name="database_object_display_label", curie=REACTOME.curie('displayLabel'),
                    model_uri=REACTOME.database_object_display_label, domain=DatabaseObject, range=str)
 
-slots.database_object_created = Slot(uri=REACTOME.created, name="database_object_created", curie=REACTOME.curie('created'),
-                   model_uri=REACTOME.database_object_created, domain=DatabaseObject, range=Union[str, InstanceEditId])
-
 slots.pathway_has_event = Slot(uri=REACTOME.hasEvent, name="pathway_has_event", curie=REACTOME.curie('hasEvent'),
-                   model_uri=REACTOME.pathway_has_event, domain=Pathway, range=Union[dict[Union[str, EventId], Union[dict, Event]], list[Union[dict, Event]]])
+                   model_uri=REACTOME.pathway_has_event, domain=Pathway, range=Union[Union[str, EventId], list[Union[str, EventId]]])
 
 slots.reaction_has_input = Slot(uri=REACTOME.hasInput, name="reaction_has_input", curie=REACTOME.curie('hasInput'),
-                   model_uri=REACTOME.reaction_has_input, domain=Reaction, range=Union[dict[Union[str, PhysicalEntityId], Union[dict, "PhysicalEntity"]], list[Union[dict, "PhysicalEntity"]]])
+                   model_uri=REACTOME.reaction_has_input, domain=Reaction, range=Union[Union[str, PhysicalEntityId], list[Union[str, PhysicalEntityId]]])
 
 slots.reaction_has_output = Slot(uri=REACTOME.hasOutput, name="reaction_has_output", curie=REACTOME.curie('hasOutput'),
-                   model_uri=REACTOME.reaction_has_output, domain=Reaction, range=Union[dict[Union[str, PhysicalEntityId], Union[dict, "PhysicalEntity"]], list[Union[dict, "PhysicalEntity"]]])
+                   model_uri=REACTOME.reaction_has_output, domain=Reaction, range=Union[Union[str, PhysicalEntityId], list[Union[str, PhysicalEntityId]]])
 
 slots.simple_entity_has_reference_entity = Slot(uri=REACTOME.hasReferenceEntity, name="simple_entity_has_reference_entity", curie=REACTOME.curie('hasReferenceEntity'),
                    model_uri=REACTOME.simple_entity_has_reference_entity, domain=SimpleEntity, range=Union[str, ReferenceMoleculeId])
@@ -2405,11 +2537,17 @@ slots.simple_entity_has_reference_entity = Slot(uri=REACTOME.hasReferenceEntity,
 slots.sequence_entity_has_reference_entity = Slot(uri=REACTOME.hasReferenceEntity, name="sequence_entity_has_reference_entity", curie=REACTOME.curie('hasReferenceEntity'),
                    model_uri=REACTOME.sequence_entity_has_reference_entity, domain=SequenceEntity, range=Union[str, ReferenceSequenceId])
 
+slots.protein_has_reference_entity = Slot(uri=REACTOME.hasReferenceEntity, name="protein_has_reference_entity", curie=REACTOME.curie('hasReferenceEntity'),
+                   model_uri=REACTOME.protein_has_reference_entity, domain=Protein, range=Union[str, ReferenceGeneProductId])
+
 slots.complex_has_component = Slot(uri=REACTOME.hasComponent, name="complex_has_component", curie=REACTOME.curie('hasComponent'),
-                   model_uri=REACTOME.complex_has_component, domain=Complex, range=Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]])
+                   model_uri=REACTOME.complex_has_component, domain=Complex, range=Union[Union[str, PhysicalEntityId], list[Union[str, PhysicalEntityId]]])
 
 slots.entity_set_has_member = Slot(uri=REACTOME.hasMember, name="entity_set_has_member", curie=REACTOME.curie('hasMember'),
-                   model_uri=REACTOME.entity_set_has_member, domain=EntitySet, range=Union[dict[Union[str, PhysicalEntityId], Union[dict, PhysicalEntity]], list[Union[dict, PhysicalEntity]]])
+                   model_uri=REACTOME.entity_set_has_member, domain=EntitySet, range=Union[Union[str, PhysicalEntityId], list[Union[str, PhysicalEntityId]]])
+
+slots.drug_has_reference_entity = Slot(uri=REACTOME.hasReferenceEntity, name="drug_has_reference_entity", curie=REACTOME.curie('hasReferenceEntity'),
+                   model_uri=REACTOME.drug_has_reference_entity, domain=Drug, range=Union[str, ReferenceTherapeuticId])
 
 slots.reference_entity_has_reference_database = Slot(uri=REACTOME.hasReferenceDatabase, name="reference_entity_has_reference_database", curie=REACTOME.curie('hasReferenceDatabase'),
                    model_uri=REACTOME.reference_entity_has_reference_database, domain=ReferenceEntity, range=Union[str, ReferenceDatabaseId])

@@ -1,4 +1,5 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix linkml: <https://w3id.org/linkml/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix pav: <http://purl.org/pav/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -11,37 +12,34 @@
     rdfs:label "reactome_ontology" ;
     dcterms:license "https://creativecommons.org/licenses/by/4.0/" ;
     dcterms:title "Reactome Ontology Model" ;
-    pav:version "1.0.0" ;
-    skos:definition "An OWL-oriented LinkML schema for generating a clean Reactome ontology. This profile keeps ontology-facing classes and properties and removes source-mapping annotations, which are maintained in separate mapping files." ;
-    skos:note "Administrative and serialization helper fields are retained for round-tripping but may be omitted from OWL export profiles.",
-        "Inverse-style helper relations have been removed from the ontology-facing profile in favor of canonical relations.",
-        "This schema favors ontology-oriented naming for OWL generation; source mappings are maintained in separate mapping files." .
+    pav:version "1.1.0" ;
+    skos:definition "The Reactome Ontology Model provides a more ontology-oriented and reusable representation of core parts of the Reactome data model. Using LinkML as the source schema, it describes entities, events, provenance, and related reference objects in a consistent and structured way. The model covers pathways, reactions, physical entities, regulatory relationships, and supporting metadata through clearly defined classes, slots, and ranges. This supports validation, documentation generation, ontology export, and downstream integration. Its goal is to provide a clear and interoperable foundation for publishing and working with Reactome knowledge in ontology-friendly formats." ;
+    skos:note "  - All slots with range pointing to a class: inlined:false added explicitly",
+        "  - New slots: synonym",
+        "  - Prefixes added: Ensembl, DOID",
+        "  - ReactomeClassEnum added to document concrete class labels used in serialized instances",
+        "  - authored slot moved to event class (was missing from event slot list)",
+        "  - category slot added to database_object slots list",
+        "  - drug class: has_reference_entity slot added with required:true, range:reference_therapeutic",
+        "  - id slot: range changed from string to uriorcurie; pattern added; construction strategy documented per class",
+        "  - inlined_as_list removed from slots that are now inlined:false (mutually exclusive)",
+        "  - reactome_stable_identifier required:true removed from database_object (absent on supporting nodes)",
+        "  - reactome_stable_identifier: key:true added for UNIQUE constraint generation",
+        "Administrative and serialization helper fields are retained for round-tripping but may be omitted from OWL export profiles.",
+        "This schema favors ontology-oriented naming for OWL generation; source mappings are maintained in separate mapping files.",
+        "Version 1.1.0 changes vs 1.0.0:" .
 
 reactome:ReactomeDataset a owl:Class ;
     rdfs:label "reactome_dataset" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 0 ;
+            owl:allValuesFrom reactome:DatabaseObject ;
             owl:onProperty reactome:database_objects ],
         [ a owl:Restriction ;
-            owl:allValuesFrom reactome:DatabaseObject ;
+            owl:minCardinality 0 ;
             owl:onProperty reactome:database_objects ] ;
     skos:definition "Top-level container for a serialized Reactome dataset excerpt or export package." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
     skos:note "Provides a practical root object for JSON and YAML instance data." .
-
-reactome:authored a owl:ObjectProperty ;
-    rdfs:label "authored" ;
-    rdfs:range reactome:InstanceEdit ;
-    skos:definition "Provenance links capturing authoring actions for the object." ;
-    skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Included to support richer editorial provenance when present in exports." .
-
-reactome:category a owl:DatatypeProperty ;
-    rdfs:label "category" ;
-    rdfs:range xsd:string ;
-    skos:definition "Explicit category designator used in serialized instances." ;
-    skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Useful when data are exchanged in JSON or YAML and class typing must be preserved." .
 
 reactome:BlackBoxEvent a owl:Class ;
     rdfs:label "black_box_event" ;
@@ -49,7 +47,8 @@ reactome:BlackBoxEvent a owl:Class ;
     skos:definition "Reaction-like event included in the pathway model despite incomplete mechanistic detail." ;
     skos:exactMatch reactome:BlackBoxEvent ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Useful when biological evidence supports the event but not a full molecular mechanism." .
+    skos:note "Useful when biological evidence supports the event but not a full molecular mechanism.",
+        "id construction: reactome:{stId}" .
 
 reactome:CandidateSet a owl:Class ;
     rdfs:label "candidate_set" ;
@@ -57,7 +56,8 @@ reactome:CandidateSet a owl:Class ;
     skos:definition "Entity set whose members are candidates for fulfilling a shared biological role." ;
     skos:exactMatch reactome:CandidateSet ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Often reflects partial knowledge or broad functional grouping." .
+    skos:note "Often reflects partial knowledge or broad functional grouping.",
+        "id construction: reactome:{stId}" .
 
 reactome:Cell a owl:Class ;
     rdfs:label "cell" ;
@@ -65,7 +65,8 @@ reactome:Cell a owl:Class ;
     skos:definition "Cell or cell-like biological unit treated as a physical participant in an event." ;
     skos:exactMatch reactome:Cell ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Included for cases where cells themselves are modeled as interacting biological entities." .
+    skos:note "Included for cases where cells themselves are modeled as interacting biological entities.",
+        "id construction: reactome:{stId}" .
 
 reactome:ChemicalDrug a owl:Class ;
     rdfs:label "chemical_drug" ;
@@ -73,21 +74,23 @@ reactome:ChemicalDrug a owl:Class ;
     skos:definition "Drug represented primarily as a chemical or small-molecule therapeutic agent." ;
     skos:exactMatch reactome:ChemicalDrug ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Often alignable to small-molecule reference identities." .
+    skos:note "Often alignable to small-molecule reference identities.",
+        "id construction: reactome:{stId}" .
 
 reactome:Complex a owl:Class ;
     rdfs:label "complex" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 1 ;
+            owl:allValuesFrom reactome:PhysicalEntity ;
             owl:onProperty reactome:has_component ],
         [ a owl:Restriction ;
-            owl:allValuesFrom reactome:PhysicalEntity ;
+            owl:minCardinality 1 ;
             owl:onProperty reactome:has_component ],
         reactome:PhysicalEntity ;
     skos:definition "Physical entity composed of two or more component physical entities assembled into a functional complex." ;
     skos:exactMatch reactome:Complex ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "The complex is treated as an entity distinct from its components." .
+    skos:note "The complex is treated as an entity distinct from its components.",
+        "id construction: reactome:{stId}" .
 
 reactome:DefinedSet a owl:Class ;
     rdfs:label "defined_set" ;
@@ -95,7 +98,8 @@ reactome:DefinedSet a owl:Class ;
     skos:definition "Entity set whose members are explicitly curated as the intended interchangeable participants." ;
     skos:exactMatch reactome:DefinedSet ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Stronger editorial commitment than a candidate set." .
+    skos:note "Stronger editorial commitment than a candidate set.",
+        "id construction: reactome:{stId}" .
 
 reactome:Depolymerization a owl:Class ;
     rdfs:label "depolymerization" ;
@@ -103,7 +107,8 @@ reactome:Depolymerization a owl:Class ;
     skos:definition "Event representing breakdown of a polymer into constituent or smaller units." ;
     skos:exactMatch reactome:Depolymerization ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Complementary to polymerisation." .
+    skos:note "Complementary to polymerisation.",
+        "id construction: reactome:{stId}" .
 
 reactome:LiteratureReference a owl:Class ;
     rdfs:label "literature_reference" ;
@@ -123,7 +128,8 @@ reactome:LiteratureReference a owl:Class ;
     skos:definition "Literature citation record, commonly representing a PubMed-indexed paper supporting a Reactome assertion." ;
     skos:exactMatch reactome:LiteratureReference ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Used widely to ground events, regulations, and catalyst activities in the literature." .
+    skos:note "Used widely to ground events, regulations, and catalyst activities in the literature.",
+        "id construction: reactome:lit/{reactomeDbId}" .
 
 reactome:NegativeRegulation a owl:Class ;
     rdfs:label "negative_regulation" ;
@@ -139,7 +145,8 @@ reactome:OtherEntity a owl:Class ;
     skos:definition "Catch-all physical entity class for biologically relevant participants not covered by more specific subclasses." ;
     skos:exactMatch reactome:OtherEntity ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Helps preserve source fidelity when Reactome uses residual categorization." .
+    skos:note "Helps preserve source fidelity when Reactome uses residual categorization.",
+        "id construction: reactome:{stId}" .
 
 reactome:Pathway a owl:Class ;
     rdfs:label "pathway" ;
@@ -150,33 +157,35 @@ reactome:Pathway a owl:Class ;
             owl:allValuesFrom reactome:Event ;
             owl:onProperty reactome:has_event ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:has_go_biological_process ],
-        [ a owl:Restriction ;
             owl:allValuesFrom reactome:GoBiologicalProcessTerm ;
             owl:onProperty reactome:has_go_biological_process ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty reactome:has_event ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:has_go_biological_process ],
         reactome:Event ;
     skos:definition "Curated grouping of biologically related events representing a pathway or pathway-like module." ;
     skos:exactMatch reactome:Pathway ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Pathways can overlap; event membership is not exclusive." .
+    skos:note "Pathways can overlap; event membership is not exclusive.",
+        "id construction: reactome:{stId}, e.g. reactome:R-HSA-983169" .
 
 reactome:Polymer a owl:Class ;
     rdfs:label "polymer" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 0 ;
+            owl:allValuesFrom reactome:PhysicalEntity ;
             owl:onProperty reactome:has_repeated_unit ],
         [ a owl:Restriction ;
-            owl:allValuesFrom reactome:PhysicalEntity ;
+            owl:minCardinality 0 ;
             owl:onProperty reactome:has_repeated_unit ],
         reactome:PhysicalEntity ;
     skos:definition "Polymer entity abstracted in terms of one or more repeated units." ;
     skos:exactMatch reactome:Polymer ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Useful for biological polymers that are not modeled by enumerating every monomer instance." .
+    skos:note "Useful for biological polymers that are not modeled by enumerating every monomer instance.",
+        "id construction: reactome:{stId}" .
 
 reactome:Polymerization a owl:Class ;
     rdfs:label "polymerization" ;
@@ -184,7 +193,8 @@ reactome:Polymerization a owl:Class ;
     skos:definition "Event representing formation of a polymer from repeated or assembling units." ;
     skos:exactMatch reactome:Polymerization ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Kept distinct because its participant semantics can differ from ordinary reaction balance." .
+    skos:note "Kept distinct because its participant semantics can differ from ordinary reaction balance.",
+        "id construction: reactome:{stId}" .
 
 reactome:PositiveRegulation a owl:Class ;
     rdfs:label "positive_regulation" ;
@@ -194,24 +204,43 @@ reactome:PositiveRegulation a owl:Class ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
     skos:note "Semantic polarity is explicit at the class level." .
 
+reactome:Protein a owl:Class ;
+    rdfs:label "protein" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom reactome:ReferenceGeneProduct ;
+            owl:onProperty reactome:has_reference_entity ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty reactome:has_reference_entity ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty reactome:has_reference_entity ],
+        reactome:SequenceEntity ;
+    skos:definition "Protein physical entity linked to a reference gene product and optionally decorated with modifications and subsequence features." ;
+    skos:exactMatch reactome:Protein ;
+    skos:inScheme <https://w3id.org/reactome-ontology> ;
+    skos:note "The most common type of sequence entity in Reactome.",
+        "id construction: reactome:{stId}, e.g. reactome:R-HSA-199420" .
+
 reactome:ProteinDrug a owl:Class ;
     rdfs:label "protein_drug" ;
     rdfs:subClassOf reactome:Drug ;
     skos:definition "Drug represented as a protein therapeutic or protein-derived biologic." ;
     skos:exactMatch reactome:ProteinDrug ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Includes antibody-like or recombinant protein therapeutics when modeled as physical entities." .
+    skos:note "Includes antibody-like or recombinant protein therapeutics when modeled as physical entities.",
+        "id construction: reactome:{stId}" .
 
 reactome:Reaction a owl:Class ;
     rdfs:label "reaction" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom reactome:PhysicalEntity ;
+            owl:onProperty reactome:has_output ],
+        [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty reactome:has_input ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty reactome:has_output ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom reactome:PhysicalEntity ;
             owl:onProperty reactome:has_output ],
         [ a owl:Restriction ;
             owl:allValuesFrom reactome:PhysicalEntity ;
@@ -220,7 +249,8 @@ reactome:Reaction a owl:Class ;
     skos:definition "Standard reaction-like event with explicit transformed inputs and outputs." ;
     skos:exactMatch reactome:Reaction ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Best used for relatively well-resolved mechanistic conversions." .
+    skos:note "Best used for relatively well-resolved mechanistic conversions.",
+        "id construction: reactome:{stId}, e.g. reactome:R-HSA-1218823" .
 
 reactome:ReferenceDnaSequence a owl:Class ;
     rdfs:label "reference_dna_sequence" ;
@@ -228,15 +258,8 @@ reactome:ReferenceDnaSequence a owl:Class ;
     skos:definition "Reference identity for a DNA sequence." ;
     skos:exactMatch reactome:ReferenceDnaSequence ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Supports DNA-centric entities in the Reactome schema." .
-
-reactome:ReferenceGeneProduct a owl:Class ;
-    rdfs:label "reference_gene_product" ;
-    rdfs:subClassOf reactome:ReferenceSequence ;
-    skos:definition "Reference sequence corresponding to a gene product, typically protein-centric." ;
-    skos:exactMatch reactome:ReferenceGeneProduct ;
-    skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Often alignable to UniProt entries for proteins." .
+    skos:note "Supports DNA-centric entities in the Reactome schema.",
+        "id construction: Ensembl:{identifier}, e.g. Ensembl:ENSG00000141510" .
 
 reactome:ReferenceGroup a owl:Class ;
     rdfs:label "reference_group" ;
@@ -244,7 +267,8 @@ reactome:ReferenceGroup a owl:Class ;
     skos:definition "Grouped reference identity used when an invariant identity is represented at a grouped rather than single-entry level." ;
     skos:exactMatch reactome:ReferenceGroup ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Useful for families or grouped reference semantics in source data." .
+    skos:note "Useful for families or grouped reference semantics in source data.",
+        "id construction: reactome:refgroup/{reactomeDbId} (no standard external DB)" .
 
 reactome:ReferenceIsoform a owl:Class ;
     rdfs:label "reference_isoform" ;
@@ -252,7 +276,8 @@ reactome:ReferenceIsoform a owl:Class ;
     skos:definition "Reference sequence representing a specific isoform-level identity." ;
     skos:exactMatch reactome:ReferenceIsoform ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Useful when isoform distinction matters biologically." .
+    skos:note "Useful when isoform distinction matters biologically.",
+        "id construction: UniProtKB:{variantIdentifier}, e.g. UniProtKB:P60484-2" .
 
 reactome:ReferenceRnaSequence a owl:Class ;
     rdfs:label "reference_rna_sequence" ;
@@ -260,15 +285,8 @@ reactome:ReferenceRnaSequence a owl:Class ;
     skos:definition "Reference identity for an RNA sequence." ;
     skos:exactMatch reactome:ReferenceRnaSequence ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Supports transcript and RNA molecule identity modeling." .
-
-reactome:ReferenceTherapeutic a owl:Class ;
-    rdfs:label "reference_therapeutic" ;
-    rdfs:subClassOf reactome:ReferenceEntity ;
-    skos:definition "Reference identity for a therapeutic or intervention-oriented entity." ;
-    skos:exactMatch reactome:ReferenceTherapeutic ;
-    skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Supports the reference-layer counterpart of drug-like modeled entities." .
+    skos:note "Supports transcript and RNA molecule identity modeling.",
+        "id construction: Ensembl:{identifier}, e.g. Ensembl:ENST00000269305" .
 
 reactome:Requirement a owl:Class ;
     rdfs:label "requirement" ;
@@ -284,85 +302,37 @@ reactome:RnaDrug a owl:Class ;
     skos:definition "Drug represented as an RNA-based therapeutic agent." ;
     skos:exactMatch reactome:RnaDrug ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Can cover antisense, siRNA, or related RNA therapeutic modalities." .
-
-reactome:SequenceEntity a owl:Class ;
-    rdfs:label "sequence_entity" ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty reactome:start_coordinate ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:start_coordinate ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty reactome:sequence_reference_type ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty reactome:has_reference_entity ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom reactome:AbstractModifiedResidue ;
-            owl:onProperty reactome:has_modified_residue ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty reactome:end_coordinate ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty reactome:sequence_reference_type ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:integer ;
-            owl:onProperty reactome:end_coordinate ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:end_coordinate ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:integer ;
-            owl:onProperty reactome:start_coordinate ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty reactome:has_reference_entity ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:sequence_reference_type ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:has_modified_residue ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom reactome:ReferenceSequence ;
-            owl:onProperty reactome:has_reference_entity ],
-        reactome:GenomeEncodedEntity ;
-    skos:definition "Sequence-bearing physical entity linked to a stable reference sequence and optionally decorated with residue modifications and subsequence coordinates." ;
-    skos:exactMatch reactome:SequenceEntity ;
-    skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Core Reactome pattern for proteins, RNAs, and other accessioned biomolecules in specific states." .
+    skos:note "Can cover antisense, siRNA, or related RNA therapeutic modalities.",
+        "id construction: reactome:{stId}" .
 
 reactome:SimpleEntity a owl:Class ;
     rdfs:label "simple_entity" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty reactome:has_reference_entity ],
-        [ a owl:Restriction ;
             owl:allValuesFrom reactome:ReferenceMolecule ;
             owl:onProperty reactome:has_reference_entity ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty reactome:has_reference_entity ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty reactome:has_reference_entity ],
         reactome:PhysicalEntity ;
     skos:definition "Simple molecular entity, typically a small molecule or other non-sequence-based chemical participant." ;
     skos:exactMatch reactome:SimpleEntity ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Commonly aligned to ChEBI-like reference identities through ReferenceMolecule." .
+    skos:note "Commonly aligned to ChEBI-like reference identities through ReferenceMolecule.",
+        "id construction: reactome:{stId}" .
 
 reactome:Taxon a owl:Class ;
     rdfs:label "taxon" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty reactome:ncbi_taxon_id ],
-        [ a owl:Restriction ;
             owl:allValuesFrom [ a rdfs:Datatype ;
                     owl:intersectionOf ( xsd:string [ a rdfs:Datatype ;
                                 owl:onDatatype xsd:string ;
                                 owl:withRestrictions ( [ xsd:pattern "^[0-9]+$" ] ) ] ) ] ;
+            owl:onProperty reactome:ncbi_taxon_id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
             owl:onProperty reactome:ncbi_taxon_id ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
@@ -371,7 +341,8 @@ reactome:Taxon a owl:Class ;
     skos:definition "Taxonomic concept used for taxonomic assignment or metadata." ;
     skos:exactMatch reactome:Taxon ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Can be used in parallel with or beneath species-oriented records." .
+    skos:note "Can be used in parallel with or beneath species-oriented records.",
+        "id construction: NCBITaxon:{ncbiTaxonId}" .
 
 reactome:GenomeEncodedEntity a owl:Class ;
     rdfs:label "genome_encoded_entity" ;
@@ -379,36 +350,41 @@ reactome:GenomeEncodedEntity a owl:Class ;
     skos:definition "Physical entity whose existence is grounded in a genome-encoded product such as a protein or nucleic acid." ;
     skos:exactMatch reactome:GenomeEncodedEntity ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Serves as a superclass for accessioned sequence-based entities." .
+    skos:note "No referenceEntity slot; sequence is unknown for bare GenomeEncodedEntity instances.",
+        "Serves as a superclass for accessioned sequence-based entities.",
+        "id construction: reactome:{stId}" .
 
 reactome:NamedEntity a owl:Class ;
     rdfs:label "named_entity" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
+            owl:maxCardinality 1 ;
             owl:onProperty reactome:description ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty reactome:name ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:allValuesFrom [ a rdfs:Datatype ;
+                    owl:intersectionOf ( xsd:anyURI [ a rdfs:Datatype ;
+                                owl:onDatatype xsd:string ;
+                                owl:withRestrictions ( [ xsd:pattern "^[A-Za-z][A-Za-z0-9_.+-]*:.+" ] ) ] ) ] ;
             owl:onProperty reactome:id ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty reactome:id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:name ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty reactome:id ],
         [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty reactome:description ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty reactome:id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:name ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty reactome:name ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty reactome:description ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty reactome:description ] ;
     skos:definition "Generic named entity used as a lightweight semantic root for serializable objects." ;
     skos:exactMatch reactome:NamedEntity ;
@@ -430,7 +406,242 @@ reactome:Person a owl:Class ;
     skos:definition "Person record used primarily for provenance, authorship, and curation attribution." ;
     skos:exactMatch reactome:Person ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "May represent curators, reviewers, or contributors." .
+    skos:note "May represent curators, reviewers, or contributors.",
+        "id construction: orcid:{orcidId} when available; otherwise reactome:person/{reactomeDbId}" .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#AbstractModifiedResidue> a owl:Class ;
+    rdfs:label "AbstractModifiedResidue" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Modified residue feature on a sequence entity." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#BlackBoxEvent> a owl:Class ;
+    rdfs:label "BlackBoxEvent" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Reaction-like event with incomplete mechanistic detail." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#CandidateSet> a owl:Class ;
+    rdfs:label "CandidateSet" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Candidate set of physical entities fulfilling a shared role." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#CatalystActivity> a owl:Class ;
+    rdfs:label "CatalystActivity" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Reified catalytic assertion." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#Cell> a owl:Class ;
+    rdfs:label "Cell" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Cell or cell-like biological unit." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#ChemicalDrug> a owl:Class ;
+    rdfs:label "ChemicalDrug" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Small-molecule therapeutic." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#Compartment> a owl:Class ;
+    rdfs:label "Compartment" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Cellular compartment record." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#Complex> a owl:Class ;
+    rdfs:label "Complex" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Multi-component physical entity." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#DatabaseIdentifier> a owl:Class ;
+    rdfs:label "DatabaseIdentifier" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Cross-reference identifier record." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#DefinedSet> a owl:Class ;
+    rdfs:label "DefinedSet" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Explicitly curated set of interchangeable physical entities." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#Depolymerization> a owl:Class ;
+    rdfs:label "Depolymerization" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Polymer-breaking reaction-like event." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#Disease> a owl:Class ;
+    rdfs:label "Disease" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Disease context record." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#Drug> a owl:Class ;
+    rdfs:label "Drug" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Therapeutic physical entity." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#GenomeEncodedEntity> a owl:Class ;
+    rdfs:label "GenomeEncodedEntity" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Genome-encoded entity whose sequence is unknown." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#GoBiologicalProcessTerm> a owl:Class ;
+    rdfs:label "GoBiologicalProcessTerm" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "GO biological process term wrapper." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#GoCellularComponentTerm> a owl:Class ;
+    rdfs:label "GoCellularComponentTerm" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "GO cellular component term wrapper." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#GoMolecularFunctionTerm> a owl:Class ;
+    rdfs:label "GoMolecularFunctionTerm" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "GO molecular function term wrapper." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#InstanceEdit> a owl:Class ;
+    rdfs:label "InstanceEdit" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Provenance edit record." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#Interaction> a owl:Class ;
+    rdfs:label "Interaction" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Interaction record." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#LiteratureReference> a owl:Class ;
+    rdfs:label "LiteratureReference" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Literature citation record." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#NegativeRegulation> a owl:Class ;
+    rdfs:label "NegativeRegulation" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Negative regulatory assertion." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#OrganismTaxon> a owl:Class ;
+    rdfs:label "OrganismTaxon" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Organism taxon record." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#OtherEntity> a owl:Class ;
+    rdfs:label "OtherEntity" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Catch-all physical entity not covered by more specific subclasses." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#Pathway> a owl:Class ;
+    rdfs:label "Pathway" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Curated grouping of biologically related events." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#Person> a owl:Class ;
+    rdfs:label "Person" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Person record for provenance attribution." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#Polymer> a owl:Class ;
+    rdfs:label "Polymer" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Polymer physical entity defined by repeated units." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#Polymerization> a owl:Class ;
+    rdfs:label "Polymerization" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Polymer-forming reaction-like event." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#PositiveRegulation> a owl:Class ;
+    rdfs:label "PositiveRegulation" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Positive regulatory assertion." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#Protein> a owl:Class ;
+    rdfs:label "Protein" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Protein physical entity linked to a reference gene product." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#ProteinDrug> a owl:Class ;
+    rdfs:label "ProteinDrug" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Protein-derived therapeutic." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#Reaction> a owl:Class ;
+    rdfs:label "Reaction" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Standard reaction-like event with balanced inputs and outputs." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#ReferenceDatabase> a owl:Class ;
+    rdfs:label "ReferenceDatabase" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "External database authority record." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#ReferenceDnaSequence> a owl:Class ;
+    rdfs:label "ReferenceDnaSequence" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "DNA sequence reference identity." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#ReferenceGeneProduct> a owl:Class ;
+    rdfs:label "ReferenceGeneProduct" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Gene product reference identity, typically UniProt-backed." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#ReferenceGroup> a owl:Class ;
+    rdfs:label "ReferenceGroup" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Grouped reference identity." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#ReferenceIsoform> a owl:Class ;
+    rdfs:label "ReferenceIsoform" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Isoform-level reference identity." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#ReferenceMolecule> a owl:Class ;
+    rdfs:label "ReferenceMolecule" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Small-molecule reference identity, typically ChEBI-backed." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#ReferenceRnaSequence> a owl:Class ;
+    rdfs:label "ReferenceRnaSequence" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "RNA sequence reference identity." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#ReferenceTherapeutic> a owl:Class ;
+    rdfs:label "ReferenceTherapeutic" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Therapeutic reference identity." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#Requirement> a owl:Class ;
+    rdfs:label "Requirement" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Requirement-style regulatory assertion." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#RnaDrug> a owl:Class ;
+    rdfs:label "RnaDrug" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "RNA-based therapeutic." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#SequenceEntity> a owl:Class ;
+    rdfs:label "SequenceEntity" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Sequence-bearing physical entity with accession and optional modifications." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#SimpleEntity> a owl:Class ;
+    rdfs:label "SimpleEntity" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Small molecule or non-sequence-based chemical participant." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#Summation> a owl:Class ;
+    rdfs:label "Summation" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Narrative summary record." .
+
+<https://w3id.org/reactome-ontology/ReactomeClassEnum#Taxon> a owl:Class ;
+    rdfs:label "Taxon" ;
+    rdfs:subClassOf reactome:ReactomeClassEnum ;
+    skos:definition "Taxonomic concept record." .
+
+reactome:ReferenceGeneProduct a owl:Class ;
+    rdfs:label "reference_gene_product" ;
+    rdfs:subClassOf reactome:ReferenceSequence ;
+    skos:definition "Reference sequence corresponding to a gene product, typically protein-centric." ;
+    skos:exactMatch reactome:ReferenceGeneProduct ;
+    skos:inScheme <https://w3id.org/reactome-ontology> ;
+    skos:note "Often alignable to UniProt entries for proteins.",
+        "id construction: UniProtKB:{identifier}, e.g. UniProtKB:P60484" .
 
 reactome:ReferenceMolecule a owl:Class ;
     rdfs:label "reference_molecule" ;
@@ -438,19 +649,89 @@ reactome:ReferenceMolecule a owl:Class ;
     skos:definition "Reference identity for a small molecule, simple chemical, or chemically grounded participant." ;
     skos:exactMatch reactome:ReferenceMolecule ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Naturally alignable to ChEBI-like references." .
+    skos:note "Naturally alignable to ChEBI-like references.",
+        "id construction: CHEBI:{identifier}, e.g. CHEBI:15422" .
+
+reactome:ReferenceTherapeutic a owl:Class ;
+    rdfs:label "reference_therapeutic" ;
+    rdfs:subClassOf reactome:ReferenceEntity ;
+    skos:definition "Reference identity for a therapeutic or intervention-oriented entity." ;
+    skos:exactMatch reactome:ReferenceTherapeutic ;
+    skos:inScheme <https://w3id.org/reactome-ontology> ;
+    skos:note "Supports the reference-layer counterpart of drug-like modeled entities.",
+        "id construction: reactome:refther/{reactomeDbId} (no single standard external DB)" .
+
+reactome:SequenceEntity a owl:Class ;
+    rdfs:label "sequence_entity" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty reactome:has_reference_entity ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:integer ;
+            owl:onProperty reactome:start_coordinate ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty reactome:has_reference_entity ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom reactome:AbstractModifiedResidue ;
+            owl:onProperty reactome:has_modified_residue ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom reactome:ReferenceSequence ;
+            owl:onProperty reactome:has_reference_entity ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:sequence_reference_type ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty reactome:start_coordinate ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty reactome:sequence_reference_type ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:integer ;
+            owl:onProperty reactome:end_coordinate ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty reactome:end_coordinate ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty reactome:sequence_reference_type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:has_modified_residue ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:end_coordinate ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:start_coordinate ],
+        reactome:GenomeEncodedEntity ;
+    skos:definition "Sequence-bearing physical entity linked to a stable reference sequence and optionally decorated with residue modifications and subsequence coordinates." ;
+    skos:exactMatch reactome:SequenceEntity ;
+    skos:inScheme <https://w3id.org/reactome-ontology> ;
+    skos:note "Core Reactome pattern for proteins, RNAs, and other accessioned biomolecules in specific states.",
+        "id construction: reactome:{stId}" .
 
 reactome:author a owl:ObjectProperty ;
     rdfs:label "author" ;
     skos:definition "Person or people responsible for the edit activity." ;
     skos:inScheme <https://w3id.org/reactome-ontology> .
 
+reactome:authored a owl:ObjectProperty ;
+    rdfs:label "authored" ;
+    rdfs:range reactome:InstanceEdit ;
+    skos:definition "Provenance links capturing authoring actions for the object." ;
+    skos:inScheme <https://w3id.org/reactome-ontology> ;
+    skos:note "Included to support richer editorial provenance when present in exports.",
+        "inlined:false ensures generators emit foreign keys or graph edges." .
+
 reactome:catalyzes a owl:ObjectProperty ;
     rdfs:label "catalyzes" ;
     rdfs:range reactome:ReactionLikeEvent ;
     skos:definition "Reaction-like event catalyzed by the given catalyst activity." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Allows one catalyst activity node to connect molecular function and event participation." .
+    skos:note "Allows one catalyst activity node to connect molecular function and event participation.",
+        "inlined:false ensures generators emit foreign keys or graph edges." .
 
 reactome:database_objects a owl:ObjectProperty ;
     rdfs:label "database_objects" ;
@@ -462,105 +743,127 @@ reactome:has_catalyst_activity a owl:ObjectProperty ;
     rdfs:range reactome:CatalystActivity ;
     skos:definition "Catalyst activity associated with the reaction-like event." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "A central Reactome modeling pattern that preserves GO molecular function and active-unit context." .
+    skos:note "A central Reactome modeling pattern that preserves GO molecular function and active-unit context.",
+        "inlined:false ensures generators emit foreign keys or graph edges." .
 
 reactome:has_component a owl:ObjectProperty ;
     rdfs:label "has_component" ;
     rdfs:range reactome:PhysicalEntity ;
     skos:definition "Component physical entities that make up a complex." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Complex identity is distinct from component identity in Reactome." .
+    skos:note "Complex identity is distinct from component identity in Reactome.",
+        "inlined:false ensures generators emit foreign keys or graph edges." .
 
 reactome:has_event a owl:ObjectProperty ;
     rdfs:label "has_event" ;
     rdfs:range reactome:Event ;
     skos:definition "Membership relation linking a pathway to constituent events." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Pathways in Reactome are curated groupings of events and can overlap with other pathways." .
+    skos:note "Pathways in Reactome are curated groupings of events and can overlap with other pathways.",
+        "inlined:false so that events are stored as references, not embedded objects." .
 
 reactome:has_interacting_entity_on_other_cell a owl:ObjectProperty ;
     rdfs:label "has_interacting_entity_on_other_cell" ;
     rdfs:range reactome:PhysicalEntity ;
     skos:definition "Physical entity located on another interacting cell in intercellular biology." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Useful for immune, adhesion, and receptor-ligand interaction contexts." .
+    skos:note "Useful for immune, adhesion, and receptor-ligand interaction contexts.",
+        "inlined:false ensures generators emit foreign keys or graph edges." .
 
 reactome:has_interaction a owl:ObjectProperty ;
     rdfs:label "has_interaction" ;
     rdfs:range reactome:Interaction ;
     skos:definition "Associated interaction object linked to an event." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Preserves interaction-level detail when Reactome models such assertions explicitly." .
+    skos:note "Preserves interaction-level detail when Reactome models such assertions explicitly.",
+        "inlined:false ensures generators emit foreign keys or graph edges." .
 
 reactome:has_member a owl:ObjectProperty ;
     rdfs:label "has_member" ;
     rdfs:range reactome:PhysicalEntity ;
     skos:definition "Members of an entity set representing functionally interchangeable participants." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Entity sets are curated graph objects, not simply OWL classes over their members." .
+    skos:note "Entity sets are curated graph objects, not simply OWL classes over their members.",
+        "inlined:false ensures generators emit foreign keys or graph edges." .
 
 reactome:has_modified_residue a owl:ObjectProperty ;
     rdfs:label "has_modified_residue" ;
     rdfs:range reactome:AbstractModifiedResidue ;
     skos:definition "Modified residue feature borne by a sequence-based physical entity." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Supports phosphorylation, cleavage, ubiquitination, and related residue-level state modeling." .
+    skos:note "Supports phosphorylation, cleavage, ubiquitination, and related residue-level state modeling.",
+        "inlined:false ensures generators emit foreign keys or graph edges." .
 
 reactome:has_reaction_type a owl:ObjectProperty ;
     rdfs:label "has_reaction_type" ;
     rdfs:range reactome:ReactionTypeTerm ;
     skos:definition "Controlled reaction type annotation describing the mechanistic or editorial type of a reaction." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Useful for grouping reaction-like events into broad mechanistic categories." .
+    skos:note "Useful for grouping reaction-like events into broad mechanistic categories.",
+        "inlined:false ensures generators emit foreign keys or graph edges." .
 
 reactome:has_regulation a owl:ObjectProperty ;
     rdfs:label "has_regulation" ;
     rdfs:range reactome:Regulation ;
     skos:definition "Reified regulation assertion attached to an event." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Supports positive, negative, and requirement-style regulatory semantics." .
+    skos:note "Supports positive, negative, and requirement-style regulatory semantics.",
+        "inlined:false ensures generators emit foreign keys or graph edges." .
 
 reactome:has_repeated_unit a owl:ObjectProperty ;
     rdfs:label "has_repeated_unit" ;
     rdfs:range reactome:PhysicalEntity ;
     skos:definition "Repeated unit composing a polymer entity." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Used when Reactome models a polymer abstractly in terms of repeating constituents." .
+    skos:note "Used when Reactome models a polymer abstractly in terms of repeating constituents.",
+        "inlined:false ensures generators emit foreign keys or graph edges." .
 
 reactome:modified a owl:ObjectProperty ;
     rdfs:label "modified" ;
     rdfs:range reactome:InstanceEdit ;
     skos:definition "Provenance links to subsequent modifications of the object record." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Multiple modifications are common across curation history." .
+    skos:note "Multiple modifications are common across curation history.",
+        "inlined:false ensures generators emit foreign keys or graph edges." .
 
 reactome:preceded_by a owl:ObjectProperty ;
     rdfs:label "preceded_by" ;
     rdfs:range reactome:Event ;
     skos:definition "Event that occurs before the current event in a curated process sequence." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Encodes partial ordering rather than necessarily strict temporal or causal completeness." .
+    skos:note "Encodes partial ordering rather than necessarily strict temporal or causal completeness.",
+        "inverse_of follows_event (derived); only one direction is stored." .
 
 reactome:requires_component a owl:ObjectProperty ;
     rdfs:label "requires_component" ;
     rdfs:range reactome:PhysicalEntity ;
     skos:definition "Physical entity required for a reaction-like event but not modeled as a transforming input." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Useful for contextual cofactors, platform components, or required participants." .
+    skos:note "Useful for contextual cofactors, platform components, or required participants.",
+        "inlined:false ensures generators emit foreign keys or graph edges." .
 
 reactome:reviewed a owl:ObjectProperty ;
     rdfs:label "reviewed" ;
     rdfs:range reactome:InstanceEdit ;
     skos:definition "Provenance links to formal review actions on the object." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Distinct from simple modification in Reactome curation workflows." .
+    skos:note "Distinct from simple modification in Reactome curation workflows.",
+        "inlined:false ensures generators emit foreign keys or graph edges." .
 
 reactome:revised a owl:ObjectProperty ;
     rdfs:label "revised" ;
     rdfs:range reactome:InstanceEdit ;
     skos:definition "Provenance links to explicit revision actions after prior curation or review." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Useful for tracking editorial iteration." .
+    skos:note "Useful for tracking editorial iteration.",
+        "inlined:false ensures generators emit foreign keys or graph edges." .
+
+reactome:synonym a owl:DatatypeProperty ;
+    rdfs:label "synonym" ;
+    rdfs:range xsd:string ;
+    skos:definition "Alternative names or synonyms for an object." ;
+    skos:inScheme <https://w3id.org/reactome-ontology> ;
+    skos:note "For Reactome DatabaseObject records, this can capture additional values from the source name list after the first value is used as the primary name." .
 
 reactome:AbstractModifiedResidue a owl:Class ;
     rdfs:label "abstract_modified_residue" ;
@@ -568,51 +871,55 @@ reactome:AbstractModifiedResidue a owl:Class ;
     skos:definition "Feature record describing a modified residue or residue-level state on a sequence-bearing entity." ;
     skos:exactMatch reactome:AbstractModifiedResidue ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Abstract superclass for phosphorylation-like or other residue modification records." .
+    skos:note "Abstract superclass for phosphorylation-like or other residue modification records.",
+        "No stId exists for this class; reactome_stable_identifier is absent.",
+        "id construction: reactome:mod/{reactomeDbId}" .
 
 reactome:CatalystActivity a owl:Class ;
     rdfs:label "catalyst_activity" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom reactome:ReactionLikeEvent ;
-            owl:onProperty reactome:catalyzes ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:supported_by ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom reactome:PhysicalEntity ;
-            owl:onProperty reactome:has_active_unit ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom reactome:Publication ;
-            owl:onProperty reactome:supported_by ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:has_active_unit ],
-        [ a owl:Restriction ;
             owl:allValuesFrom reactome:PhysicalEntity ;
             owl:onProperty reactome:has_catalyst ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:supported_by ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom reactome:PhysicalEntity ;
+            owl:onProperty reactome:has_active_unit ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty reactome:has_go_molecular_function ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty reactome:has_go_molecular_function ],
         [ a owl:Restriction ;
             owl:allValuesFrom reactome:GoMolecularFunctionTerm ;
             owl:onProperty reactome:has_go_molecular_function ],
         [ a owl:Restriction ;
+            owl:allValuesFrom reactome:Publication ;
+            owl:onProperty reactome:supported_by ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty reactome:has_catalyst ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty reactome:has_go_molecular_function ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty reactome:has_catalyst ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty reactome:has_go_molecular_function ],
+            owl:allValuesFrom reactome:ReactionLikeEvent ;
+            owl:onProperty reactome:catalyzes ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty reactome:catalyzes ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:has_active_unit ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty reactome:has_catalyst ],
         reactome:DatabaseObject ;
     skos:definition "Reified catalytic assertion connecting a catalyst bearer, a GO molecular function, and one or more catalyzed reaction-like events." ;
     skos:exactMatch reactome:CatalystActivity ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "This is one of the most semantically important reified node types in Reactome." .
+    skos:note "No stId exists for this class; reactome_stable_identifier is absent.",
+        "This is one of the most semantically important reified node types in Reactome.",
+        "id construction: reactome:ca/{reactomeDbId}, e.g. reactome:ca/1218822" .
 
 reactome:EntitySet a owl:Class ;
     rdfs:label "entity_set" ;
@@ -626,7 +933,8 @@ reactome:EntitySet a owl:Class ;
     skos:definition "Curated set of physical entities that are treated as functionally interchangeable in a given biological context." ;
     skos:exactMatch reactome:EntitySet ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "This is a graph object representing a curated set, not merely a class extension over its members." .
+    skos:note "This is a graph object representing a curated set, not merely a class extension over its members.",
+        "id construction: reactome:{stId}" .
 
 reactome:GoBiologicalProcessTerm a owl:Class ;
     rdfs:label "go_biological_process_term" ;
@@ -634,7 +942,8 @@ reactome:GoBiologicalProcessTerm a owl:Class ;
     skos:definition "Wrapper object for a GO biological process term used for pathway or event alignment." ;
     skos:exactMatch reactome:GoBiologicalProcessTerm ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Useful for crosswalks between Reactome pathways and GO process knowledge." .
+    skos:note "Useful for crosswalks between Reactome pathways and GO process knowledge.",
+        "id construction: GO:{identifier}, e.g. GO:0008150" .
 
 reactome:GoCellularComponentTerm a owl:Class ;
     rdfs:label "go_cellular_component_term" ;
@@ -642,7 +951,8 @@ reactome:GoCellularComponentTerm a owl:Class ;
     skos:definition "Wrapper object for a GO cellular component term used in entity or location annotation." ;
     skos:exactMatch reactome:GoCellularComponentTerm ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Often complements explicit compartment modeling." .
+    skos:note "Often complements explicit compartment modeling.",
+        "id construction: GO:{identifier}, e.g. GO:0005737" .
 
 reactome:GoMolecularFunctionTerm a owl:Class ;
     rdfs:label "go_molecular_function_term" ;
@@ -650,7 +960,8 @@ reactome:GoMolecularFunctionTerm a owl:Class ;
     skos:definition "Wrapper object for a GO molecular function term used in Reactome catalysis modeling." ;
     skos:exactMatch reactome:GoMolecularFunctionTerm ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Particularly important in CatalystActivity." .
+    skos:note "Particularly important in CatalystActivity.",
+        "id construction: GO:{identifier}, e.g. GO:0004672" .
 
 reactome:Interaction a owl:Class ;
     rdfs:label "interaction" ;
@@ -658,7 +969,8 @@ reactome:Interaction a owl:Class ;
     skos:definition "Interaction record associated with an event or set of participants." ;
     skos:exactMatch reactome:Interaction ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Retained as a distinct object to preserve graph fidelity when interactions are explicitly modeled." .
+    skos:note "Retained as a distinct object to preserve graph fidelity when interactions are explicitly modeled.",
+        "id construction: reactome:int/{reactomeDbId}" .
 
 reactome:ReactionTypeTerm a owl:Class ;
     rdfs:label "reaction_type_term" ;
@@ -666,15 +978,16 @@ reactome:ReactionTypeTerm a owl:Class ;
     skos:definition "Controlled vocabulary term used to characterize a reaction-like event." ;
     skos:exactMatch reactome:ReactionTypeTerm ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Supports editorial or mechanistic grouping of reaction events." .
+    skos:note "Supports editorial or mechanistic grouping of reaction events.",
+        "id construction: reactome:rxntype/{reactomeDbId}" .
 
 reactome:Summation a owl:Class ;
     rdfs:label "summation" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 1 ;
+            owl:allValuesFrom xsd:string ;
             owl:onProperty reactome:text ],
         [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
+            owl:minCardinality 1 ;
             owl:onProperty reactome:text ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
@@ -683,7 +996,9 @@ reactome:Summation a owl:Class ;
     skos:definition "Narrative summary record containing prose that explains the biological meaning of an entity or event." ;
     skos:exactMatch reactome:Summation ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Distinct from a formal definition; meant for human reading." .
+    skos:note "Distinct from a formal definition; meant for human reading.",
+        "No stId exists for this class; reactome_stable_identifier is absent.",
+        "id construction: reactome:sum/{reactomeDbId}" .
 
 reactome:access_url a owl:DatatypeProperty ;
     rdfs:label "access_url" ;
@@ -692,12 +1007,22 @@ reactome:access_url a owl:DatatypeProperty ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
     skos:note "Can encode direct or templated resolver behavior." .
 
+reactome:category a owl:DatatypeProperty ;
+    rdfs:label "category" ;
+    rdfs:range xsd:string ;
+    skos:definition "Concrete class discriminator used in serialized instances." ;
+    skos:inScheme <https://w3id.org/reactome-ontology> ;
+    skos:note "Must remain range:string. LinkML's pythongen requires the designates_type slot to carry a plain string class name and does not support an enum range here.",
+        "The ReactomeClassEnum in this schema documents the closed vocabulary of valid values and is used by JSON Schema and OWL generators, but cannot be referenced directly by this slot without breaking gen-python.",
+        "Valid values are the permissible_values keys of ReactomeClassEnum, e.g. Pathway, Reaction, EntityWithAccessionedSequence, CatalystActivity, etc." .
+
 reactome:created a owl:ObjectProperty ;
     rdfs:label "created" ;
     rdfs:range reactome:InstanceEdit ;
     skos:definition "Provenance link to the curation event that originally created the object record." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Usually points to an InstanceEdit containing editor and date metadata." .
+    skos:note "Points to an InstanceEdit node containing editor and date metadata.",
+        "inlined:false ensures generators emit a foreign key or graph edge, not an embedded object." .
 
 reactome:date a owl:DatatypeProperty ;
     rdfs:label "date" ;
@@ -738,49 +1063,66 @@ reactome:has_catalyst a owl:ObjectProperty ;
     rdfs:range reactome:PhysicalEntity ;
     skos:definition "Physical entity serving as the bearer of a catalyst activity." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Used inside reified catalyst activity objects." .
+    skos:note "Used inside reified catalyst activity objects.",
+        "inlined:false ensures generators emit a foreign key or graph edge." .
 
 reactome:has_go_biological_process a owl:ObjectProperty ;
     rdfs:label "has_go_biological_process" ;
     rdfs:range reactome:GoBiologicalProcessTerm ;
     skos:definition "GO biological process term associated with a Reactome pathway or event." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Useful as a high-level semantic alignment rather than an exact equivalence in all cases." .
+    skos:note "Useful as a high-level semantic alignment rather than an exact equivalence in all cases.",
+        "inlined:false ensures generators emit a foreign key or graph edge." .
 
 reactome:has_go_cellular_component a owl:ObjectProperty ;
     rdfs:label "has_go_cellular_component" ;
     rdfs:range reactome:GoCellularComponentTerm ;
     skos:definition "GO cellular component term associated with a physical entity or event context." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Often complements the explicit compartment modeling in Reactome." .
+    skos:note "Often complements the explicit compartment modeling in Reactome.",
+        "inlined:false ensures generators emit a foreign key or graph edge." .
 
 reactome:has_go_molecular_function a owl:ObjectProperty ;
     rdfs:label "has_go_molecular_function" ;
     rdfs:range reactome:GoMolecularFunctionTerm ;
     skos:definition "GO molecular function term asserted in a catalyst activity." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Reactome reifies catalysis so the molecular function can be attached explicitly." .
+    skos:note "Reactome reifies catalysis so the molecular function can be attached explicitly.",
+        "inlined:false ensures generators emit a foreign key or graph edge." .
 
 reactome:has_regulator a owl:ObjectProperty ;
     rdfs:label "has_regulator" ;
     rdfs:range reactome:PhysicalEntity ;
     skos:definition "Physical entity that exerts regulatory influence on a regulated event." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "May be a protein, complex, small molecule, set, or other physical entity." .
+    skos:note "May be a protein, complex, small molecule, set, or other physical entity.",
+        "inlined:false ensures generators emit a foreign key or graph edge." .
 
 reactome:has_summation a owl:ObjectProperty ;
     rdfs:label "has_summation" ;
     rdfs:range reactome:Summation ;
     skos:definition "Narrative summary object explaining the biology of an event or entity." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Distinct from formal definition; usually prose intended for readers." .
+    skos:note "Distinct from formal definition; usually prose intended for readers.",
+        "inlined:false ensures generators emit a foreign key or graph edge." .
 
 reactome:id a owl:DatatypeProperty ;
     rdfs:label "id" ;
-    rdfs:range xsd:string ;
-    skos:definition "Unique identifier for an instance in the serialized dataset." ;
+    rdfs:range [ a rdfs:Datatype ;
+            owl:intersectionOf ( xsd:anyURI [ a rdfs:Datatype ;
+                        owl:onDatatype xsd:string ;
+                        owl:withRestrictions ( [ xsd:pattern "^[A-Za-z][A-Za-z0-9_.+-]*:.+" ] ) ] ) ] ;
+    skos:definition "Primary stable identifier for an instance, stored as a CURIE or URI." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "This may be a local identifier, CURIE, URI, or other serialization key." .
+    skos:note "Biological objects (Event, PhysicalEntity subclasses): reactome:{stId}, e.g. reactome:R-HSA-983169",
+        "Construction strategy varies by class (see class-level comments for details).",
+        "Disease: DOID:{id} where available, e.g. DOID:162",
+        "GO term wrappers and Compartment: GO:{id}, e.g. GO:0005737",
+        "OrganismTaxon / Taxon: NCBITaxon:{taxId}, e.g. NCBITaxon:9606",
+        "ReferenceDnaSequence / ReferenceRnaSequence: Ensembl:{accession}",
+        "ReferenceGeneProduct / ReferenceIsoform: UniProtKB:{accession}, e.g. UniProtKB:P60484",
+        "ReferenceMolecule: CHEBI:{id}, e.g. CHEBI:15422",
+        "Supporting nodes without stId (CatalystActivity, Regulation, InstanceEdit, Summation, ReferenceDatabase, ReferenceTherapeutic, ReferenceGroup): reactome:{classPrefix}/{reactomeDbId}, e.g. reactome:ca/1218822, reactome:ie/54321" .
 
 reactome:identifier_prefix a owl:DatatypeProperty ;
     rdfs:label "identifier_prefix" ;
@@ -832,21 +1174,25 @@ reactome:reactome_db_id a owl:DatatypeProperty ;
     rdfs:range xsd:integer ;
     skos:definition "Internal Reactome database identifier assigned to a database object." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Reactome DB_ID values are implementation-oriented identifiers rather than stable public identifiers." .
+    skos:note "Kept for provenance and round-tripping only; never used as a foreign key in this ontology schema.",
+        "Reactome DB_ID values are implementation-oriented integers rather than stable public identifiers." .
 
 reactome:reactome_stable_identifier a owl:DatatypeProperty ;
     rdfs:label "reactome_stable_identifier" ;
     rdfs:range xsd:string ;
-    skos:definition "Stable public Reactome identifier for an object." ;
+    skos:definition "Stable public Reactome identifier for an object, where one exists." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Typically corresponds to the curated Reactome stable accession such as R-HSA-xxxxx." .
+    skos:note "Not marked key:true because LinkML only permits one identifier per class hierarchy (id already serves that role). Downstream generators (SQL DDL, Neo4j Cypher) should add a UNIQUE constraint / index on this column independently, using the source_schema_class or class label to scope it to classes where it is populated.",
+        "Present on Events, PhysicalEntities, and ReferenceEntities; absent on supporting nodes such as CatalystActivity, InstanceEdit, and Summation.",
+        "Typically the R-HSA-xxxxx accession assigned to curated biological objects." .
 
 reactome:regulates a owl:ObjectProperty ;
     rdfs:label "regulates" ;
     rdfs:range reactome:ReactionLikeEvent ;
     skos:definition "Reaction-like event that is the target of regulation." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Kept explicit through reified regulation nodes rather than flattened triples." .
+    skos:note "Kept explicit through reified regulation nodes rather than flattened triples.",
+        "inlined:false ensures generators emit a foreign key or graph edge." .
 
 reactome:release_date a owl:DatatypeProperty ;
     rdfs:label "release_date" ;
@@ -915,33 +1261,36 @@ reactome:Compartment a owl:Class ;
     skos:definition "Cellular or subcellular location object used to state where an event occurs or where a physical entity resides." ;
     skos:exactMatch reactome:Compartment ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Often alignable to GO cellular component terms, though not always identical in role." .
+    skos:note "Often alignable to GO cellular component terms.",
+        "id construction: GO:{goIdentifier}, e.g. GO:0005737 for cytosol" .
 
 reactome:DatabaseIdentifier a owl:Class ;
     rdfs:label "database_identifier" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty reactome:identifier ],
+        [ a owl:Restriction ;
             owl:allValuesFrom reactome:ReferenceDatabase ;
             owl:onProperty reactome:has_reference_database ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty reactome:has_reference_database ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty reactome:identifier ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:identifier ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty reactome:identifier ],
-        [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty reactome:has_reference_database ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:identifier ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty reactome:identifier ],
         reactome:DatabaseObject ;
     skos:definition "Cross-reference record that pairs an identifier string with a reference database authority." ;
     skos:exactMatch reactome:DatabaseIdentifier ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Useful as a reified identifier object rather than a bare literal." .
+    skos:note "No stId exists for this class; reactome_stable_identifier is absent.",
+        "Useful as a reified identifier object rather than a bare literal.",
+        "id construction: reactome:xref/{reactomeDbId}" .
 
 reactome:Disease a owl:Class ;
     rdfs:label "disease" ;
@@ -949,62 +1298,56 @@ reactome:Disease a owl:Class ;
     skos:definition "Disease concept used to contextualize events and entities in pathological settings." ;
     skos:exactMatch reactome:Disease ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Represents disease context rather than a full disease ontology commitment." .
+    skos:note "Represents disease context rather than a full disease ontology commitment.",
+        "id construction: DOID:{identifier} where available, e.g. DOID:162; otherwise reactome:disease/{reactomeDbId}" .
 
 reactome:Drug a owl:Class ;
     rdfs:label "drug" ;
-    rdfs:subClassOf reactome:PhysicalEntity ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty reactome:has_reference_entity ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom reactome:ReferenceTherapeutic ;
+            owl:onProperty reactome:has_reference_entity ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty reactome:has_reference_entity ],
+        reactome:PhysicalEntity ;
     skos:definition "Therapeutic or intervention-oriented physical entity modeled in the Reactome graph." ;
     skos:exactMatch reactome:Drug ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Drug subclasses distinguish broad molecular kinds of therapeutic agents." .
+    skos:note "Drug subclasses distinguish broad molecular kinds of therapeutic agents.",
+        "id construction: reactome:{stId}" .
 
 reactome:OrganismTaxon a owl:Class ;
     rdfs:label "organism_taxon" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:ncbi_taxon_id ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty reactome:ncbi_taxon_id ],
-        [ a owl:Restriction ;
             owl:allValuesFrom [ a rdfs:Datatype ;
                     owl:intersectionOf ( xsd:string [ a rdfs:Datatype ;
                                 owl:onDatatype xsd:string ;
                                 owl:withRestrictions ( [ xsd:pattern "^[0-9]+$" ] ) ] ) ] ;
             owl:onProperty reactome:ncbi_taxon_id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:ncbi_taxon_id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty reactome:ncbi_taxon_id ],
         reactome:DatabaseObject ;
     skos:definition "Organism taxon record representing the organismal context for entities and events." ;
     skos:exactMatch reactome:OrganismTaxon ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Often associated with taxonomy identifiers and may correspond to NCBI Taxonomy concepts." .
+    skos:note "Often associated with taxonomy identifiers and may correspond to NCBI Taxonomy concepts.",
+        "id construction: NCBITaxon:{ncbiTaxonId}, e.g. NCBITaxon:9606" .
 
 reactome:ReferenceDatabase a owl:Class ;
     rdfs:label "reference_database" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty reactome:identifier_prefix ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty reactome:identifier_prefix ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:anyURI ;
             owl:onProperty reactome:url ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty reactome:resource_identifier ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:url ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty reactome:access_url ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:anyURI ;
-            owl:onProperty reactome:access_url ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:access_url ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty reactome:resource_identifier ],
@@ -1012,72 +1355,100 @@ reactome:ReferenceDatabase a owl:Class ;
             owl:minCardinality 0 ;
             owl:onProperty reactome:identifier_prefix ],
         [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty reactome:identifier_prefix ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:anyURI ;
+            owl:onProperty reactome:access_url ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
+            owl:onProperty reactome:identifier_prefix ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:url ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:access_url ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:anyURI ;
             owl:onProperty reactome:url ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty reactome:resource_identifier ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty reactome:access_url ],
         reactome:DatabaseObject ;
     skos:definition "Metadata record describing an external database or authority used for identifiers and cross-references." ;
     skos:exactMatch reactome:ReferenceDatabase ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Holds resolver and namespace information for identifier interpretation." .
+    skos:note "Holds resolver and namespace information for identifier interpretation.",
+        "No stId exists for this class; reactome_stable_identifier is absent.",
+        "id construction: reactome:db/{displayName}, e.g. reactome:db/UniProt" .
 
 reactome:has_active_unit a owl:ObjectProperty ;
     rdfs:label "has_active_unit" ;
     rdfs:range reactome:PhysicalEntity ;
     skos:definition "Subunit, domain-bearing fragment, or active molecular portion responsible for catalytic or regulatory activity." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Reactome can attach active-unit detail to catalyst activities and regulation objects." .
+    skos:note "Reactome can attach active-unit detail to catalyst activities and regulation objects.",
+        "inlined:false ensures generators emit foreign keys or graph edges." .
 
 reactome:has_cross_reference a owl:ObjectProperty ;
     rdfs:label "has_cross_reference" ;
     rdfs:range reactome:DatabaseIdentifier ;
     skos:definition "External cross-reference to another database or controlled resource." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Used for interoperating with identifiers from GO, ChEBI, UniProt, Ensembl, and related resources." .
+    skos:note "Used for interoperating with identifiers from GO, ChEBI, UniProt, Ensembl, and related resources.",
+        "inlined:false ensures generators emit foreign keys or graph edges." .
 
 reactome:has_disease_context a owl:ObjectProperty ;
     rdfs:label "has_disease_context" ;
     rdfs:range reactome:Disease ;
     skos:definition "Disease context associated with an event or physical entity." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Represents contextual disease association rather than broad etiologic modeling." .
+    skos:note "Represents contextual disease association rather than broad etiologic modeling.",
+        "inlined:false ensures generators emit foreign keys or graph edges." .
 
 reactome:has_input a owl:ObjectProperty ;
     rdfs:label "has_input" ;
     rdfs:range reactome:PhysicalEntity ;
     skos:definition "Physical entity consumed, transformed, or otherwise used as an input to a reaction-like event." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Inputs need not always be fully consumed in a strict stoichiometric sense across all event subclasses." .
+    skos:note "Inputs need not always be fully consumed in a strict stoichiometric sense across all event subclasses.",
+        "inlined:false ensures generators emit foreign keys or graph edges." .
 
 reactome:has_output a owl:ObjectProperty ;
     rdfs:label "has_output" ;
     rdfs:range reactome:PhysicalEntity ;
     skos:definition "Physical entity produced by a reaction-like event." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Output identity often reflects new compartment, modification state, or assembly state." .
+    skos:note "Output identity often reflects new compartment, modification state, or assembly state.",
+        "inlined:false ensures generators emit foreign keys or graph edges." .
 
 reactome:in_taxon a owl:ObjectProperty ;
     rdfs:label "in_taxon" ;
     rdfs:range reactome:OrganismTaxon ;
     skos:definition "Taxon in which the object, event, or entity is asserted to occur or be defined." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "For events this denotes the organism context; for entities it denotes the biological source organism." .
+    skos:note "For events this denotes the organism context; for entities it denotes the biological source organism.",
+        "inlined:false ensures generators emit foreign keys or graph edges." .
 
 reactome:located_in_compartment a owl:ObjectProperty ;
     rdfs:label "located_in_compartment" ;
     rdfs:range reactome:Compartment ;
     skos:definition "Compartment in which an entity resides or an event occurs." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "In Reactome, compartment is identity-relevant for many physical entities." .
+    skos:note "In Reactome, compartment is identity-relevant for many physical entities.",
+        "inlined:false ensures generators emit foreign keys or graph edges." .
 
 reactome:name a owl:DatatypeProperty ;
     rdfs:label "name" ;
     rdfs:range xsd:string ;
     skos:definition "Human-readable primary label for an object." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Generic reusable naming slot for schema-wide use." .
+    skos:note "Generic reusable naming slot for schema-wide use.",
+        "When the source Reactome name field is multivalued, the first value is promoted here as the primary ontology label." .
 
 reactome:Publication a owl:Class ;
     rdfs:label "publication" ;
@@ -1090,28 +1461,29 @@ reactome:Publication a owl:Class ;
 reactome:ReferenceEntity a owl:Class ;
     rdfs:label "reference_entity" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty reactome:has_reference_database ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty reactome:identifier ],
-        [ a owl:Restriction ;
             owl:allValuesFrom reactome:ReferenceDatabase ;
             owl:onProperty reactome:has_reference_database ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty reactome:has_reference_database ],
         [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty reactome:identifier ],
+        [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty reactome:identifier ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
+            owl:onProperty reactome:has_reference_database ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
             owl:onProperty reactome:identifier ],
         reactome:DatabaseObject ;
     skos:definition "Invariant reference identity used to connect multiple contextualized physical entities that share an underlying molecular identity." ;
     skos:exactMatch reactome:ReferenceEntity ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "This is the key abstraction Reactome uses to separate contextual state from canonical identity." .
+    skos:note "This is the key abstraction Reactome uses to separate contextual state from canonical identity.",
+        "id construction varies by subclass; see individual class comments." .
 
 reactome:ReferenceSequence a owl:Class ;
     rdfs:label "reference_sequence" ;
@@ -1124,61 +1496,58 @@ reactome:ReferenceSequence a owl:Class ;
 reactome:Regulation a owl:Class ;
     rdfs:label "regulation" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:has_active_unit ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:supported_by ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty reactome:regulates ],
+            owl:onProperty reactome:has_regulator ],
         [ a owl:Restriction ;
             owl:allValuesFrom reactome:ReactionLikeEvent ;
+            owl:onProperty reactome:regulates ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom reactome:PhysicalEntity ;
+            owl:onProperty reactome:has_active_unit ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty reactome:regulates ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
             owl:onProperty reactome:regulates ],
         [ a owl:Restriction ;
             owl:allValuesFrom reactome:Publication ;
             owl:onProperty reactome:supported_by ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty reactome:has_regulator ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom reactome:PhysicalEntity ;
-            owl:onProperty reactome:has_regulator ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:has_active_unit ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty reactome:regulates ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:supported_by ],
-        [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty reactome:has_regulator ],
         [ a owl:Restriction ;
             owl:allValuesFrom reactome:PhysicalEntity ;
-            owl:onProperty reactome:has_active_unit ],
+            owl:onProperty reactome:has_regulator ],
         reactome:DatabaseObject ;
     skos:definition "Reified regulatory assertion linking a regulator physical entity to a regulated reaction-like event." ;
     skos:exactMatch reactome:Regulation ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Reactome models regulation explicitly instead of flattening it into a simple binary relation." .
+    skos:note "No stId exists for this class; reactome_stable_identifier is absent.",
+        "Reactome models regulation explicitly instead of flattening it into a simple binary relation.",
+        "id construction for all Regulation subclasses: reactome:reg/{reactomeDbId}" .
 
 reactome:has_reference_database a owl:ObjectProperty ;
     rdfs:label "has_reference_database" ;
     rdfs:range reactome:ReferenceDatabase ;
     skos:definition "Reference database authority associated with a reference entity or database identifier." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Provides the namespace and interpretation context for an identifier." .
-
-reactome:has_reference_entity a owl:ObjectProperty ;
-    rdfs:label "has_reference_entity" ;
-    rdfs:range reactome:ReferenceEntity ;
-    skos:definition "Invariant reference identity underlying a contextualized physical entity." ;
-    skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "{'One of the key distinctions in Reactome': 'reference identity is separate from stateful physical instantiation.'}" .
+    skos:note "Provides the namespace and interpretation context for an identifier.",
+        "inlined:false ensures generators emit a foreign key or graph edge." .
 
 reactome:identifier a owl:DatatypeProperty ;
     rdfs:label "identifier" ;
     rdfs:range xsd:string ;
     skos:definition "Identifier string assigned by an external reference database." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Examples include UniProt accessions, ChEBI identifiers, or GO term identifiers." .
+    skos:note "Examples include UniProt accessions, ChEBI identifiers, or GO term identifiers.",
+        "This is the raw accession string; the full CURIE form is stored in the id slot." .
 
 reactome:ncbi_taxon_id a owl:DatatypeProperty ;
     rdfs:label "ncbi_taxon_id" ;
@@ -1186,16 +1555,18 @@ reactome:ncbi_taxon_id a owl:DatatypeProperty ;
             owl:intersectionOf ( xsd:string [ a rdfs:Datatype ;
                         owl:onDatatype xsd:string ;
                         owl:withRestrictions ( [ xsd:pattern "^[0-9]+$" ] ) ] ) ] ;
-    skos:definition "Taxonomic identifier, typically aligned to the NCBI Taxonomy." ;
+    skos:definition "Taxonomic identifier aligned to the NCBI Taxonomy." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Often used on species or taxon-like records." .
+    skos:note "The id slot on these nodes is constructed as NCBITaxon:{ncbi_taxon_id}.",
+        "Used on OrganismTaxon and Taxon records." .
 
 reactome:supported_by a owl:ObjectProperty ;
     rdfs:label "supported_by" ;
     rdfs:range reactome:Publication ;
     skos:definition "Publication supporting the existence, mechanism, or curation of the object." ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Often points to PubMed-backed literature references." .
+    skos:note "Often points to PubMed-backed literature references.",
+        "inlined:false ensures generators emit foreign keys or graph edges." .
 
 reactome:Event a owl:Class ;
     rdfs:label "event" ;
@@ -1203,121 +1574,128 @@ reactome:Event a owl:Class ;
             owl:maxCardinality 1 ;
             owl:onProperty reactome:release_status ],
         [ a owl:Restriction ;
-            owl:allValuesFrom reactome:InstanceEdit ;
-            owl:onProperty reactome:reviewed ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:is_inferred ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom reactome:OrganismTaxon ;
-            owl:onProperty reactome:in_taxon ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:has_summation ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:revised ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty reactome:has_summation ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:has_cross_reference ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom reactome:InstanceEdit ;
-            owl:onProperty reactome:revised ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom reactome:Publication ;
-            owl:onProperty reactome:supported_by ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:boolean ;
-            owl:onProperty reactome:is_inferred ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty reactome:release_date ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:date ;
-            owl:onProperty reactome:release_date ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:reviewed ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom reactome:Summation ;
-            owl:onProperty reactome:has_summation ],
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty reactome:release_status ],
         [ a owl:Restriction ;
             owl:allValuesFrom reactome:Disease ;
             owl:onProperty reactome:has_disease_context ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:has_disease_context ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:release_status ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:supported_by ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty reactome:release_status ],
+            owl:maxCardinality 1 ;
+            owl:onProperty reactome:has_summation ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty reactome:release_date ],
         [ a owl:Restriction ;
+            owl:allValuesFrom reactome:InstanceEdit ;
+            owl:onProperty reactome:revised ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:reviewed ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:has_summation ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom reactome:OrganismTaxon ;
+            owl:onProperty reactome:in_taxon ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty reactome:is_inferred ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:has_cross_reference ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:supported_by ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:release_status ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:located_in_compartment ],
         [ a owl:Restriction ;
             owl:allValuesFrom reactome:DatabaseIdentifier ;
             owl:onProperty reactome:has_cross_reference ],
         [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:in_taxon ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:authored ],
+        [ a owl:Restriction ;
             owl:allValuesFrom reactome:Compartment ;
             owl:onProperty reactome:located_in_compartment ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:located_in_compartment ],
+            owl:allValuesFrom reactome:Summation ;
+            owl:onProperty reactome:has_summation ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom reactome:InstanceEdit ;
+            owl:onProperty reactome:authored ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty reactome:in_taxon ],
+            owl:onProperty reactome:has_disease_context ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom reactome:Publication ;
+            owl:onProperty reactome:supported_by ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:date ;
+            owl:onProperty reactome:release_date ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom reactome:InstanceEdit ;
+            owl:onProperty reactome:reviewed ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:is_inferred ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty reactome:is_inferred ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:revised ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty reactome:release_date ],
         reactome:DatabaseObject ;
     skos:definition "Biological occurrence or process unit in Reactome, covering both pathways and reaction-like events." ;
     skos:exactMatch reactome:Event ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Event is one of the central abstractions in the Reactome model." .
+    skos:note "Event is one of the central abstractions in the Reactome model.",
+        "id construction for all Event subclasses: reactome:{stId}, e.g. reactome:R-HSA-983169" .
 
 reactome:ReactionLikeEvent a owl:Class ;
     rdfs:label "reaction_like_event" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom reactome:PhysicalEntity ;
-            owl:onProperty reactome:has_input ],
-        [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty reactome:has_catalyst_activity ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:preceded_by ],
+            owl:onProperty reactome:requires_component ],
         [ a owl:Restriction ;
             owl:allValuesFrom reactome:PhysicalEntity ;
             owl:onProperty reactome:has_interacting_entity_on_other_cell ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty reactome:has_interaction ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:has_reaction_type ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom reactome:CatalystActivity ;
-            owl:onProperty reactome:has_catalyst_activity ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom reactome:Event ;
             owl:onProperty reactome:preceded_by ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom reactome:Regulation ;
+            owl:onProperty reactome:has_regulation ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty reactome:has_output ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty reactome:requires_component ],
+            owl:onProperty reactome:has_input ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:has_reaction_type ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty reactome:has_regulation ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:has_interacting_entity_on_other_cell ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom reactome:Interaction ;
+            owl:onProperty reactome:has_interaction ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom reactome:PhysicalEntity ;
+            owl:onProperty reactome:has_output ],
         [ a owl:Restriction ;
             owl:allValuesFrom reactome:ReactionTypeTerm ;
             owl:onProperty reactome:has_reaction_type ],
@@ -1325,20 +1703,20 @@ reactome:ReactionLikeEvent a owl:Class ;
             owl:allValuesFrom reactome:PhysicalEntity ;
             owl:onProperty reactome:requires_component ],
         [ a owl:Restriction ;
-            owl:allValuesFrom reactome:Regulation ;
-            owl:onProperty reactome:has_regulation ],
-        [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty reactome:has_input ],
+            owl:onProperty reactome:has_interaction ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom reactome:CatalystActivity ;
+            owl:onProperty reactome:has_catalyst_activity ],
         [ a owl:Restriction ;
             owl:allValuesFrom reactome:PhysicalEntity ;
-            owl:onProperty reactome:has_output ],
+            owl:onProperty reactome:has_input ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom reactome:Event ;
+            owl:onProperty reactome:preceded_by ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty reactome:has_interacting_entity_on_other_cell ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom reactome:Interaction ;
-            owl:onProperty reactome:has_interaction ],
+            owl:onProperty reactome:has_catalyst_activity ],
         reactome:Event ;
     skos:definition "Event in which physical entities participate as inputs, outputs, regulators, or catalysts in a transformation-like process." ;
     skos:exactMatch reactome:ReactionLikeEvent ;
@@ -1348,160 +1726,240 @@ reactome:ReactionLikeEvent a owl:Class ;
 reactome:InstanceEdit a owl:Class ;
     rdfs:label "instance_edit" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty reactome:date ],
+        [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty reactome:author ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:dateTime ;
-            owl:onProperty reactome:date ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:date ],
         [ a owl:Restriction ;
             owl:allValuesFrom reactome:Person ;
             owl:onProperty reactome:author ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:date ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:dateTime ;
             owl:onProperty reactome:date ],
         reactome:DatabaseObject ;
     skos:definition "Provenance record describing a curation action such as creation, modification, review, or revision." ;
     skos:exactMatch reactome:InstanceEdit ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Typically stores who performed an edit and when the edit occurred." .
+    skos:note "No stId exists for this class; reactome_stable_identifier is absent.",
+        "Typically stores who performed an edit and when the edit occurred.",
+        "id construction: reactome:ie/{reactomeDbId}, e.g. reactome:ie/54321" .
+
+reactome:has_reference_entity a owl:ObjectProperty ;
+    rdfs:label "has_reference_entity" ;
+    rdfs:range reactome:ReferenceEntity ;
+    skos:definition "Invariant reference identity underlying a contextualized physical entity." ;
+    skos:inScheme <https://w3id.org/reactome-ontology> ;
+    skos:note "One of the key distinctions in Reactome; reference identity is separate from stateful physical instantiation.",
+        "inlined:false ensures generators emit a foreign key or graph edge." .
 
 reactome:DatabaseObject a owl:Class ;
     rdfs:label "database_object" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty reactome:source_schema_class ],
+            owl:onProperty reactome:reactome_db_id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty reactome:previous_stable_identifier ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom reactome:InstanceEdit ;
+            owl:onProperty reactome:modified ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty reactome:created ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:reactome_stable_identifier ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty reactome:display_label ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty reactome:definition ],
         [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:definition ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:created ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty reactome:reactome_db_id ],
+            owl:onProperty reactome:previous_stable_identifier ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty reactome:category ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty reactome:reactome_stable_identifier ],
         [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty reactome:category ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty reactome:display_label ],
+        [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty reactome:previous_stable_identifier ],
         [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:synonym ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty reactome:source_schema_class ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty reactome:synonym ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:modified ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty reactome:source_schema_class ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty reactome:reactome_db_id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty reactome:display_label ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty reactome:previous_stable_identifier ],
+            owl:onProperty reactome:definition ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom reactome:InstanceEdit ;
+            owl:onProperty reactome:created ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:category ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty reactome:reactome_stable_identifier ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty reactome:source_schema_class ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:integer ;
             owl:onProperty reactome:reactome_db_id ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty reactome:created ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom reactome:InstanceEdit ;
-            owl:onProperty reactome:created ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty reactome:reactome_stable_identifier ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty reactome:display_label ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty reactome:reactome_db_id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty reactome:created ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty reactome:definition ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty reactome:previous_stable_identifier ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom reactome:InstanceEdit ;
-            owl:onProperty reactome:modified ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty reactome:display_label ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty reactome:display_label ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty reactome:reactome_stable_identifier ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty reactome:source_schema_class ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:definition ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty reactome:source_schema_class ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:modified ],
         reactome:NamedEntity ;
     skos:definition "Root class for most Reactome schema objects and the main provenance-bearing superclass." ;
     skos:exactMatch reactome:DatabaseObject ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "Reactome’s frame-based model uses DatabaseObject as the common ancestor for curated graph records." .
+    skos:note "Reactome's frame-based model uses DatabaseObject as the common ancestor for curated graph records.",
+        "id is constructed per class; see the id slot comments for the full strategy." .
 
 reactome:PhysicalEntity a owl:Class ;
     rdfs:label "physical_entity" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom reactome:Disease ;
+            owl:minCardinality 0 ;
             owl:onProperty reactome:has_disease_context ],
         [ a owl:Restriction ;
             owl:allValuesFrom reactome:DatabaseIdentifier ;
             owl:onProperty reactome:has_cross_reference ],
         [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:has_cross_reference ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:systematic_name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty reactome:is_in_disease_context ],
+        [ a owl:Restriction ;
             owl:allValuesFrom reactome:OrganismTaxon ;
             owl:onProperty reactome:in_taxon ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty reactome:is_in_disease_context ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom reactome:Disease ;
+            owl:onProperty reactome:has_disease_context ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty reactome:is_in_disease_context ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty reactome:systematic_name ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty reactome:is_in_disease_context ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:has_disease_context ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:located_in_compartment ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:boolean ;
-            owl:onProperty reactome:is_in_disease_context ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:in_taxon ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty reactome:has_go_cellular_component ],
         [ a owl:Restriction ;
             owl:allValuesFrom reactome:GoCellularComponentTerm ;
             owl:onProperty reactome:has_go_cellular_component ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty reactome:systematic_name ],
+            owl:onProperty reactome:located_in_compartment ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty reactome:systematic_name ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty reactome:has_cross_reference ],
-        [ a owl:Restriction ;
             owl:allValuesFrom reactome:Compartment ;
             owl:onProperty reactome:located_in_compartment ],
         [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty reactome:has_go_cellular_component ],
+        [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty reactome:has_go_cellular_component ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty reactome:in_taxon ],
         reactome:DatabaseObject ;
     skos:definition "Concrete biological participant whose identity reflects both underlying molecular identity and contextual state." ;
     skos:exactMatch reactome:PhysicalEntity ;
     skos:inScheme <https://w3id.org/reactome-ontology> ;
-    skos:note "In Reactome, compartment, modification state, and assembly state can distinguish one physical entity from another." .
+    skos:note "In Reactome, compartment, modification state, and assembly state can distinguish one physical entity from another.",
+        "id construction for all PhysicalEntity subclasses: reactome:{stId}" .
+
+reactome:ReactomeClassEnum a owl:Class ;
+    rdfs:label "ReactomeClassEnum" ;
+    owl:unionOf ( <https://w3id.org/reactome-ontology/ReactomeClassEnum#Pathway> <https://w3id.org/reactome-ontology/ReactomeClassEnum#Reaction> <https://w3id.org/reactome-ontology/ReactomeClassEnum#BlackBoxEvent> <https://w3id.org/reactome-ontology/ReactomeClassEnum#Polymerization> <https://w3id.org/reactome-ontology/ReactomeClassEnum#Depolymerization> <https://w3id.org/reactome-ontology/ReactomeClassEnum#SimpleEntity> <https://w3id.org/reactome-ontology/ReactomeClassEnum#GenomeEncodedEntity> <https://w3id.org/reactome-ontology/ReactomeClassEnum#SequenceEntity> <https://w3id.org/reactome-ontology/ReactomeClassEnum#Protein> <https://w3id.org/reactome-ontology/ReactomeClassEnum#Complex> <https://w3id.org/reactome-ontology/ReactomeClassEnum#DefinedSet> <https://w3id.org/reactome-ontology/ReactomeClassEnum#CandidateSet> <https://w3id.org/reactome-ontology/ReactomeClassEnum#Polymer> <https://w3id.org/reactome-ontology/ReactomeClassEnum#Cell> <https://w3id.org/reactome-ontology/ReactomeClassEnum#OtherEntity> <https://w3id.org/reactome-ontology/ReactomeClassEnum#Drug> <https://w3id.org/reactome-ontology/ReactomeClassEnum#ChemicalDrug> <https://w3id.org/reactome-ontology/ReactomeClassEnum#ProteinDrug> <https://w3id.org/reactome-ontology/ReactomeClassEnum#RnaDrug> <https://w3id.org/reactome-ontology/ReactomeClassEnum#ReferenceGeneProduct> <https://w3id.org/reactome-ontology/ReactomeClassEnum#ReferenceIsoform> <https://w3id.org/reactome-ontology/ReactomeClassEnum#ReferenceDnaSequence> <https://w3id.org/reactome-ontology/ReactomeClassEnum#ReferenceRnaSequence> <https://w3id.org/reactome-ontology/ReactomeClassEnum#ReferenceMolecule> <https://w3id.org/reactome-ontology/ReactomeClassEnum#ReferenceGroup> <https://w3id.org/reactome-ontology/ReactomeClassEnum#ReferenceTherapeutic> <https://w3id.org/reactome-ontology/ReactomeClassEnum#ReferenceDatabase> <https://w3id.org/reactome-ontology/ReactomeClassEnum#DatabaseIdentifier> <https://w3id.org/reactome-ontology/ReactomeClassEnum#CatalystActivity> <https://w3id.org/reactome-ontology/ReactomeClassEnum#PositiveRegulation> <https://w3id.org/reactome-ontology/ReactomeClassEnum#NegativeRegulation> <https://w3id.org/reactome-ontology/ReactomeClassEnum#Requirement> <https://w3id.org/reactome-ontology/ReactomeClassEnum#Interaction> <https://w3id.org/reactome-ontology/ReactomeClassEnum#AbstractModifiedResidue> <https://w3id.org/reactome-ontology/ReactomeClassEnum#OrganismTaxon> <https://w3id.org/reactome-ontology/ReactomeClassEnum#Taxon> <https://w3id.org/reactome-ontology/ReactomeClassEnum#Compartment> <https://w3id.org/reactome-ontology/ReactomeClassEnum#Disease> <https://w3id.org/reactome-ontology/ReactomeClassEnum#GoMolecularFunctionTerm> <https://w3id.org/reactome-ontology/ReactomeClassEnum#GoBiologicalProcessTerm> <https://w3id.org/reactome-ontology/ReactomeClassEnum#GoCellularComponentTerm> <https://w3id.org/reactome-ontology/ReactomeClassEnum#InstanceEdit> <https://w3id.org/reactome-ontology/ReactomeClassEnum#LiteratureReference> <https://w3id.org/reactome-ontology/ReactomeClassEnum#Person> <https://w3id.org/reactome-ontology/ReactomeClassEnum#Summation> ) ;
+    skos:definition "Closed enumeration of all concrete (non-abstract) Reactome class names used as values for the category discriminator slot." ;
+    skos:inScheme <https://w3id.org/reactome-ontology> ;
+    skos:note "Generators can emit a CHECK constraint (SQL) or enum property (OWL/Python) from this list.",
+        "Used by the category slot (designates_type: true) to provide a closed vocabulary for type discrimination in serialized instances." ;
+    linkml:permissible_values <https://w3id.org/reactome-ontology/ReactomeClassEnum#AbstractModifiedResidue>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#BlackBoxEvent>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#CandidateSet>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#CatalystActivity>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#Cell>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#ChemicalDrug>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#Compartment>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#Complex>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#DatabaseIdentifier>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#DefinedSet>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#Depolymerization>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#Disease>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#Drug>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#GenomeEncodedEntity>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#GoBiologicalProcessTerm>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#GoCellularComponentTerm>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#GoMolecularFunctionTerm>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#InstanceEdit>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#Interaction>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#LiteratureReference>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#NegativeRegulation>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#OrganismTaxon>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#OtherEntity>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#Pathway>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#Person>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#Polymer>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#Polymerization>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#PositiveRegulation>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#Protein>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#ProteinDrug>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#Reaction>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#ReferenceDatabase>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#ReferenceDnaSequence>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#ReferenceGeneProduct>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#ReferenceGroup>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#ReferenceIsoform>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#ReferenceMolecule>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#ReferenceRnaSequence>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#ReferenceTherapeutic>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#Requirement>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#RnaDrug>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#SequenceEntity>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#SimpleEntity>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#Summation>,
+        <https://w3id.org/reactome-ontology/ReactomeClassEnum#Taxon> .
 
 
